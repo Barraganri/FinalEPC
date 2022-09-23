@@ -35,12 +35,12 @@ MODULOS:
   10. No se encuentra END
  
  -ESCRTURA DE ARCHIVO LST CON CODIGO FUENTE Y OBJETO
- Num Linea: Codigo objeto: Codigo fuente
- (Opcional diferenciar opcode y operandos con colores en el codigo objeto)
+  Num Linea: Codigo objeto: Codigo fuente
+  (Opcional diferenciar opcode y operandos con colores en el codigo objeto)
  
  -ESCRITURA DE CODIGO OBJETO S19
- <memoria> xx xx xx xx xx xx xx xx xx xx xx xx xx xx xx xx
- (espacio de memoria  seguido de los siguientes 16 bits que la ocupan)
+  /<memoria>/ xx xx xx xx xx xx xx xx xx xx xx xx xx xx xx xx
+  (espacio de memoria  seguido de los siguientes 16 bits que la ocupan)
  
  -ESCRITURA EN FORMATO MOTOROLA
  
