@@ -1,12 +1,8 @@
-import pandas as pd #libreria pandas para generar data frames
-archivo = 'C:/Users/Gus/Escuela/5to semestre/EPC/proyecto.xls'#lectura del archivo axcel
+import pandas as pd  # libreria pandas para generar data frames
 
-df = pd.read_excel(archivo, sheet_name='Hoja1')#data frame extraido del excel 
-print(df)#impime el data frame
 #---------Segundo avance
-import pandas as pd
 try:
-    excel = 'C:/Users/Gus/Escuela/5to semestre/EPC/proyecto.xls'
+    excel = '/FinalEPC/proyecto.xls'
     res = 0
     df = pd.read_excel(excel, sheet_name='Hoja1')
     print(df)
@@ -18,17 +14,6 @@ except Exception as e:
     print(f'Exception - Ocurrió un error: {e} , {type(e)}')
     
 #------------------------Terce avance
-import pandas as pd
-#tr:
-excel = 'C:/Users/Gus/Escuela/5to semestre/EPC/proyecto.xls'
-res = 0
-df = pd.read_excel(excel, sheet_name='Hoja1')
-#print(df)
-#a = "fdhfg"
-#hombres=df[df["MNEMONICO"]=="aba"]
-#subset = hombres[['IMM', 'DIR', 'IND,X','IND,Y', 'EXT', 'INH','REL']]
-#tuples = [tuple(x) for x in subset.values]
-#print(tuples)
 with open("BURBUJA.asc","r") as archivoASC:
     for i in archivoASC:#lee el archivo y realiza un ciclo sobre las lineas del archivo
         a=0
