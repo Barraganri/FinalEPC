@@ -1,13 +1,4 @@
-import pandas as pd
-excel = 'proyecto.xls'
-res = 0
-df = pd.read_excel(excel, sheet_name='Hoja1')
-#print(df)
-#a = "fdhfg"
-#hombres=df[df["MNEMONICO"]=="aba"]
-#subset = hombres[['IMM', 'DIR', 'IND,X','IND,Y', 'EXT', 'INH','REL']]
-#tuples = [tuple(x) for x in subset.values]
-#print(tuples)
+
 with open("BURBUJA.asc","r") as archivoASC:
     for i in archivoASC:#lee el archivo y realiza un ciclo
         a=0
