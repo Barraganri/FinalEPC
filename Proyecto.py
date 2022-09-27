@@ -1,4 +1,19 @@
+import pandas as pd  # libreria pandas para generar data frames
 
+#---------Segundo avance
+try:
+    excel = '/FinalEPC/proyecto.xls'
+    res = 0
+    df = pd.read_excel(excel, sheet_name='Hoja1')
+    print(df)
+
+    with open("Archiv01.lst","a") as archivo:
+        while res != 10:
+            print()
+except Exception as e:
+    print(f'Exception - Ocurrió un error: {e} , {type(e)}')
+    
+#------------------------Terce avance
 with open("BURBUJA.asc","r") as archivoASC:
     for i in archivoASC:#lee el archivo y realiza un ciclo
         a=0
