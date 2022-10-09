@@ -1,4 +1,3 @@
-from itertools import count
 import pandas as pd
 #Arreglos y listas
 excel = 'proyecto.xls' #Excel de mnemonicos
