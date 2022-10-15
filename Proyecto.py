@@ -57,7 +57,7 @@ def conNum2(arr,dato):
 # intt= 0 si es transformacion, 1 si es verificacion
 def transHex(dato,intt):
     if(intt == 0):
-        aux = str(hex(int(dato)[2:]))
+        aux = str(hex(int(dato)))[2:]
         if len(aux) == 1:
             aux = "0" + aux
         elif len(aux) == 3:
@@ -84,20 +84,20 @@ def formatoLST(lineas,mnemonico,oper,lineaCom):
     aux = ""
     if (len(str(oper)) != 0 and  len(mnemonico) != 0 ):
         aux = str(lineas)+" : ("+mnemonico+oper+") :" + lineaCom
-        arrS19.append(aux.upper())
+        arrS19.append(aux)
     elif(len(str(oper)) != 0 and  len(mnemonico) == 0 ):
         aux = str(lineas)+" : ("+mnemonico+oper+") :" + lineaCom
-        arrS19.append(aux.upper())
+        arrS19.append(aux)
     elif(len(str(oper)) == 0 and  len(mnemonico) != 0 ):
         aux = str(lineas) +" : ("+mnemonico+oper+") :" + lineaCom
-        arrS19.append(aux.upper())
+        arrS19.append(aux)
     else:
         aux = str(lineas)+" : VACIO : " + lineaCom
-        arrS19.append(aux.upper())
+        arrS19.append(aux)
 
 def etiquetas():
     auxEtique = {}
-    with open("EJEMPLO.asc") as archivoASC:
+    with open("BURBUJA.asc") as archivoASC:
         for i in archivoASC:#lee el archivo y realiza un ciclo
             a=0 #posicion splitt
             splitt = str(i.lower()).split()
@@ -127,7 +127,7 @@ def iterador(arreglo, dato):
     return a
             
 
-with open("EJEMPLO.asc") as archivoASC:
+with open("BURBUJA.asc") as archivoASC:
     linea = 1 #contador para lineas
     etique=etiquetas()
     for i in archivoASC:#lee el archivo y realiza un ciclo
@@ -143,12 +143,12 @@ with open("EJEMPLO.asc") as archivoASC:
             elif len(splitt) != 0 and j[0]!="*" and (a+1) <= len(splitt) and splitt[0]!="*":
                 #Construye dicc var
                 if  len(splitt) > 1 and splitt[1]==operativas[1] and j[0:3]=="$00":
-                    var[splitt[0]]=splitt[2]  
+                    var[splitt[0]]=splitt[2][1:]  
                     formatoLST(linea,"","",i) 
                     break
                 #Construye dicc const
                 elif  len(splitt) > 1 and splitt[1]==operativas[1] and j[0:2]=="$1":
-                    const[splitt[0]]=splitt[2]
+                    const[splitt[0]]=splitt[2][1:]
                     formatoLST(linea,"","",i)
                     break 
                 dfNem=df[df["MNEMONICO"]==str(j.lower())]
@@ -178,44 +178,93 @@ with open("EJEMPLO.asc") as archivoASC:
                     formatoLST(linea,getOpCode(imm),transHex(splitt[a+1][2:],1),i)
                     break
                 #if IMM PERO SIN $
-                elif ((a+1) < len(splitt) and splitt[a+1][0] == "#" and conNum2(num,splitt[a+1][1:])):
-                    imm = dfNem[['IMM']]
-                    arregl01.append(transHex(splitt[a+1][1:],0))
-                    formatoLST(linea,getOpCode(imm),transHex(splitt[a+1][1:],0),i)
-                    break
-                #if EXT
-                elif(((a+1) < len(splitt)) and (splitt[a+1][0] == "$") and (len(splitt[a+1]) == 5) and (conNum(3,operativas,j)== 3) and (conNum2(Hex,splitt[a+1][1:]) == True) ):
-                        ext = dfNem[['EXT']]
-                        arregl01.append(getOpCode(ext))
-                        arregl01.append(splitt[a+1][1:])
-                        formatoLST(linea,getOpCode(ext),splitt[a+1][1:],i)
+                elif ((a+1) < len(splitt) and splitt[a+1][0] == "#"):
+                    if(conNum2(num,splitt[a+1][1:])):
+                        imm = dfNem[['IMM']]
+                        arregl01.append(getOpCode(imm))
+                        arregl01.append(transHex(splitt[a+1][1:],0))
+                        formatoLST(linea,getOpCode(imm),transHex(splitt[a+1][1:],0),i)
+                        break
+                    if(splitt[a+1][0:2] == "#'"):
+                        imm = dfNem[['IMM']]
+                        arregl01.append(getOpCode(imm))
+                        auxSplit = i.split()
+                        arregl01.append(transHex(ord(auxSplit[a+1][2:]),0))
+                        formatoLST(linea,getOpCode(imm),transHex(ord(auxSplit[a+1][2:]),3),i)
+                        break
+                    elif(iterador(var.keys(),splitt[a+1][1:]) == 1):
+                        imm = dfNem[['IMM']]
+                        arregl01.append(getOpCode(imm))
+                        arregl01.append(var[splitt[a+1][1:]])
+                        formatoLST(linea,getOpCode(imm),var[splitt[a+1][1:]],i)
+                        break
+                    elif(iterador(const.keys(),splitt[a+1][1:]) == 1):
+                        imm = dfNem[['IMM']]
+                        arregl01.append(getOpCode(imm))
+                        arregl01.append(const[splitt[a+1][1:]])
+                        formatoLST(linea,getOpCode(imm),const[splitt[a+1][1:]],i)
                         break
                 #if EXT
-                elif((a+1) < len(splitt) and len(splitt[a+1]) == 4 and conNum(4,num,splitt[a+1])  == 4 ):
+                elif(((a+1) < len(splitt)) and (splitt[a+1][0] == "$") and (len(splitt[a+1]) == 5) and (conNum(3,operativas,j)== 3) and (conNum2(Hex,splitt[a+1][1:]) == True) ):
                     ext = dfNem[['EXT']]
                     arregl01.append(getOpCode(ext))
-                    arregl01.append(transHex(splitt[a+1],0))
-                    formatoLST(linea,getOpCode(ext),transHex(splitt[a+1],0),i)
+                    arregl01.append(splitt[a+1][1:])
+                    formatoLST(linea,getOpCode(ext),splitt[a+1][1:],i)
                     break
+                #if EXT
+                elif((a+1) < len(splitt) and len(dfNem) != 0 and ((len(splitt[a+1]) == 4 and conNum(4,num,splitt[a+1])  == 4)or iterador(const.keys(),splitt[a+1]) == 1 )):
+                    if(len(splitt[a+1]) == 4 and conNum(4,num,splitt[a+1])  == 4):
+                        ext = dfNem[['EXT']]
+                        arregl01.append(getOpCode(ext))
+                        arregl01.append(transHex(splitt[a+1],0))
+                        formatoLST(linea,getOpCode(ext),transHex(splitt[a+1],0),i)
+                        break
+                    elif(iterador(const.keys(),splitt[a+1]) == 1):
+                        ext = dfNem[['EXT']]
+                        arregl01.append(getOpCode(ext))
+                        arregl01.append(const[splitt[a+1]])
+                        formatoLST(linea,getOpCode(ext),const[splitt[a+1]],i)
+                        break
                 elif((a+1) < len(splitt) and splitt[a+1][0] == "$" and (conNum2(Hex,splitt[a+1][1:]) == True) and len(splitt[a+1]) == 3 ):
                     dire = dfNem[['DIR']]
                     arregl01.append(getOpCode(dire))
                     arregl01.append(splitt[a+1][1:])
                     formatoLST(linea,getOpCode(dire),splitt[a+1][1:],i)
                     break
-                elif((a+1) < len(splitt) and len(splitt[a+1]) == 2 and conNum(2,num,splitt[a+1])  == 2 ):
-                    dire = dfNem[['DIR']]
-                    print(f"{j} {getOpCode(dire)} {transHex(splitt[a+1],3)}")
-                    arregl01.append(getOpCode(dire))
-                    arregl01.append(transHex(splitt[a+1],3))
-                    formatoLST(linea,getOpCode(dire),transHex(splitt[a+1],3),i)
-                    break
+                elif((a+1) < len(splitt) and len(dfNem) != 0 and (len(splitt[a+1]) == 2 or iterador(var.keys(),splitt[a+1]) == 1)):
+                    if(len(splitt[a+1]) == 2 and conNum(2,num,splitt[a+1])  == 2 ):
+                        dire = dfNem[['DIR']]
+                        print(f"{j} {getOpCode(dire)} {transHex(splitt[a+1],3)}")
+                        arregl01.append(getOpCode(dire))
+                        arregl01.append(transHex(splitt[a+1],3))
+                        formatoLST(linea,getOpCode(dire),transHex(splitt[a+1],3),i)
+                        break
+                    elif(iterador(var.keys(),splitt[a+1]) == 1):
+                        dire = dfNem[['DIR']]
+                        arregl01.append(getOpCode(dire))
+                        arregl01.append(var[splitt[a+1]][2:])
+                        formatoLST(linea,getOpCode(dire),var[splitt[a+1]][2:],i)
+                        break
                 elif((a+1) < len(splitt) and splitt[a+1][0] == "$" and (conNum2(Hex,splitt[a+1][1:3]) == True) and splitt[a+1][3:5] == ",x" ):
-                    indX = dfNem[['IND,X']]
-                    arregl01.append(getOpCode(indX))
-                    arregl01.append(splitt[a+1][1:3])
-                    formatoLST(linea,getOpCode(indX),splitt[a+1][1:3],i)
-                    break
+                    if(len(splitt[a+1]) == 5 ):
+                       indX = dfNem[['IND,X']]
+                       arregl01.append(getOpCode(indX))
+                       arregl01.append(splitt[a+1][1:3])
+                       formatoLST(linea,getOpCode(indX),splitt[a+1][1:3],i)
+                       break
+                    elif(len(splitt[a+1]) == 10 and splitt[a+1][3:8] == ",x,#$" ):
+                        if((a+2) < len(splitt) and iterador(etique.keys(),splitt[a+2]) == 1 ):
+                            indX = dfNem[['IND,X']]
+                            arregl01.append(getOpCode(indX))
+                            arregl01.append(splitt[a+1][1:3] + splitt[a+1][8:10]+"fc")
+                            formatoLST(linea,getOpCode(indX),splitt[a+1][1:3]+ splitt[a+1][8:10]+"fc",i)
+                            break
+                        else:
+                            indX = dfNem[['IND,X']]
+                            arregl01.append(getOpCode(indX))
+                            arregl01.append(splitt[a+1][1:3] + splitt[a+1][8:10])
+                            formatoLST(linea,getOpCode(indX),splitt[a+1][1:3]+ splitt[a+1][8:10],i)
+                            break
                 elif((a+1) < len(splitt) and splitt[a+1][0] == "$" and (conNum2(Hex,splitt[a+1][1:3]) == True) and splitt[a+1][3:5] == ",y" ):
                     if(len(splitt[a+1]) == 5 ):
                         indY = dfNem[['IND,Y']]
@@ -223,12 +272,43 @@ with open("EJEMPLO.asc") as archivoASC:
                         arregl01.append(splitt[a+1][1:3])
                         formatoLST(linea,getOpCode(indY),splitt[a+1][1:3],i)
                         break
-
-                elif((a+1) < len(splitt) and len(dfNem) != 0 and iterador(etique.keys(),splitt[a+1]) == 1 ):
+                    elif(len(splitt[a+1]) == 10 and splitt[a+1][3:8] == ",y,#$" ):
+                        if((a+2) < len(splitt) and iterador(etique.keys(),splitt[a+2]) == 1 ):
+                            indY = dfNem[['IND,Y']]
+                            arregl01.append(getOpCode(indY))
+                            arregl01.append(splitt[a+1][1:3] + splitt[a+1][8:10]+"fc")
+                            formatoLST(linea,getOpCode(indY),splitt[a+1][1:3]+ splitt[a+1][8:10]+"fc",i)
+                            break
+                        else:
+                            indY = dfNem[['IND,Y']]
+                            arregl01.append(getOpCode(indY))
+                            arregl01.append(splitt[a+1][1:3] + splitt[a+1][8:10])
+                            formatoLST(linea,getOpCode(indY),splitt[a+1][1:3]+ splitt[a+1][8:10],i)
+                            break
+                elif((a+1) < len(splitt) and splitt[a+1][0] == "$" and (conNum2(Hex,splitt[a+1][1:3]) == True) and splitt[a+1][3:5] == ",x" ):
+                    if(len(splitt[a+1]) == 5 ):
+                       indX = dfNem[['IND,X']]
+                       arregl01.append(getOpCode(indX))
+                       arregl01.append(splitt[a+1][1:3])
+                       formatoLST(linea,getOpCode(indX),splitt[a+1][1:3],i)
+                       break
+                    print(i)
+                elif((a+1) < len(splitt) and len(dfNem) != 0 and iterador(etique.keys(),splitt[a+1]) == 1):
                     rel = dfNem[['REL']]
                     arregl01.append(getOpCode(rel))
                     formatoLST(linea,getOpCode(rel),"",i)
-                #    break
+                    break
+                elif(iterador(operativas,splitt[0]) == 1 ):
+                    if(splitt[a]==operativas[0]):
+                        formatoLST(linea,"","",i)
+                        break
+                    if(splitt[a]==operativas[2]):
+                        formatoLST(linea,splitt[a+1][1:3],splitt[a+1][5:7],i)
+                        break
+                elif((a+2) < len(splitt)  and iterador(operativas,splitt[a+1]) == 1 ):
+                    if(splitt[a+1]==operativas[2]):
+                        formatoLST(linea,splitt[a+2][1:3],splitt[a+2][5:7],i)
+                        break
             else:
                 if (a==0):
                     formatoLST(linea,"","",i)
@@ -241,13 +321,3 @@ with open("EJEMPLO.asc") as archivoASC:
 with open("archiv01.lst","a") as archivo:
     for i in arrS19:
         archivo.write(i)
-
-#exept Exception as e:
-    #print(f'Exception - Ocurrió un error: {e} , {type(e)}, {}')
-
-with open("archiv01.lst","a") as archivo:
-    while res != 10:
-        archivo.write(f"\n")
-        res = 10
-#exept Exception as e:
-    #print(f'Exception - Ocurrió un error: {e} , {type(e)}, {}')
