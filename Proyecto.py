@@ -1,9 +1,12 @@
 import pandas as pd
+from colorama import Fore
+from colorama import Style
 #Arreglos y listas
 excel = 'proyecto.xls' #Excel de mnemonicos
 operativas = ["org","equ","fcb","end"] #operativas
 Hex = ["0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f"] #Arr para verificacion de hexadecimal
 num = ["0","1","2","3","4","5","6","7","8","9"] #Arr para verificacion de hexadecimal
+escp = ["clr","jsr","jmp","brcrl","brset","bclr"]
 arregl01 = [] #Provisional para pruebas
 arrS19 = [] #Provisional para pruebas
 var = {} #Diccionario de variables
@@ -81,19 +84,16 @@ def transHex(dato,intt):
 #Estructurar el LST
 #linea = linea actual, mnemonico = opcode, oper = operando, lineaCom= linea completa
 def formatoLST(lineas,mnemonico,oper,lineaCom):
-    aux = ""
-    if (len(str(oper)) != 0 and  len(mnemonico) != 0 ):
-        aux = str(lineas)+" : ("+mnemonico+oper+") :" + lineaCom
-        arrS19.append(aux)
-    elif(len(str(oper)) != 0 and  len(mnemonico) == 0 ):
-        aux = str(lineas)+" : ("+mnemonico+oper+") :" + lineaCom
-        arrS19.append(aux)
-    elif(len(str(oper)) == 0 and  len(mnemonico) != 0 ):
-        aux = str(lineas) +" : ("+mnemonico+oper+") :" + lineaCom
-        arrS19.append(aux)
-    else:
-        aux = str(lineas)+" : VACIO : " + lineaCom
-        arrS19.append(aux)
+    with open("archiv01.lst","a") as archivo:
+        aux = ""
+        if (len(str(oper)) != 0 and  len(mnemonico) != 0 ):
+            archivo.write(f"{str(lineas)} : ({Fore.RED}{mnemonico}{Style.RESET_ALL}{Fore.BLUE}{oper}{Style.RESET_ALL}) :  {lineaCom}")
+        elif(len(str(oper)) != 0 and  len(mnemonico) == 0 ):
+            archivo.write(f"{str(lineas)} : ({Fore.RED}{mnemonico}{Style.RESET_ALL}{Fore.BLUE}{oper}{Style.RESET_ALL}) :  {lineaCom}")
+        elif(len(str(oper)) == 0 and  len(mnemonico) != 0 ):
+            archivo.write(f"{str(lineas)}  : ({Fore.RED}{mnemonico}{Style.RESET_ALL}{Fore.BLUE}{oper}{Style.RESET_ALL}) :  {lineaCom}")
+        else:
+            archivo.write(f"{str(lineas)} : VACIO :   {lineaCom}")
 
 def etiquetas():
     auxEtique = {}
@@ -166,6 +166,16 @@ with open("BURBUJA.asc") as archivoASC:
                         break 
                 elif((a+1) == len(splitt)  and len(dfNem) == 0 and i[0]!="*" and i[0]!="#" and i[0]!="$"):
                         formatoLST(linea,"","",i) 
+                        break
+                elif((a+1) < len(splitt) and splitt[a+1][0]=="*" and len(dfNem) != 0 ):
+                    if(i[0] == " " ):
+                        inh = dfNem[['INH']]
+                        #arregl01.append(j)
+                        arregl01.append(getOpCode(inh))
+                        formatoLST(linea,getOpCode(inh),"",i)
+                        break
+                    else:
+                        formatoLST(linea,"","",i)
                         break
                     #formatoLST(linea,getOpCode(inh),a,j)
                     #print(f"{j} {getOpCode(inh)} ")
@@ -241,10 +251,17 @@ with open("BURBUJA.asc") as archivoASC:
                         break
                     elif(iterador(var.keys(),splitt[a+1]) == 1):
                         dire = dfNem[['DIR']]
-                        arregl01.append(getOpCode(dire))
-                        arregl01.append(var[splitt[a+1]][2:])
-                        formatoLST(linea,getOpCode(dire),var[splitt[a+1]][2:],i)
-                        break
+                        if(getOpCode(dire) == "**"):
+                            ext = dfNem[['EXT']]
+                            arregl01.append(getOpCode(ext))
+                            arregl01.append(var[splitt[a+1]])
+                            formatoLST(linea,getOpCode(ext),var[splitt[a+1]],i)
+                            break
+                        else:    
+                            arregl01.append(getOpCode(dire))
+                            arregl01.append(var[splitt[a+1]][2:])
+                            formatoLST(linea,getOpCode(dire),var[splitt[a+1]][2:],i)
+                            break
                 elif((a+1) < len(splitt) and splitt[a+1][0] == "$" and (conNum2(Hex,splitt[a+1][1:3]) == True) and splitt[a+1][3:5] == ",x" ):
                     if(len(splitt[a+1]) == 5 ):
                        indX = dfNem[['IND,X']]
@@ -302,8 +319,11 @@ with open("BURBUJA.asc") as archivoASC:
                     if(splitt[a]==operativas[0]):
                         formatoLST(linea,"","",i)
                         break
-                    if(splitt[a]==operativas[2]):
+                    elif(splitt[a]==operativas[2]):
                         formatoLST(linea,splitt[a+1][1:3],splitt[a+1][5:7],i)
+                        break
+                    elif(splitt[a]==operativas[3]):
+                        formatoLST(linea,"","",i)
                         break
                 elif((a+2) < len(splitt)  and iterador(operativas,splitt[a+1]) == 1 ):
                     if(splitt[a+1]==operativas[2]):
@@ -321,3 +341,6 @@ with open("BURBUJA.asc") as archivoASC:
 with open("archiv01.lst","a") as archivo:
     for i in arrS19:
         archivo.write(i)
+
+#exept Exception as e:
+    #print(f'Exception - Ocurrió un error: {e} , {type(e)}, 
