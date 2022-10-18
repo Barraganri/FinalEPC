@@ -13,6 +13,7 @@ var = {} #Diccionario de variables
 const = {} #Dicc de constante
 etique = {}
 res = 0
+bits = 0
 df = pd.read_excel(excel, sheet_name='Hoja1') #Dataframe generado a partir del excel para compraraciones
 
 #Obtiene el opcode deseado del renglon del dataframe
@@ -317,7 +318,8 @@ with open("BURBUJA.asc") as archivoASC:
                     break
                 elif(iterador(operativas,splitt[0]) == 1 ):
                     if(splitt[a]==operativas[0]):
-                        formatoLST(linea,"","",i)
+                        BITS = int('0x'+splitt[1][1:],16)
+                        print(bits)
                         break
                     elif(splitt[a]==operativas[2]):
                         formatoLST(linea,splitt[a+1][1:3],splitt[a+1][5:7],i)
@@ -334,7 +336,7 @@ with open("BURBUJA.asc") as archivoASC:
                     formatoLST(linea,"","",i)
                 a=a+1
         linea=linea + 1
-    print(arregl01)
+    #print(arregl01)
     #print(arrS19)
 
 
