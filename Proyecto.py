@@ -1,7 +1,7 @@
 import pandas as pd
 # Para iniciar colorama
 #Arreglos y listas
-excel = 'proyecto.xls' #Excel de mnemonicos
+excel = 'proyecto (1).xls' #Excel de mnemonicos
 operativas = ["org","equ","fcb","end"] #operativas
 Hex = ["0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f"] #Arr para verificacion de hexadecimal
 num = ["0","1","2","3","4","5","6","7","8","9"] #Arr para verificacion de hexadecimal
