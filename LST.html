@@ -1,0 +1,1132 @@
+<p><font color='black'>1 : VACIO :           <strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong>*</strong>*
+</font></p><p><font color='black'>2 : VACIO :           *PROGRAMA DE EJEMPLO
+</font></p><p><font color='black'>3 : VACIO :           <strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong>*</strong>*
+</font></p><p><font color='black'>4 : VACIO :           PACTL  EQU   $1026
+</font></p><p><font color='black'>5 : VACIO :           PACNT  EQU   $1027
+</font></p><p><font color='black'>6 : VACIO :           ADCTL  EQU   $1030
+</font></p><p><font color='black'>7 : VACIO :           ADR1   EQU   $1031
+</font></p><p><font color='black'>8 : VACIO :           ADR2   EQU   $1032
+</font></p><p><font color='black'>9 : VACIO :           ADR3   EQU   $1033
+</font></p><p><font color='black'>10 : VACIO :           ADR4   EQU   $1034
+</font></p><p><font color='black'>11 : VACIO :           OPTION EQU   $1039
+</font></p><p><font color='black'>12 : VACIO :         <br />
+</font></p><p><font color='black'>13 : VACIO :           PORTA  EQU   $1000
+</font></p><p><font color='black'>14 : VACIO :           PORTD  EQU   $1008
+</font></p><p><font color='black'>15 : VACIO :           PORTE  EQU   $100A
+</font></p><p><font color='black'>16 : VACIO :           PORTG  EQU   $1002
+</font></p><p><font color='black'>17 : VACIO :         <br />
+</font></p><p><font color='black'>18 : VACIO :           DDRA   EQU   $1001
+</font></p><p><font color='black'>19 : VACIO :           DDRD   EQU   $1009
+</font></p><p><font color='black'>20 : VACIO :           DDRG   EQU   $1003
+</font></p><p><font color='black'>21 : VACIO :         <br />
+</font></p><p><font color='black'>22 : VACIO :           TMSK2  EQU   $1024
+</font></p><p><font color='black'>23 : VACIO :           TFLG2  EQU   $1025
+</font></p><p><font color='black'>24 : VACIO :         <br />
+</font></p><p><font color='black'>25 : VACIO :           SCDR   EQU   $102F
+</font></p><p><font color='black'>26 : VACIO :           SCCR2  EQU   $102D
+</font></p><p><font color='black'>27 : VACIO :           SCSR   EQU   $102E
+</font></p><p><font color='black'>28 : VACIO :           SCCR1  EQU   $102C
+</font></p><p><font color='black'>29 : VACIO :           BAUD   EQU   $102B
+</font></p><p><font color='black'>30 : VACIO :           HPRIO  EQU   $103C
+</font></p><p><font color='black'>31 : VACIO :           SPCR   EQU   $1028
+</font></p><p><font color='black'>32 : VACIO :           CSCTL  EQU   $105D
+</font></p><p><font color='black'>33 : VACIO :           OPT2   EQU   $1038
+</font></p><p><font color='black'>34 : VACIO :         <br />
+</font></p><p><font color='black'>35 : VACIO :           * VARIABLES <strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong>
+</font></p><p><font color='black'>36 : VACIO :         <br />
+</font></p><p><font color='black'>37 : VACIO :           ORDEN  EQU   $000C
+</font></p><p><font color='black'>38 : VACIO :           SEG    EQU   $000D
+</font></p><p><font color='black'>39 : VACIO :           U1     EQU   $000E
+</font></p><p><font color='black'>40 : VACIO :           U2     EQU   $000F
+</font></p><p><font color='black'>41 : VACIO :           U3     EQU   $0010
+</font></p><p><font color='black'>42 : VACIO :           U4     EQU   $0011
+</font></p><p><font color='black'>43 : VACIO :           U5     EQU   $0012
+</font></p><p><font color='black'>44 : VACIO :           V1     EQU   $0013
+</font></p><p><font color='black'>45 : VACIO :           V2     EQU   $0014
+</font></p><p><font color='black'>46 : VACIO :           BAS_H  EQU   $0015
+</font></p><p><font color='black'>47 : VACIO :           BAS_L  EQU   $0016
+</font></p><p><font color='black'>48 : VACIO :           V5     EQU   $0017
+</font></p><p><font color='black'>49 : VACIO :           TEMPO  EQU   $0018
+</font></p><p><font color='black'>50 : VACIO :           ALTO   EQU   $0019
+</font></p><p><font color='black'>51 : VACIO :           BAJO   EQU   $001A
+</font></p><p><font color='black'>52 : VACIO :           BASE_H EQU   $001B
+</font></p><p><font color='black'>53 : VACIO :           BASE_L EQU   $001C
+</font></p><p><font color='black'>54 : VACIO :           V3     EQU   $001D
+</font></p><p><font color='black'>55 : VACIO :           V4     EQU   $001E
+</font></p><p><font color='black'>56 : VACIO :         <br />
+</font></p><p><font color='black'>57 : VACIO :           <strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong>*</strong>*
+</font></p><p><font color='black'>58 : VACIO :           *CONFIGURA REGISTROS
+</font></p><p><font color='black'>59 : VACIO :           <strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong>*</strong>*
+</font></p><p><font color='black'>60 : VACIO :                  ORG   $8000   * DIR DE INICIO
+</font></p><p><font color='black'>61 : 8000 </font><font color = 'blue'>8E</font><font color = 'red'>03FF</font><font color = 'black'> :                LDS   #$03FF  * APUNTADOR DE STAK
+</font></p><p><font color='black'>62 : VACIO :         <br />
+</font></p><p><font color='black'>63 : VACIO :                        <br />
+</font></p><p><font color='black'>64 : 8003 </font><font color = 'blue'>86</font><font color = 'red'>00</font><font color = 'black'> :                LDAA  #$00    * CONFIG TODO EL PUERTO  A COMO ENTRADAS
+</font></p><p><font color='black'>65 : 8005 </font><font color = 'blue'>B7</font><font color = 'red'>1001</font><font color = 'black'> :                STAA  DDRA    * EL PUERTO A
+</font></p><p><font color='black'>66 : VACIO :                <br />
+</font></p><p><font color='black'>67 : 8008 </font><font color = 'blue'>86</font><font color = 'red'>FF</font><font color = 'black'> :                LDAA  #$FF    * CONFIG TODO EL PUERTO  G COMO SALIDAS
+</font></p><p><font color='black'>68 : 800A </font><font color = 'blue'>B7</font><font color = 'red'>1003</font><font color = 'black'> :                STAA  DDRG    * EL PUERTO G 
+</font></p><p><font color='black'>69 : VACIO :         <br />
+</font></p><p><font color='black'>70 : 800D </font><font color = 'blue'>86</font><font color = 'red'>00</font><font color = 'black'> :                LDAA  #$00    * SE PONE PUERTO G EN CEROS
+</font></p><p><font color='black'>71 : 800F </font><font color = 'blue'>B7</font><font color = 'red'>1002</font><font color = 'black'> :                STAA  PORTG
+</font></p><p><font color='black'>72 : VACIO :                <br />
+</font></p><p><font color='black'>73 : 8012 </font><font color = 'blue'>CC</font><font color = 'red'>302C</font><font color = 'black'> :                LDD   #$302C  * CONFIGURA PUERTO SERIAL
+</font></p><p><font color='black'>74 : 8015 </font><font color = 'blue'>B7</font><font color = 'red'>102B</font><font color = 'black'> :                STAA  BAUD    * BAUD  9600  para cristal de 8MHz
+</font></p><p><font color='black'>75 : 8018 </font><font color = 'blue'>F7</font><font color = 'red'>102D</font><font color = 'black'> :                STAB  SCCR2   * HABILITA  RX Y TX PERO INTERRUPCN SOLO RX
+</font></p><p><font color='black'>76 : 801B </font><font color = 'blue'>86</font><font color = 'red'>00</font><font color = 'black'> :                LDAA  #$00
+</font></p><p><font color='black'>77 : 801D </font><font color = 'blue'>B7</font><font color = 'red'>102C</font><font color = 'black'> :                STAA  SCCR1   * 8 BITS
+</font></p><p><font color='black'>78 : VACIO :         <br />
+</font></p><p><font color='black'>79 : 8020 </font><font color = 'blue'>86</font><font color = 'red'>FE</font><font color = 'black'> :                LDAA  #$FE    * CONFIG PUERTO D COMO SALIDAS (EXCEPTO PD0)
+</font></p><p><font color='black'>80 : 8022 </font><font color = 'blue'>B7</font><font color = 'red'>1009</font><font color = 'black'> :                STAA  DDRD    * SEA  ENABLE DEL DISPLAY  PD4  Y RS PD3
+</font></p><p><font color='black'>81 : VACIO :                              <br />
+</font></p><p><font color='black'>82 : VACIO :               <br />
+</font></p><p><font color='black'>83 : 8025 </font><font color = 'blue'>86</font><font color = 'red'>04</font><font color = 'black'> :                LDAA  #$04
+</font></p><p><font color='black'>84 : 8027 </font><font color = 'blue'>B7</font><font color = 'red'>103C</font><font color = 'black'> :                STAA  HPRIO
+</font></p><p><font color='black'>85 : VACIO :         <br />
+</font></p><p><font color='black'>86 : 802A </font><font color = 'blue'>86</font><font color = 'red'>00</font><font color = 'black'> :                LDAA  #$00
+</font></p><p><font color='black'>87 : 802C </font><font color = 'blue'>06</font><font color = 'red'></font><font color = 'black'> :                TAP
+</font></p><p><font color='black'>88 : VACIO :         <br />
+</font></p><p><font color='black'>89 : VACIO :         <br />
+</font></p><p><font color='black'>90 : VACIO :         <br />
+</font></p><p><font color='black'>91 : VACIO :                <br />
+</font></p><p><font color='black'>92 : VACIO :         <br />
+</font></p><p><font color='black'>93 : VACIO :         <br />
+</font></p><p><font color='black'>94 : VACIO :         <br />
+</font></p><p><font color='black'>95 : VACIO :           <strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong>*</strong>*
+</font></p><p><font color='black'>96 : VACIO :           *PROGRAMA PRINCIPAL
+</font></p><p><font color='black'>97 : VACIO :           <strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong>*</strong>*
+</font></p><p><font color='black'>98 : VACIO :           MAIN <br />
+</font></p><p><font color='black'>99 : 802D </font><font color = 'blue'>BD</font><font color = 'red'>809F</font><font color = 'black'> :                JSR   INICIA
+</font></p><p><font color='black'>100 : 8030 </font><font color = 'blue'>86</font><font color = 'red'>3F</font><font color = 'black'> :                LDAA  #$3F
+</font></p><p><font color='black'>101 : 8032 </font><font color = 'blue'>97</font><font color = 'red'>0C</font><font color = 'black'> :                STAA  ORDEN         * CARGO UN (?) en 000A
+</font></p><p><font color='black'>102 : VACIO :         <br />
+</font></p><p><font color='black'>103 : VACIO :                <br />
+</font></p><p><font color='black'>104 : VACIO :           CICLO
+</font></p><p><font color='black'>105 : 8034 </font><font color = 'blue'>96</font><font color = 'red'>0D</font><font color = 'black'> :                LDAA  SEG
+</font></p><p><font color='black'>106 : 8036 </font><font color = 'blue'>27</font><font color = 'red'>03</font><font color = 'black'> :                BEQ   CICLO 
+</font></p><p><font color='black'>107 : 8038 </font><font color = 'blue'>7F</font><font color = 'red'>000D</font><font color = 'black'> :                CLR   SEG
+</font></p><p><font color='black'>108 : VACIO :                <br />
+</font></p><p><font color='black'>109 : 803B </font><font color = 'blue'>B6</font><font color = 'red'>1027</font><font color = 'black'> :                LDAA  PACNT
+</font></p><p><font color='black'>110 : 803E </font><font color = 'blue'>97</font><font color = 'red'>17</font><font color = 'black'> :                STAA  V5
+</font></p><p><font color='black'>111 : 8040 </font><font color = 'blue'>7F</font><font color = 'red'>1027</font><font color = 'black'> :                CLR   PACNT
+</font></p><p><font color='black'>112 : VACIO :         <br />
+</font></p><p><font color='black'>113 : VACIO :                <br />
+</font></p><p><font color='black'>114 : 8043 </font><font color = 'blue'>BD</font><font color = 'red'>81B8</font><font color = 'black'> :                JSR   DATARX        * DESPLIEGA DATO TRANSMITIDO
+</font></p><p><font color='black'>115 : 8046 </font><font color = 'blue'>1809</font><font color = 'red'></font><font color = 'black'> :                DEY
+</font></p><p><font color='black'>116 : 8048 </font><font color = 'blue'>188F</font><font color = 'red'></font><font color = 'black'> :                XGDY 
+</font></p><p><font color='black'>117 : 804A </font><font color = 'blue'>97</font><font color = 'red'>19</font><font color = 'black'> :                STAA  ALTO
+</font></p><p><font color='black'>118 : 804C </font><font color = 'blue'>D7</font><font color = 'red'>1A</font><font color = 'black'> :                STAB  BAJO
+</font></p><p><font color='black'>119 : 804E </font><font color = 'blue'>188F</font><font color = 'red'></font><font color = 'black'> :                XGDY
+</font></p><p><font color='black'>120 : 8050 </font><font color = 'blue'>96</font><font color = 'red'>19</font><font color = 'black'> :                LDAA  ALTO
+</font></p><p><font color='black'>121 : 8052 </font><font color = 'blue'>D6</font><font color = 'red'>1A</font><font color = 'black'> :                LDAB  BAJO
+</font></p><p><font color='black'>122 : 8054 </font><font color = 'blue'>BD</font><font color = 'red'>821A</font><font color = 'black'> :                JSR   BINBCD
+</font></p><p><font color='black'>123 : 8057 </font><font color = 'blue'>BD</font><font color = 'red'>814F</font><font color = 'black'> :                JSR   DISPLAY
+</font></p><p><font color='black'>124 : 805A </font><font color = 'blue'>BD</font><font color = 'red'>813F</font><font color = 'black'> :                JSR   COMA
+</font></p><p><font color='black'>125 : 805D </font><font color = 'blue'>BD</font><font color = 'red'>81D4</font><font color = 'black'> :                JSR   VOLTA
+</font></p><p><font color='black'>126 : VACIO :                <br />
+</font></p><p><font color='black'>127 : 8060 </font><font color = 'blue'>4F</font><font color = 'red'></font><font color = 'black'> :                CLRA
+</font></p><p><font color='black'>128 : 8061 </font><font color = 'blue'>D6</font><font color = 'red'>13</font><font color = 'black'> :                LDAB  V1
+</font></p><p><font color='black'>129 : 8063 </font><font color = 'blue'>BD</font><font color = 'red'>822A</font><font color = 'black'> :                JSR   BNBCD
+</font></p><p><font color='black'>130 : 8066 </font><font color = 'blue'>BD</font><font color = 'red'>816E</font><font color = 'black'> :                JSR   DSPLY
+</font></p><p><font color='black'>131 : 8069 </font><font color = 'blue'>BD</font><font color = 'red'>813F</font><font color = 'black'> :                JSR   COMA
+</font></p><p><font color='black'>132 : VACIO :         <br />
+</font></p><p><font color='black'>133 : 806C </font><font color = 'blue'>4F</font><font color = 'red'></font><font color = 'black'> :                CLRA
+</font></p><p><font color='black'>134 : 806D </font><font color = 'blue'>D6</font><font color = 'red'>14</font><font color = 'black'> :                LDAB  V2
+</font></p><p><font color='black'>135 : 806F </font><font color = 'blue'>BD</font><font color = 'red'>822A</font><font color = 'black'> :                JSR   BNBCD
+</font></p><p><font color='black'>136 : 8072 </font><font color = 'blue'>BD</font><font color = 'red'>816E</font><font color = 'black'> :                JSR   DSPLY
+</font></p><p><font color='black'>137 : 8075 </font><font color = 'blue'>BD</font><font color = 'red'>813F</font><font color = 'black'> :                JSR   COMA
+</font></p><p><font color='black'>138 : VACIO :         <br />
+</font></p><p><font color='black'>139 : 8078 </font><font color = 'blue'>4F</font><font color = 'red'></font><font color = 'black'> :                CLRA
+</font></p><p><font color='black'>140 : 8079 </font><font color = 'blue'>D6</font><font color = 'red'>1D</font><font color = 'black'> :                LDAB  V3
+</font></p><p><font color='black'>141 : 807B </font><font color = 'blue'>BD</font><font color = 'red'>822A</font><font color = 'black'> :                JSR   BNBCD
+</font></p><p><font color='black'>142 : 807E </font><font color = 'blue'>BD</font><font color = 'red'>816E</font><font color = 'black'> :                JSR   DSPLY
+</font></p><p><font color='black'>143 : 8081 </font><font color = 'blue'>BD</font><font color = 'red'>813F</font><font color = 'black'> :                JSR   COMA
+</font></p><p><font color='black'>144 : VACIO :         <br />
+</font></p><p><font color='black'>145 : 8084 </font><font color = 'blue'>4F</font><font color = 'red'></font><font color = 'black'> :                CLRA
+</font></p><p><font color='black'>146 : 8085 </font><font color = 'blue'>D6</font><font color = 'red'>1E</font><font color = 'black'> :                LDAB  V4
+</font></p><p><font color='black'>147 : 8087 </font><font color = 'blue'>BD</font><font color = 'red'>822A</font><font color = 'black'> :                JSR   BNBCD
+</font></p><p><font color='black'>148 : 808A </font><font color = 'blue'>BD</font><font color = 'red'>816E</font><font color = 'black'> :                JSR   DSPLY
+</font></p><p><font color='black'>149 : 808D </font><font color = 'blue'>BD</font><font color = 'red'>813F</font><font color = 'black'> :                JSR   COMA
+</font></p><p><font color='black'>150 : VACIO :          <br />
+</font></p><p><font color='black'>151 : 8090 </font><font color = 'blue'>4F</font><font color = 'red'></font><font color = 'black'> :                CLRA
+</font></p><p><font color='black'>152 : 8091 </font><font color = 'blue'>D6</font><font color = 'red'>17</font><font color = 'black'> :                LDAB  V5
+</font></p><p><font color='black'>153 : 8093 </font><font color = 'blue'>BD</font><font color = 'red'>822A</font><font color = 'black'> :                JSR   BNBCD
+</font></p><p><font color='black'>154 : 8096 </font><font color = 'blue'>BD</font><font color = 'red'>816E</font><font color = 'black'> :                JSR   DSPLY
+</font></p><p><font color='black'>155 : VACIO :                <br />
+</font></p><p><font color='black'>156 : 8099 </font><font color = 'blue'>BD</font><font color = 'red'>819C</font><font color = 'black'> :                JSR   CRYTRN
+</font></p><p><font color='black'>157 : VACIO :             <br />
+</font></p><p><font color='black'>158 : 809C </font><font color = 'blue'>7E</font><font color = 'red'>8034</font><font color = 'black'> :                JMP   CICLO
+</font></p><p><font color='black'>159 : VACIO :         <br />
+</font></p><p><font color='black'>160 : VACIO :         <br />
+</font></p><p><font color='black'>161 : VACIO :           <strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong>
+</font></p><p><font color='black'>162 : VACIO :           * INICIA
+</font></p><p><font color='black'>163 : VACIO :           <strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong>
+</font></p><p><font color='black'>164 : VACIO :           INICIA
+</font></p><p><font color='black'>165 : VACIO :              <br />
+</font></p><p><font color='black'>166 : 809F </font><font color = 'blue'>7F</font><font color = 'red'>000D</font><font color = 'black'> :               CLR  SEG
+</font></p><p><font color='black'>167 : VACIO :         <br />
+</font></p><p><font color='black'>168 : 80A2 </font><font color = 'blue'>7F</font><font color = 'red'>1002</font><font color = 'black'> :               CLR  PORTG
+</font></p><p><font color='black'>169 : 80A5 </font><font color = 'blue'>86</font><font color = 'red'>F4</font><font color = 'black'> :               LDAA #$F4       <br />
+</font></p><p><font color='black'>170 : 80A7 </font><font color = 'blue'>97</font><font color = 'red'>18</font><font color = 'black'> :               STAA TEMPO         * TEMPO ES VARIABLE PARA CONTAR 244 CICLOS
+</font></p><p><font color='black'>171 : VACIO :         <br />
+</font></p><p><font color='black'>172 : 80A9 </font><font color = 'blue'>CE</font><font color = 'red'>1024</font><font color = 'black'> :               LDX #TMSK2
+</font></p><p><font color='black'>173 : 80AC </font><font color = 'blue'>1C</font><font color = 'red'>0040</font><font color = 'black'> :               BSET $00,X,#$40    * HABILITA INTERRUPCION TIMER T-REAL
+</font></p><p><font color='black'>174 : 80AF </font><font color = 'blue'>0E</font><font color = 'red'></font><font color = 'black'> :               CLI
+</font></p><p><font color='black'>175 : VACIO :         <br />
+</font></p><p><font color='black'>176 : 80B0 </font><font color = 'blue'>CE</font><font color = 'red'>1026</font><font color = 'black'> :               LDX #PACTL
+</font></p><p><font color='black'>177 : 80B3 </font><font color = 'blue'>1C</font><font color = 'red'>0050</font><font color = 'black'> :               BSET $00,X,#$50    * HABILITA PAEN -ACUMULADOR PULSOS ALTOS-
+</font></p><p><font color='black'>178 : 80B6 </font><font color = 'blue'>7F</font><font color = 'red'>1027</font><font color = 'black'> :               CLR PACNT          * BORRA ACUMULADOR DE PULSOS
+</font></p><p><font color='black'>179 : VACIO :         <br />
+</font></p><p><font color='black'>180 : 80B9 </font><font color = 'blue'>86</font><font color = 'red'>10</font><font color = 'black'> :               LDAA #$10
+</font></p><p><font color='black'>181 : 80BB </font><font color = 'blue'>97</font><font color = 'red'>1B</font><font color = 'black'> :               STAA BASE_H        * PONE UN #1060 COMO DIRECCION BASE INICIAL
+</font></p><p><font color='black'>182 : 80BD </font><font color = 'blue'>86</font><font color = 'red'>60</font><font color = 'black'> :               LDAA #$60
+</font></p><p><font color='black'>183 : 80BF </font><font color = 'blue'>97</font><font color = 'red'>1C</font><font color = 'black'> :               STAA BASE_L  <br />
+</font></p><p><font color='black'>184 : VACIO :               <br />
+</font></p><p><font color='black'>185 : 80C1 </font><font color = 'blue'>18CE</font><font color = 'red'>1060</font><font color = 'black'> :               LDY  #$1060    <br />
+</font></p><p><font color='black'>186 : VACIO :               <br />
+</font></p><p><font color='black'>187 : 80C5 </font><font color = 'blue'>86</font><font color = 'red'>16</font><font color = 'black'> :               LDAA #$16
+</font></p><p><font color='black'>188 : 80C7 </font><font color = 'blue'>97</font><font color = 'red'>15</font><font color = 'black'> :               STAA BAS_H        * PONE UN #1653 NUMERO TOTAL DE JUEGO DE MUESTRAS
+</font></p><p><font color='black'>189 : 80C9 </font><font color = 'blue'>86</font><font color = 'red'>53</font><font color = 'black'> :               LDAA #$53
+</font></p><p><font color='black'>190 : 80CB </font><font color = 'blue'>97</font><font color = 'red'>16</font><font color = 'black'> :               STAA BAS_L <br />
+</font></p><p><font color='black'>191 : VACIO :         <br />
+</font></p><p><font color='black'>192 : VACIO :         <br />
+</font></p><p><font color='black'>193 : 80CD </font><font color = 'blue'>7F</font><font color = 'red'>0019</font><font color = 'black'> :               CLR  ALTO          * INICIA INDICE MUESTRA EN 0
+</font></p><p><font color='black'>194 : 80D0 </font><font color = 'blue'>7F</font><font color = 'red'>001A</font><font color = 'black'> :               CLR  BAJO
+</font></p><p><font color='black'>195 : VACIO :         <br />
+</font></p><p><font color='black'>196 : 80D3 </font><font color = 'blue'>39</font><font color = 'red'></font><font color = 'black'> :                RTS
+</font></p><p><font color='black'>197 : VACIO :           <strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong>
+</font></p><p><font color='black'>198 : VACIO :           * SACA
+</font></p><p><font color='black'>199 : VACIO :           <strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong>
+</font></p><p><font color='black'>200 : VACIO :           SACA
+</font></p><p><font color='black'>201 : VACIO :                     <br />
+</font></p><p><font color='black'>202 : VACIO :                <br />
+</font></p><p><font color='black'>203 : 80D4 </font><font color = 'blue'>96</font><font color = 'red'>19</font><font color = 'black'> :                LDAA  ALTO         * INDICE DE MUESTRA (SEGUNDO)
+</font></p><p><font color='black'>204 : 80D6 </font><font color = 'blue'>D6</font><font color = 'red'>1A</font><font color = 'black'> :                LDAB  BAJO
+</font></p><p><font color='black'>205 : 80D8 </font><font color = 'blue'>188F</font><font color = 'red'></font><font color = 'black'> :                XGDY
+</font></p><p><font color='black'>206 : 80DA </font><font color = 'blue'>1808</font><font color = 'red'></font><font color = 'black'> :                INY
+</font></p><p><font color='black'>207 : 80DC </font><font color = 'blue'>188F</font><font color = 'red'></font><font color = 'black'> :                XGDY
+</font></p><p><font color='black'>208 : 80DE </font><font color = 'blue'>BD</font><font color = 'red'>821A</font><font color = 'black'> :                JSR   BINBCD
+</font></p><p><font color='black'>209 : 80E1 </font><font color = 'blue'>BD</font><font color = 'red'>814F</font><font color = 'black'> :                JSR   DISPLAY
+</font></p><p><font color='black'>210 : 80E4 </font><font color = 'blue'>BD</font><font color = 'red'>813F</font><font color = 'black'> :                JSR   COMA
+</font></p><p><font color='black'>211 : VACIO :          <br />
+</font></p><p><font color='black'>212 : 80E7 </font><font color = 'blue'>96</font><font color = 'red'>1B</font><font color = 'black'> :                LDAA  BASE_H       * INDICE DE MUESTRA (PARTICULAR)
+</font></p><p><font color='black'>213 : 80E9 </font><font color = 'blue'>D6</font><font color = 'red'>1C</font><font color = 'black'> :                LDAB  BASE_L
+</font></p><p><font color='black'>214 : 80EB </font><font color = 'blue'>188F</font><font color = 'red'></font><font color = 'black'> :                XGDY
+</font></p><p><font color='black'>215 : VACIO :                <br />
+</font></p><p><font color='black'>216 : 80ED </font><font color = 'blue'>1808</font><font color = 'red'></font><font color = 'black'> :                INY
+</font></p><p><font color='black'>217 : 80EF </font><font color = 'blue'>4F</font><font color = 'red'></font><font color = 'black'> :                CLRA
+</font></p><p><font color='black'>218 : 80F0 </font><font color = 'blue'>18E6</font><font color = 'red'>00</font><font color = 'black'> :                LDAB  $00,Y<br />
+</font></p><p><font color='black'>219 : 80F3 </font><font color = 'blue'>BD</font><font color = 'red'>822A</font><font color = 'black'> :                JSR   BNBCD
+</font></p><p><font color='black'>220 : 80F6 </font><font color = 'blue'>BD</font><font color = 'red'>816E</font><font color = 'black'> :                JSR   DSPLY
+</font></p><p><font color='black'>221 : 80F9 </font><font color = 'blue'>BD</font><font color = 'red'>813F</font><font color = 'black'> :                JSR   COMA
+</font></p><p><font color='black'>222 : VACIO :         <br />
+</font></p><p><font color='black'>223 : 80FC </font><font color = 'blue'>1808</font><font color = 'red'></font><font color = 'black'> :                INY
+</font></p><p><font color='black'>224 : 80FE </font><font color = 'blue'>4F</font><font color = 'red'></font><font color = 'black'> :                CLRA
+</font></p><p><font color='black'>225 : 80FF </font><font color = 'blue'>18E6</font><font color = 'red'>00</font><font color = 'black'> :                LDAB  $00,Y
+</font></p><p><font color='black'>226 : 8102 </font><font color = 'blue'>BD</font><font color = 'red'>822A</font><font color = 'black'> :                JSR   BNBCD
+</font></p><p><font color='black'>227 : 8105 </font><font color = 'blue'>BD</font><font color = 'red'>816E</font><font color = 'black'> :                JSR   DSPLY
+</font></p><p><font color='black'>228 : 8108 </font><font color = 'blue'>BD</font><font color = 'red'>813F</font><font color = 'black'> :                JSR   COMA
+</font></p><p><font color='black'>229 : VACIO :         <br />
+</font></p><p><font color='black'>230 : 810B </font><font color = 'blue'>1808</font><font color = 'red'></font><font color = 'black'> :                INY
+</font></p><p><font color='black'>231 : 810D </font><font color = 'blue'>4F</font><font color = 'red'></font><font color = 'black'> :                CLRA
+</font></p><p><font color='black'>232 : 810E </font><font color = 'blue'>18E6</font><font color = 'red'>00</font><font color = 'black'> :                LDAB  $00,Y
+</font></p><p><font color='black'>233 : 8111 </font><font color = 'blue'>BD</font><font color = 'red'>822A</font><font color = 'black'> :                JSR   BNBCD
+</font></p><p><font color='black'>234 : 8114 </font><font color = 'blue'>BD</font><font color = 'red'>816E</font><font color = 'black'> :                JSR   DSPLY
+</font></p><p><font color='black'>235 : 8117 </font><font color = 'blue'>BD</font><font color = 'red'>813F</font><font color = 'black'> :                JSR   COMA
+</font></p><p><font color='black'>236 : VACIO :         <br />
+</font></p><p><font color='black'>237 : 811A </font><font color = 'blue'>1808</font><font color = 'red'></font><font color = 'black'> :                INY
+</font></p><p><font color='black'>238 : 811C </font><font color = 'blue'>4F</font><font color = 'red'></font><font color = 'black'> :                CLRA
+</font></p><p><font color='black'>239 : 811D </font><font color = 'blue'>18E6</font><font color = 'red'>00</font><font color = 'black'> :                LDAB  $00,Y
+</font></p><p><font color='black'>240 : 8120 </font><font color = 'blue'>BD</font><font color = 'red'>822A</font><font color = 'black'> :                JSR   BNBCD
+</font></p><p><font color='black'>241 : 8123 </font><font color = 'blue'>BD</font><font color = 'red'>816E</font><font color = 'black'> :                JSR   DSPLY
+</font></p><p><font color='black'>242 : 8126 </font><font color = 'blue'>BD</font><font color = 'red'>813F</font><font color = 'black'> :                JSR   COMA
+</font></p><p><font color='black'>243 : VACIO :          <br />
+</font></p><p><font color='black'>244 : 8129 </font><font color = 'blue'>1808</font><font color = 'red'></font><font color = 'black'> :                INY
+</font></p><p><font color='black'>245 : 812B </font><font color = 'blue'>4F</font><font color = 'red'></font><font color = 'black'> :                CLRA 
+</font></p><p><font color='black'>246 : 812C </font><font color = 'blue'>18E6</font><font color = 'red'>00</font><font color = 'black'> :                LDAB  $00,Y
+</font></p><p><font color='black'>247 : 812F </font><font color = 'blue'>BD</font><font color = 'red'>822A</font><font color = 'black'> :                JSR   BNBCD
+</font></p><p><font color='black'>248 : 8132 </font><font color = 'blue'>BD</font><font color = 'red'>816E</font><font color = 'black'> :                JSR   DSPLY
+</font></p><p><font color='black'>249 : VACIO :                <br />
+</font></p><p><font color='black'>250 : 8135 </font><font color = 'blue'>188F</font><font color = 'red'></font><font color = 'black'> :                XGDY
+</font></p><p><font color='black'>251 : 8137 </font><font color = 'blue'>97</font><font color = 'red'>1B</font><font color = 'black'> :                STAA BASE_H
+</font></p><p><font color='black'>252 : 8139 </font><font color = 'blue'>D7</font><font color = 'red'>1C</font><font color = 'black'> :                STAB BASE_L
+</font></p><p><font color='black'>253 : VACIO :         <br />
+</font></p><p><font color='black'>254 : 813B </font><font color = 'blue'>BD</font><font color = 'red'>819C</font><font color = 'black'> :                JSR   CRYTRN
+</font></p><p><font color='black'>255 : VACIO :         <br />
+</font></p><p><font color='black'>256 : 813E </font><font color = 'blue'>39</font><font color = 'red'></font><font color = 'black'> :                RTS
+</font></p><p><font color='black'>257 : VACIO :           <strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong>
+</font></p><p><font color='black'>258 : VACIO :           * COMA
+</font></p><p><font color='black'>259 : VACIO :           <strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong>
+</font></p><p><font color='black'>260 : VACIO :           COMA
+</font></p><p><font color='black'>261 : 813F </font><font color = 'blue'>CE</font><font color = 'red'>102E</font><font color = 'black'> :                LDX   #SCSR 
+</font></p><p><font color='black'>262 : VACIO :                <br />
+</font></p><p><font color='black'>263 : 8142 </font><font color = 'blue'>B6</font><font color = 'red'>102E</font><font color = 'black'> :                LDAA  SCSR
+</font></p><p><font color='black'>264 : 8145 </font><font color = 'blue'>86</font><font color = 'red'>2C</font><font color = 'black'> :                LDAA  #$2C             * COMA
+</font></p><p><font color='black'>265 : 8147 </font><font color = 'blue'>B7</font><font color = 'red'>102F</font><font color = 'black'> :                STAA  SCDR
+</font></p><p><font color='black'>266 : VACIO :           C1
+</font></p><p><font color='black'>267 : 814A </font><font color = 'blue'>1F</font><font color = 'red'>008001</font><font color = 'black'> :                BRCLR $00,X,#$80 C1 
+</font></p><p><font color='black'>268 : 814E </font><font color = 'blue'>39</font><font color = 'red'></font><font color = 'black'> :                RTS
+</font></p><p><font color='black'>269 : VACIO :           <strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong>
+</font></p><p><font color='black'>270 : VACIO :           * DESPLIEGA
+</font></p><p><font color='black'>271 : VACIO :           <strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong>
+</font></p><p><font color='black'>272 : VACIO :           DISPLAY
+</font></p><p><font color='black'>273 : VACIO :                <br />
+</font></p><p><font color='black'>274 : 814F </font><font color = 'blue'>CE</font><font color = 'red'>102E</font><font color = 'black'> :                LDX   #SCSR 
+</font></p><p><font color='black'>275 : VACIO :                <br />
+</font></p><p><font color='black'>276 : 8152 </font><font color = 'blue'>B6</font><font color = 'red'>102E</font><font color = 'black'> :                LDAA  SCSR
+</font></p><p><font color='black'>277 : 8155 </font><font color = 'blue'>96</font><font color = 'red'>0E</font><font color = 'black'> :                LDAA  U1             * U1
+</font></p><p><font color='black'>278 : 8157 </font><font color = 'blue'>8B</font><font color = 'red'>30</font><font color = 'black'> :                ADDA  #$30
+</font></p><p><font color='black'>279 : 8159 </font><font color = 'blue'>B7</font><font color = 'red'>102F</font><font color = 'black'> :                STAA  SCDR
+</font></p><p><font color='black'>280 : VACIO :           T1
+</font></p><p><font color='black'>281 : 815C </font><font color = 'blue'>1F</font><font color = 'red'>008001</font><font color = 'black'> :                BRCLR $00,X,#$80 T1 
+</font></p><p><font color='black'>282 : VACIO :               <br />
+</font></p><p><font color='black'>283 : 8160 </font><font color = 'blue'>B6</font><font color = 'red'>102E</font><font color = 'black'> :                LDAA  SCSR
+</font></p><p><font color='black'>284 : 8163 </font><font color = 'blue'>96</font><font color = 'red'>0F</font><font color = 'black'> :                LDAA  U2             * U2
+</font></p><p><font color='black'>285 : 8165 </font><font color = 'blue'>8B</font><font color = 'red'>30</font><font color = 'black'> :                ADDA  #$30
+</font></p><p><font color='black'>286 : 8167 </font><font color = 'blue'>B7</font><font color = 'red'>102F</font><font color = 'black'> :                STAA  SCDR
+</font></p><p><font color='black'>287 : VACIO :           T2
+</font></p><p><font color='black'>288 : 816A </font><font color = 'blue'>1F</font><font color = 'red'>008001</font><font color = 'black'> :                BRCLR $00,X,#$80 T2 
+</font></p><p><font color='black'>289 : VACIO :         <br />
+</font></p><p><font color='black'>290 : VACIO :           DSPLY<br />
+</font></p><p><font color='black'>291 : 816E </font><font color = 'blue'>CE</font><font color = 'red'>102E</font><font color = 'black'> :                LDX   #SCSR
+</font></p><p><font color='black'>292 : VACIO :             <br />
+</font></p><p><font color='black'>293 : 8171 </font><font color = 'blue'>B6</font><font color = 'red'>102E</font><font color = 'black'> :                LDAA SCSR
+</font></p><p><font color='black'>294 : 8174 </font><font color = 'blue'>96</font><font color = 'red'>10</font><font color = 'black'> :                LDAA  U3             * U3
+</font></p><p><font color='black'>295 : 8176 </font><font color = 'blue'>8B</font><font color = 'red'>30</font><font color = 'black'> :                ADDA  #$30
+</font></p><p><font color='black'>296 : 8178 </font><font color = 'blue'>B7</font><font color = 'red'>102F</font><font color = 'black'> :                STAA  SCDR
+</font></p><p><font color='black'>297 : VACIO :           T3
+</font></p><p><font color='black'>298 : 817B </font><font color = 'blue'>1F</font><font color = 'red'>008001</font><font color = 'black'> :                BRCLR $00,X,#$80 T3 
+</font></p><p><font color='black'>299 : VACIO :               <br />
+</font></p><p><font color='black'>300 : 817F </font><font color = 'blue'>B6</font><font color = 'red'>102E</font><font color = 'black'> :                LDAA SCSR 
+</font></p><p><font color='black'>301 : 8182 </font><font color = 'blue'>96</font><font color = 'red'>11</font><font color = 'black'> :                LDAA  U4             * U4
+</font></p><p><font color='black'>302 : 8184 </font><font color = 'blue'>8B</font><font color = 'red'>30</font><font color = 'black'> :                ADDA  #$30
+</font></p><p><font color='black'>303 : 8186 </font><font color = 'blue'>B7</font><font color = 'red'>102F</font><font color = 'black'> :                STAA  SCDR
+</font></p><p><font color='black'>304 : VACIO :           T4
+</font></p><p><font color='black'>305 : 8189 </font><font color = 'blue'>1F</font><font color = 'red'>008001</font><font color = 'black'> :                BRCLR $00,X,#$80 T4 
+</font></p><p><font color='black'>306 : VACIO :            <br />
+</font></p><p><font color='black'>307 : 818D </font><font color = 'blue'>B6</font><font color = 'red'>102E</font><font color = 'black'> :                LDAA SCSR
+</font></p><p><font color='black'>308 : 8190 </font><font color = 'blue'>96</font><font color = 'red'>12</font><font color = 'black'> :                LDAA  U5             * U5
+</font></p><p><font color='black'>309 : 8192 </font><font color = 'blue'>8B</font><font color = 'red'>30</font><font color = 'black'> :                ADDA  #$30
+</font></p><p><font color='black'>310 : 8194 </font><font color = 'blue'>B7</font><font color = 'red'>102F</font><font color = 'black'> :                STAA  SCDR
+</font></p><p><font color='black'>311 : VACIO :           T5
+</font></p><p><font color='black'>312 : 8197 </font><font color = 'blue'>1F</font><font color = 'red'>008001</font><font color = 'black'> :                BRCLR $00,X,#$80 T5<br />
+</font></p><p><font color='black'>313 : VACIO :                <br />
+</font></p><p><font color='black'>314 : 819B </font><font color = 'blue'>39</font><font color = 'red'></font><font color = 'black'> :                RTS
+</font></p><p><font color='black'>315 : VACIO :         <br />
+</font></p><p><font color='black'>316 : VACIO :           <strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong>
+</font></p><p><font color='black'>317 : VACIO :           * CARRY RETURN
+</font></p><p><font color='black'>318 : VACIO :           <strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong>
+</font></p><p><font color='black'>319 : VACIO :         <br />
+</font></p><p><font color='black'>320 : VACIO :           CRYTRN
+</font></p><p><font color='black'>321 : 819C </font><font color = 'blue'>CE</font><font color = 'red'>102E</font><font color = 'black'> :                LDX   #SCSR 
+</font></p><p><font color='black'>322 : 819F </font><font color = 'blue'>B6</font><font color = 'red'>102E</font><font color = 'black'> :                LDAA  SCSR
+</font></p><p><font color='black'>323 : 81A2 </font><font color = 'blue'>86</font><font color = 'red'>0A</font><font color = 'black'> :                LDAA  #$0A             * NEW LINE   <br />
+</font></p><p><font color='black'>324 : 81A4 </font><font color = 'blue'>B7</font><font color = 'red'>102F</font><font color = 'black'> :                STAA  SCDR
+</font></p><p><font color='black'>325 : VACIO :           CR1
+</font></p><p><font color='black'>326 : 81A7 </font><font color = 'blue'>1F</font><font color = 'red'>008001</font><font color = 'black'> :                BRCLR $00,X,#$80 CR1      <br />
+</font></p><p><font color='black'>327 : VACIO :         <br />
+</font></p><p><font color='black'>328 : 81AB </font><font color = 'blue'>B6</font><font color = 'red'>102E</font><font color = 'black'> :                LDAA SCSR
+</font></p><p><font color='black'>329 : 81AE </font><font color = 'blue'>86</font><font color = 'red'>0D</font><font color = 'black'> :                LDAA #$0D              * CARRY RETURN   <br />
+</font></p><p><font color='black'>330 : 81B0 </font><font color = 'blue'>B7</font><font color = 'red'>102F</font><font color = 'black'> :                STAA SCDR
+</font></p><p><font color='black'>331 : VACIO :           CR2
+</font></p><p><font color='black'>332 : 81B3 </font><font color = 'blue'>1F</font><font color = 'red'>008001</font><font color = 'black'> :                BRCLR $00,X,#$80 CR2      <br />
+</font></p><p><font color='black'>333 : VACIO :         <br />
+</font></p><p><font color='black'>334 : 81B7 </font><font color = 'blue'>39</font><font color = 'red'></font><font color = 'black'> :                RTS
+</font></p><p><font color='black'>335 : VACIO :           <strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong>
+</font></p><p><font color='black'>336 : VACIO :           *  DESPLIEGUE DE DATO RECIBIDO
+</font></p><p><font color='black'>337 : VACIO :           <strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong>
+</font></p><p><font color='black'>338 : VACIO :         <br />
+</font></p><p><font color='black'>339 : VACIO :           DATARX
+</font></p><p><font color='black'>340 : 81B8 </font><font color = 'blue'>CE</font><font color = 'red'>102E</font><font color = 'black'> :                LDX   #SCSR 
+</font></p><p><font color='black'>341 : 81BB </font><font color = 'blue'>B6</font><font color = 'red'>102E</font><font color = 'black'> :                LDAA  SCSR
+</font></p><p><font color='black'>342 : 81BE </font><font color = 'blue'>96</font><font color = 'red'>0C</font><font color = 'black'> :                LDAA  ORDEN             * NEW LINE   <br />
+</font></p><p><font color='black'>343 : 81C0 </font><font color = 'blue'>B7</font><font color = 'red'>102F</font><font color = 'black'> :                STAA  SCDR
+</font></p><p><font color='black'>344 : VACIO :           DT1
+</font></p><p><font color='black'>345 : 81C3 </font><font color = 'blue'>1F</font><font color = 'red'>008001</font><font color = 'black'> :                BRCLR $00,X,#$80 DT1      <br />
+</font></p><p><font color='black'>346 : VACIO :         <br />
+</font></p><p><font color='black'>347 : 81C7 </font><font color = 'blue'>B6</font><font color = 'red'>102E</font><font color = 'black'> :                LDAA SCSR 
+</font></p><p><font color='black'>348 : 81CA </font><font color = 'blue'>86</font><font color = 'red'>3A</font><font color = 'black'> :                LDAA #$3A              * DOS PUNTOS  <br />
+</font></p><p><font color='black'>349 : 81CC </font><font color = 'blue'>B7</font><font color = 'red'>102F</font><font color = 'black'> :                STAA SCDR
+</font></p><p><font color='black'>350 : VACIO :           DT2
+</font></p><p><font color='black'>351 : 81CF </font><font color = 'blue'>1F</font><font color = 'red'>008001</font><font color = 'black'> :                BRCLR $00,X,#$80 DT2      <br />
+</font></p><p><font color='black'>352 : VACIO :         <br />
+</font></p><p><font color='black'>353 : 81D3 </font><font color = 'blue'>39</font><font color = 'red'></font><font color = 'black'> :                RTS
+</font></p><p><font color='black'>354 : VACIO :           <strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong>
+</font></p><p><font color='black'>355 : VACIO :           * voltimetro
+</font></p><p><font color='black'>356 : VACIO :           <strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong>
+</font></p><p><font color='black'>357 : VACIO :           VOLTA
+</font></p><p><font color='black'>358 : 81D4 </font><font color = 'blue'>CE</font><font color = 'red'>1030</font><font color = 'black'> :               LDX #ADCTL    <br />
+</font></p><p><font color='black'>359 : VACIO :         <br />
+</font></p><p><font color='black'>360 : 81D7 </font><font color = 'blue'>86</font><font color = 'red'>80</font><font color = 'black'> :               LDAA #$80
+</font></p><p><font color='black'>361 : 81D9 </font><font color = 'blue'>B7</font><font color = 'red'>1039</font><font color = 'black'> :               STAA OPTION        * PONE EN MARCHA EL ADC
+</font></p><p><font color='black'>362 : VACIO :             <br />
+</font></p><p><font color='black'>363 : 81DC </font><font color = 'blue'>86</font><font color = 'red'>10</font><font color = 'black'> :               LDAA #$10
+</font></p><p><font color='black'>364 : 81DE </font><font color = 'blue'>B7</font><font color = 'red'>1030</font><font color = 'black'> :               STAA ADCTL         * ENTRADA MULTIPLE SELECCIONA CANAL 0
+</font></p><p><font color='black'>365 : VACIO :         <br />
+</font></p><p><font color='black'>366 : VACIO :           E1
+</font></p><p><font color='black'>367 : 81E1 </font><font color = 'blue'>1F</font><font color = 'red'>008001</font><font color = 'black'> :               BRCLR $00,X,#$80 E1<br />
+</font></p><p><font color='black'>368 : 81E5 </font><font color = 'blue'>F6</font><font color = 'red'>1031</font><font color = 'black'> :               LDAB ADR1
+</font></p><p><font color='black'>369 : 81E8 </font><font color = 'blue'>D7</font><font color = 'red'>13</font><font color = 'black'> :               STAB V1
+</font></p><p><font color='black'>370 : VACIO :               <br />
+</font></p><p><font color='black'>371 : 81EA </font><font color = 'blue'>86</font><font color = 'red'>80</font><font color = 'black'> :               LDAA #$80
+</font></p><p><font color='black'>372 : 81EC </font><font color = 'blue'>B7</font><font color = 'red'>1039</font><font color = 'black'> :               STAA OPTION        * PONE EN MARCHA EL ADC
+</font></p><p><font color='black'>373 : VACIO :             <br />
+</font></p><p><font color='black'>374 : 81EF </font><font color = 'blue'>86</font><font color = 'red'>11</font><font color = 'black'> :               LDAA #$11
+</font></p><p><font color='black'>375 : 81F1 </font><font color = 'blue'>B7</font><font color = 'red'>1030</font><font color = 'black'> :               STAA ADCTL         * ENTRADA MULTIPLE SELECCIONA CANAL 1
+</font></p><p><font color='black'>376 : VACIO :         <br />
+</font></p><p><font color='black'>377 : VACIO :           E2
+</font></p><p><font color='black'>1 : VACIO :           <strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong>*</strong>*
+</font></p><p><font color='black'>2 : VACIO :           *PROGRAMA DE EJEMPLO
+</font></p><p><font color='black'>3 : VACIO :           <strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong>*</strong>*
+</font></p><p><font color='black'>4 : VACIO :           PACTL  EQU   $1026
+</font></p><p><font color='black'>5 : VACIO :           PACNT  EQU   $1027
+</font></p><p><font color='black'>6 : VACIO :           ADCTL  EQU   $1030
+</font></p><p><font color='black'>7 : VACIO :           ADR1   EQU   $1031
+</font></p><p><font color='black'>8 : VACIO :           ADR2   EQU   $1032
+</font></p><p><font color='black'>9 : VACIO :           ADR3   EQU   $1033
+</font></p><p><font color='black'>10 : VACIO :           ADR4   EQU   $1034
+</font></p><p><font color='black'>11 : VACIO :           OPTION EQU   $1039
+</font></p><p><font color='black'>12 : VACIO :         <br />
+</font></p><p><font color='black'>13 : VACIO :           PORTA  EQU   $1000
+</font></p><p><font color='black'>14 : VACIO :           PORTD  EQU   $1008
+</font></p><p><font color='black'>15 : VACIO :           PORTE  EQU   $100A
+</font></p><p><font color='black'>16 : VACIO :           PORTG  EQU   $1002
+</font></p><p><font color='black'>17 : VACIO :         <br />
+</font></p><p><font color='black'>18 : VACIO :           DDRA   EQU   $1001
+</font></p><p><font color='black'>19 : VACIO :           DDRD   EQU   $1009
+</font></p><p><font color='black'>20 : VACIO :           DDRG   EQU   $1003
+</font></p><p><font color='black'>21 : VACIO :         <br />
+</font></p><p><font color='black'>22 : VACIO :           TMSK2  EQU   $1024
+</font></p><p><font color='black'>23 : VACIO :           TFLG2  EQU   $1025
+</font></p><p><font color='black'>24 : VACIO :         <br />
+</font></p><p><font color='black'>25 : VACIO :           SCDR   EQU   $102F
+</font></p><p><font color='black'>26 : VACIO :           SCCR2  EQU   $102D
+</font></p><p><font color='black'>27 : VACIO :           SCSR   EQU   $102E
+</font></p><p><font color='black'>28 : VACIO :           SCCR1  EQU   $102C
+</font></p><p><font color='black'>29 : VACIO :           BAUD   EQU   $102B
+</font></p><p><font color='black'>30 : VACIO :           HPRIO  EQU   $103C
+</font></p><p><font color='black'>31 : VACIO :           SPCR   EQU   $1028
+</font></p><p><font color='black'>32 : VACIO :           CSCTL  EQU   $105D
+</font></p><p><font color='black'>33 : VACIO :           OPT2   EQU   $1038
+</font></p><p><font color='black'>34 : VACIO :         <br />
+</font></p><p><font color='black'>35 : VACIO :           * VARIABLES <strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong>
+</font></p><p><font color='black'>36 : VACIO :         <br />
+</font></p><p><font color='black'>37 : VACIO :           ORDEN  EQU   $000C
+</font></p><p><font color='black'>38 : VACIO :           SEG    EQU   $000D
+</font></p><p><font color='black'>39 : VACIO :           U1     EQU   $000E
+</font></p><p><font color='black'>40 : VACIO :           U2     EQU   $000F
+</font></p><p><font color='black'>41 : VACIO :           U3     EQU   $0010
+</font></p><p><font color='black'>42 : VACIO :           U4     EQU   $0011
+</font></p><p><font color='black'>43 : VACIO :           U5     EQU   $0012
+</font></p><p><font color='black'>44 : VACIO :           V1     EQU   $0013
+</font></p><p><font color='black'>45 : VACIO :           V2     EQU   $0014
+</font></p><p><font color='black'>46 : VACIO :           BAS_H  EQU   $0015
+</font></p><p><font color='black'>47 : VACIO :           BAS_L  EQU   $0016
+</font></p><p><font color='black'>48 : VACIO :           V5     EQU   $0017
+</font></p><p><font color='black'>49 : VACIO :           TEMPO  EQU   $0018
+</font></p><p><font color='black'>50 : VACIO :           ALTO   EQU   $0019
+</font></p><p><font color='black'>51 : VACIO :           BAJO   EQU   $001A
+</font></p><p><font color='black'>52 : VACIO :           BASE_H EQU   $001B
+</font></p><p><font color='black'>53 : VACIO :           BASE_L EQU   $001C
+</font></p><p><font color='black'>54 : VACIO :           V3     EQU   $001D
+</font></p><p><font color='black'>55 : VACIO :           V4     EQU   $001E
+</font></p><p><font color='black'>56 : VACIO :         <br />
+</font></p><p><font color='black'>57 : VACIO :           <strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong>*</strong>*
+</font></p><p><font color='black'>58 : VACIO :           *CONFIGURA REGISTROS
+</font></p><p><font color='black'>59 : VACIO :           <strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong>*</strong>*
+</font></p><p><font color='black'>60 : VACIO :                  ORG   $8000   * DIR DE INICIO
+</font></p><p><font color='black'>61 : 8000 </font><font color = 'blue'>8E</font><font color = 'red'>03FF</font><font color = 'black'> :                LDS   #$03FF  * APUNTADOR DE STAK
+</font></p><p><font color='black'>62 : VACIO :         <br />
+</font></p><p><font color='black'>63 : VACIO :                        <br />
+</font></p><p><font color='black'>64 : 8003 </font><font color = 'blue'>86</font><font color = 'red'>00</font><font color = 'black'> :                LDAA  #$00    * CONFIG TODO EL PUERTO  A COMO ENTRADAS
+</font></p><p><font color='black'>65 : 8005 </font><font color = 'blue'>B7</font><font color = 'red'>1001</font><font color = 'black'> :                STAA  DDRA    * EL PUERTO A
+</font></p><p><font color='black'>66 : VACIO :                <br />
+</font></p><p><font color='black'>67 : 8008 </font><font color = 'blue'>86</font><font color = 'red'>FF</font><font color = 'black'> :                LDAA  #$FF    * CONFIG TODO EL PUERTO  G COMO SALIDAS
+</font></p><p><font color='black'>68 : 800A </font><font color = 'blue'>B7</font><font color = 'red'>1003</font><font color = 'black'> :                STAA  DDRG    * EL PUERTO G 
+</font></p><p><font color='black'>69 : VACIO :         <br />
+</font></p><p><font color='black'>70 : 800D </font><font color = 'blue'>86</font><font color = 'red'>00</font><font color = 'black'> :                LDAA  #$00    * SE PONE PUERTO G EN CEROS
+</font></p><p><font color='black'>71 : 800F </font><font color = 'blue'>B7</font><font color = 'red'>1002</font><font color = 'black'> :                STAA  PORTG
+</font></p><p><font color='black'>72 : VACIO :                <br />
+</font></p><p><font color='black'>73 : 8012 </font><font color = 'blue'>CC</font><font color = 'red'>302C</font><font color = 'black'> :                LDD   #$302C  * CONFIGURA PUERTO SERIAL
+</font></p><p><font color='black'>74 : 8015 </font><font color = 'blue'>B7</font><font color = 'red'>102B</font><font color = 'black'> :                STAA  BAUD    * BAUD  9600  para cristal de 8MHz
+</font></p><p><font color='black'>75 : 8018 </font><font color = 'blue'>F7</font><font color = 'red'>102D</font><font color = 'black'> :                STAB  SCCR2   * HABILITA  RX Y TX PERO INTERRUPCN SOLO RX
+</font></p><p><font color='black'>76 : 801B </font><font color = 'blue'>86</font><font color = 'red'>00</font><font color = 'black'> :                LDAA  #$00
+</font></p><p><font color='black'>77 : 801D </font><font color = 'blue'>B7</font><font color = 'red'>102C</font><font color = 'black'> :                STAA  SCCR1   * 8 BITS
+</font></p><p><font color='black'>78 : VACIO :         <br />
+</font></p><p><font color='black'>79 : 8020 </font><font color = 'blue'>86</font><font color = 'red'>FE</font><font color = 'black'> :                LDAA  #$FE    * CONFIG PUERTO D COMO SALIDAS (EXCEPTO PD0)
+</font></p><p><font color='black'>80 : 8022 </font><font color = 'blue'>B7</font><font color = 'red'>1009</font><font color = 'black'> :                STAA  DDRD    * SEA  ENABLE DEL DISPLAY  PD4  Y RS PD3
+</font></p><p><font color='black'>81 : VACIO :                              <br />
+</font></p><p><font color='black'>82 : VACIO :               <br />
+</font></p><p><font color='black'>83 : 8025 </font><font color = 'blue'>86</font><font color = 'red'>04</font><font color = 'black'> :                LDAA  #$04
+</font></p><p><font color='black'>84 : 8027 </font><font color = 'blue'>B7</font><font color = 'red'>103C</font><font color = 'black'> :                STAA  HPRIO
+</font></p><p><font color='black'>85 : VACIO :         <br />
+</font></p><p><font color='black'>86 : 802A </font><font color = 'blue'>86</font><font color = 'red'>00</font><font color = 'black'> :                LDAA  #$00
+</font></p><p><font color='black'>87 : 802C </font><font color = 'blue'>06</font><font color = 'red'></font><font color = 'black'> :                TAP
+</font></p><p><font color='black'>88 : VACIO :         <br />
+</font></p><p><font color='black'>89 : VACIO :         <br />
+</font></p><p><font color='black'>90 : VACIO :         <br />
+</font></p><p><font color='black'>91 : VACIO :                <br />
+</font></p><p><font color='black'>92 : VACIO :         <br />
+</font></p><p><font color='black'>93 : VACIO :         <br />
+</font></p><p><font color='black'>94 : VACIO :         <br />
+</font></p><p><font color='black'>95 : VACIO :           <strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong>*</strong>*
+</font></p><p><font color='black'>96 : VACIO :           *PROGRAMA PRINCIPAL
+</font></p><p><font color='black'>97 : VACIO :           <strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong>*</strong>*
+</font></p><p><font color='black'>98 : VACIO :           MAIN <br />
+</font></p><p><font color='black'>99 : 802D </font><font color = 'blue'>BD</font><font color = 'red'>809F</font><font color = 'black'> :                JSR   INICIA
+</font></p><p><font color='black'>100 : 8030 </font><font color = 'blue'>86</font><font color = 'red'>3F</font><font color = 'black'> :                LDAA  #$3F
+</font></p><p><font color='black'>101 : 8032 </font><font color = 'blue'>97</font><font color = 'red'>0C</font><font color = 'black'> :                STAA  ORDEN         * CARGO UN (?) en 000A
+</font></p><p><font color='black'>102 : VACIO :         <br />
+</font></p><p><font color='black'>103 : VACIO :                <br />
+</font></p><p><font color='black'>104 : VACIO :           CICLO
+</font></p><p><font color='black'>105 : 8034 </font><font color = 'blue'>96</font><font color = 'red'>0D</font><font color = 'black'> :                LDAA  SEG
+</font></p><p><font color='black'>106 : 8036 </font><font color = 'blue'>27</font><font color = 'red'>03</font><font color = 'black'> :                BEQ   CICLO 
+</font></p><p><font color='black'>107 : 8038 </font><font color = 'blue'>7F</font><font color = 'red'>000D</font><font color = 'black'> :                CLR   SEG
+</font></p><p><font color='black'>108 : VACIO :                <br />
+</font></p><p><font color='black'>109 : 803B </font><font color = 'blue'>B6</font><font color = 'red'>1027</font><font color = 'black'> :                LDAA  PACNT
+</font></p><p><font color='black'>110 : 803E </font><font color = 'blue'>97</font><font color = 'red'>17</font><font color = 'black'> :                STAA  V5
+</font></p><p><font color='black'>111 : 8040 </font><font color = 'blue'>7F</font><font color = 'red'>1027</font><font color = 'black'> :                CLR   PACNT
+</font></p><p><font color='black'>112 : VACIO :         <br />
+</font></p><p><font color='black'>113 : VACIO :                <br />
+</font></p><p><font color='black'>114 : 8043 </font><font color = 'blue'>BD</font><font color = 'red'>81B8</font><font color = 'black'> :                JSR   DATARX        * DESPLIEGA DATO TRANSMITIDO
+</font></p><p><font color='black'>115 : 8046 </font><font color = 'blue'>1809</font><font color = 'red'></font><font color = 'black'> :                DEY
+</font></p><p><font color='black'>116 : 8048 </font><font color = 'blue'>188F</font><font color = 'red'></font><font color = 'black'> :                XGDY 
+</font></p><p><font color='black'>117 : 804A </font><font color = 'blue'>97</font><font color = 'red'>19</font><font color = 'black'> :                STAA  ALTO
+</font></p><p><font color='black'>118 : 804C </font><font color = 'blue'>D7</font><font color = 'red'>1A</font><font color = 'black'> :                STAB  BAJO
+</font></p><p><font color='black'>119 : 804E </font><font color = 'blue'>188F</font><font color = 'red'></font><font color = 'black'> :                XGDY
+</font></p><p><font color='black'>120 : 8050 </font><font color = 'blue'>96</font><font color = 'red'>19</font><font color = 'black'> :                LDAA  ALTO
+</font></p><p><font color='black'>121 : 8052 </font><font color = 'blue'>D6</font><font color = 'red'>1A</font><font color = 'black'> :                LDAB  BAJO
+</font></p><p><font color='black'>122 : 8054 </font><font color = 'blue'>BD</font><font color = 'red'>821A</font><font color = 'black'> :                JSR   BINBCD
+</font></p><p><font color='black'>123 : 8057 </font><font color = 'blue'>BD</font><font color = 'red'>814F</font><font color = 'black'> :                JSR   DISPLAY
+</font></p><p><font color='black'>124 : 805A </font><font color = 'blue'>BD</font><font color = 'red'>813F</font><font color = 'black'> :                JSR   COMA
+</font></p><p><font color='black'>125 : 805D </font><font color = 'blue'>BD</font><font color = 'red'>81D4</font><font color = 'black'> :                JSR   VOLTA
+</font></p><p><font color='black'>126 : VACIO :                <br />
+</font></p><p><font color='black'>127 : 8060 </font><font color = 'blue'>4F</font><font color = 'red'></font><font color = 'black'> :                CLRA
+</font></p><p><font color='black'>128 : 8061 </font><font color = 'blue'>D6</font><font color = 'red'>13</font><font color = 'black'> :                LDAB  V1
+</font></p><p><font color='black'>129 : 8063 </font><font color = 'blue'>BD</font><font color = 'red'>822A</font><font color = 'black'> :                JSR   BNBCD
+</font></p><p><font color='black'>130 : 8066 </font><font color = 'blue'>BD</font><font color = 'red'>816E</font><font color = 'black'> :                JSR   DSPLY
+</font></p><p><font color='black'>131 : 8069 </font><font color = 'blue'>BD</font><font color = 'red'>813F</font><font color = 'black'> :                JSR   COMA
+</font></p><p><font color='black'>132 : VACIO :         <br />
+</font></p><p><font color='black'>133 : 806C </font><font color = 'blue'>4F</font><font color = 'red'></font><font color = 'black'> :                CLRA
+</font></p><p><font color='black'>134 : 806D </font><font color = 'blue'>D6</font><font color = 'red'>14</font><font color = 'black'> :                LDAB  V2
+</font></p><p><font color='black'>135 : 806F </font><font color = 'blue'>BD</font><font color = 'red'>822A</font><font color = 'black'> :                JSR   BNBCD
+</font></p><p><font color='black'>136 : 8072 </font><font color = 'blue'>BD</font><font color = 'red'>816E</font><font color = 'black'> :                JSR   DSPLY
+</font></p><p><font color='black'>137 : 8075 </font><font color = 'blue'>BD</font><font color = 'red'>813F</font><font color = 'black'> :                JSR   COMA
+</font></p><p><font color='black'>138 : VACIO :         <br />
+</font></p><p><font color='black'>139 : 8078 </font><font color = 'blue'>4F</font><font color = 'red'></font><font color = 'black'> :                CLRA
+</font></p><p><font color='black'>140 : 8079 </font><font color = 'blue'>D6</font><font color = 'red'>1D</font><font color = 'black'> :                LDAB  V3
+</font></p><p><font color='black'>141 : 807B </font><font color = 'blue'>BD</font><font color = 'red'>822A</font><font color = 'black'> :                JSR   BNBCD
+</font></p><p><font color='black'>142 : 807E </font><font color = 'blue'>BD</font><font color = 'red'>816E</font><font color = 'black'> :                JSR   DSPLY
+</font></p><p><font color='black'>143 : 8081 </font><font color = 'blue'>BD</font><font color = 'red'>813F</font><font color = 'black'> :                JSR   COMA
+</font></p><p><font color='black'>144 : VACIO :         <br />
+</font></p><p><font color='black'>145 : 8084 </font><font color = 'blue'>4F</font><font color = 'red'></font><font color = 'black'> :                CLRA
+</font></p><p><font color='black'>146 : 8085 </font><font color = 'blue'>D6</font><font color = 'red'>1E</font><font color = 'black'> :                LDAB  V4
+</font></p><p><font color='black'>147 : 8087 </font><font color = 'blue'>BD</font><font color = 'red'>822A</font><font color = 'black'> :                JSR   BNBCD
+</font></p><p><font color='black'>148 : 808A </font><font color = 'blue'>BD</font><font color = 'red'>816E</font><font color = 'black'> :                JSR   DSPLY
+</font></p><p><font color='black'>149 : 808D </font><font color = 'blue'>BD</font><font color = 'red'>813F</font><font color = 'black'> :                JSR   COMA
+</font></p><p><font color='black'>150 : VACIO :          <br />
+</font></p><p><font color='black'>151 : 8090 </font><font color = 'blue'>4F</font><font color = 'red'></font><font color = 'black'> :                CLRA
+</font></p><p><font color='black'>152 : 8091 </font><font color = 'blue'>D6</font><font color = 'red'>17</font><font color = 'black'> :                LDAB  V5
+</font></p><p><font color='black'>153 : 8093 </font><font color = 'blue'>BD</font><font color = 'red'>822A</font><font color = 'black'> :                JSR   BNBCD
+</font></p><p><font color='black'>154 : 8096 </font><font color = 'blue'>BD</font><font color = 'red'>816E</font><font color = 'black'> :                JSR   DSPLY
+</font></p><p><font color='black'>155 : VACIO :                <br />
+</font></p><p><font color='black'>156 : 8099 </font><font color = 'blue'>BD</font><font color = 'red'>819C</font><font color = 'black'> :                JSR   CRYTRN
+</font></p><p><font color='black'>157 : VACIO :             <br />
+</font></p><p><font color='black'>158 : 809C </font><font color = 'blue'>7E</font><font color = 'red'>8034</font><font color = 'black'> :                JMP   CICLO
+</font></p><p><font color='black'>159 : VACIO :         <br />
+</font></p><p><font color='black'>160 : VACIO :         <br />
+</font></p><p><font color='black'>161 : VACIO :           <strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong>
+</font></p><p><font color='black'>162 : VACIO :           * INICIA
+</font></p><p><font color='black'>163 : VACIO :           <strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong>
+</font></p><p><font color='black'>164 : VACIO :           INICIA
+</font></p><p><font color='black'>165 : VACIO :              <br />
+</font></p><p><font color='black'>166 : 809F </font><font color = 'blue'>7F</font><font color = 'red'>000D</font><font color = 'black'> :               CLR  SEG
+</font></p><p><font color='black'>167 : VACIO :         <br />
+</font></p><p><font color='black'>168 : 80A2 </font><font color = 'blue'>7F</font><font color = 'red'>1002</font><font color = 'black'> :               CLR  PORTG
+</font></p><p><font color='black'>169 : 80A5 </font><font color = 'blue'>86</font><font color = 'red'>F4</font><font color = 'black'> :               LDAA #$F4       <br />
+</font></p><p><font color='black'>170 : 80A7 </font><font color = 'blue'>97</font><font color = 'red'>18</font><font color = 'black'> :               STAA TEMPO         * TEMPO ES VARIABLE PARA CONTAR 244 CICLOS
+</font></p><p><font color='black'>171 : VACIO :         <br />
+</font></p><p><font color='black'>172 : 80A9 </font><font color = 'blue'>CE</font><font color = 'red'>1024</font><font color = 'black'> :               LDX #TMSK2
+</font></p><p><font color='black'>173 : 80AC </font><font color = 'blue'>1C</font><font color = 'red'>0040</font><font color = 'black'> :               BSET $00,X,#$40    * HABILITA INTERRUPCION TIMER T-REAL
+</font></p><p><font color='black'>174 : 80AF </font><font color = 'blue'>0E</font><font color = 'red'></font><font color = 'black'> :               CLI
+</font></p><p><font color='black'>175 : VACIO :         <br />
+</font></p><p><font color='black'>176 : 80B0 </font><font color = 'blue'>CE</font><font color = 'red'>1026</font><font color = 'black'> :               LDX #PACTL
+</font></p><p><font color='black'>177 : 80B3 </font><font color = 'blue'>1C</font><font color = 'red'>0050</font><font color = 'black'> :               BSET $00,X,#$50    * HABILITA PAEN -ACUMULADOR PULSOS ALTOS-
+</font></p><p><font color='black'>178 : 80B6 </font><font color = 'blue'>7F</font><font color = 'red'>1027</font><font color = 'black'> :               CLR PACNT          * BORRA ACUMULADOR DE PULSOS
+</font></p><p><font color='black'>179 : VACIO :         <br />
+</font></p><p><font color='black'>180 : 80B9 </font><font color = 'blue'>86</font><font color = 'red'>10</font><font color = 'black'> :               LDAA #$10
+</font></p><p><font color='black'>181 : 80BB </font><font color = 'blue'>97</font><font color = 'red'>1B</font><font color = 'black'> :               STAA BASE_H        * PONE UN #1060 COMO DIRECCION BASE INICIAL
+</font></p><p><font color='black'>182 : 80BD </font><font color = 'blue'>86</font><font color = 'red'>60</font><font color = 'black'> :               LDAA #$60
+</font></p><p><font color='black'>183 : 80BF </font><font color = 'blue'>97</font><font color = 'red'>1C</font><font color = 'black'> :               STAA BASE_L  <br />
+</font></p><p><font color='black'>184 : VACIO :               <br />
+</font></p><p><font color='black'>185 : 80C1 </font><font color = 'blue'>18CE</font><font color = 'red'>1060</font><font color = 'black'> :               LDY  #$1060    <br />
+</font></p><p><font color='black'>186 : VACIO :               <br />
+</font></p><p><font color='black'>187 : 80C5 </font><font color = 'blue'>86</font><font color = 'red'>16</font><font color = 'black'> :               LDAA #$16
+</font></p><p><font color='black'>188 : 80C7 </font><font color = 'blue'>97</font><font color = 'red'>15</font><font color = 'black'> :               STAA BAS_H        * PONE UN #1653 NUMERO TOTAL DE JUEGO DE MUESTRAS
+</font></p><p><font color='black'>189 : 80C9 </font><font color = 'blue'>86</font><font color = 'red'>53</font><font color = 'black'> :               LDAA #$53
+</font></p><p><font color='black'>190 : 80CB </font><font color = 'blue'>97</font><font color = 'red'>16</font><font color = 'black'> :               STAA BAS_L <br />
+</font></p><p><font color='black'>191 : VACIO :         <br />
+</font></p><p><font color='black'>192 : VACIO :         <br />
+</font></p><p><font color='black'>193 : 80CD </font><font color = 'blue'>7F</font><font color = 'red'>0019</font><font color = 'black'> :               CLR  ALTO          * INICIA INDICE MUESTRA EN 0
+</font></p><p><font color='black'>194 : 80D0 </font><font color = 'blue'>7F</font><font color = 'red'>001A</font><font color = 'black'> :               CLR  BAJO
+</font></p><p><font color='black'>195 : VACIO :         <br />
+</font></p><p><font color='black'>196 : 80D3 </font><font color = 'blue'>39</font><font color = 'red'></font><font color = 'black'> :                RTS
+</font></p><p><font color='black'>197 : VACIO :           <strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong>
+</font></p><p><font color='black'>198 : VACIO :           * SACA
+</font></p><p><font color='black'>199 : VACIO :           <strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong>
+</font></p><p><font color='black'>200 : VACIO :           SACA
+</font></p><p><font color='black'>201 : VACIO :                     <br />
+</font></p><p><font color='black'>202 : VACIO :                <br />
+</font></p><p><font color='black'>203 : 80D4 </font><font color = 'blue'>96</font><font color = 'red'>19</font><font color = 'black'> :                LDAA  ALTO         * INDICE DE MUESTRA (SEGUNDO)
+</font></p><p><font color='black'>204 : 80D6 </font><font color = 'blue'>D6</font><font color = 'red'>1A</font><font color = 'black'> :                LDAB  BAJO
+</font></p><p><font color='black'>205 : 80D8 </font><font color = 'blue'>188F</font><font color = 'red'></font><font color = 'black'> :                XGDY
+</font></p><p><font color='black'>206 : 80DA </font><font color = 'blue'>1808</font><font color = 'red'></font><font color = 'black'> :                INY
+</font></p><p><font color='black'>207 : 80DC </font><font color = 'blue'>188F</font><font color = 'red'></font><font color = 'black'> :                XGDY
+</font></p><p><font color='black'>208 : 80DE </font><font color = 'blue'>BD</font><font color = 'red'>821A</font><font color = 'black'> :                JSR   BINBCD
+</font></p><p><font color='black'>209 : 80E1 </font><font color = 'blue'>BD</font><font color = 'red'>814F</font><font color = 'black'> :                JSR   DISPLAY
+</font></p><p><font color='black'>210 : 80E4 </font><font color = 'blue'>BD</font><font color = 'red'>813F</font><font color = 'black'> :                JSR   COMA
+</font></p><p><font color='black'>211 : VACIO :          <br />
+</font></p><p><font color='black'>212 : 80E7 </font><font color = 'blue'>96</font><font color = 'red'>1B</font><font color = 'black'> :                LDAA  BASE_H       * INDICE DE MUESTRA (PARTICULAR)
+</font></p><p><font color='black'>213 : 80E9 </font><font color = 'blue'>D6</font><font color = 'red'>1C</font><font color = 'black'> :                LDAB  BASE_L
+</font></p><p><font color='black'>214 : 80EB </font><font color = 'blue'>188F</font><font color = 'red'></font><font color = 'black'> :                XGDY
+</font></p><p><font color='black'>215 : VACIO :                <br />
+</font></p><p><font color='black'>216 : 80ED </font><font color = 'blue'>1808</font><font color = 'red'></font><font color = 'black'> :                INY
+</font></p><p><font color='black'>217 : 80EF </font><font color = 'blue'>4F</font><font color = 'red'></font><font color = 'black'> :                CLRA
+</font></p><p><font color='black'>218 : 80F0 </font><font color = 'blue'>18E6</font><font color = 'red'>00</font><font color = 'black'> :                LDAB  $00,Y<br />
+</font></p><p><font color='black'>219 : 80F3 </font><font color = 'blue'>BD</font><font color = 'red'>822A</font><font color = 'black'> :                JSR   BNBCD
+</font></p><p><font color='black'>220 : 80F6 </font><font color = 'blue'>BD</font><font color = 'red'>816E</font><font color = 'black'> :                JSR   DSPLY
+</font></p><p><font color='black'>221 : 80F9 </font><font color = 'blue'>BD</font><font color = 'red'>813F</font><font color = 'black'> :                JSR   COMA
+</font></p><p><font color='black'>222 : VACIO :         <br />
+</font></p><p><font color='black'>223 : 80FC </font><font color = 'blue'>1808</font><font color = 'red'></font><font color = 'black'> :                INY
+</font></p><p><font color='black'>224 : 80FE </font><font color = 'blue'>4F</font><font color = 'red'></font><font color = 'black'> :                CLRA
+</font></p><p><font color='black'>225 : 80FF </font><font color = 'blue'>18E6</font><font color = 'red'>00</font><font color = 'black'> :                LDAB  $00,Y
+</font></p><p><font color='black'>226 : 8102 </font><font color = 'blue'>BD</font><font color = 'red'>822A</font><font color = 'black'> :                JSR   BNBCD
+</font></p><p><font color='black'>227 : 8105 </font><font color = 'blue'>BD</font><font color = 'red'>816E</font><font color = 'black'> :                JSR   DSPLY
+</font></p><p><font color='black'>228 : 8108 </font><font color = 'blue'>BD</font><font color = 'red'>813F</font><font color = 'black'> :                JSR   COMA
+</font></p><p><font color='black'>229 : VACIO :         <br />
+</font></p><p><font color='black'>230 : 810B </font><font color = 'blue'>1808</font><font color = 'red'></font><font color = 'black'> :                INY
+</font></p><p><font color='black'>231 : 810D </font><font color = 'blue'>4F</font><font color = 'red'></font><font color = 'black'> :                CLRA
+</font></p><p><font color='black'>232 : 810E </font><font color = 'blue'>18E6</font><font color = 'red'>00</font><font color = 'black'> :                LDAB  $00,Y
+</font></p><p><font color='black'>233 : 8111 </font><font color = 'blue'>BD</font><font color = 'red'>822A</font><font color = 'black'> :                JSR   BNBCD
+</font></p><p><font color='black'>234 : 8114 </font><font color = 'blue'>BD</font><font color = 'red'>816E</font><font color = 'black'> :                JSR   DSPLY
+</font></p><p><font color='black'>235 : 8117 </font><font color = 'blue'>BD</font><font color = 'red'>813F</font><font color = 'black'> :                JSR   COMA
+</font></p><p><font color='black'>236 : VACIO :         <br />
+</font></p><p><font color='black'>237 : 811A </font><font color = 'blue'>1808</font><font color = 'red'></font><font color = 'black'> :                INY
+</font></p><p><font color='black'>238 : 811C </font><font color = 'blue'>4F</font><font color = 'red'></font><font color = 'black'> :                CLRA
+</font></p><p><font color='black'>239 : 811D </font><font color = 'blue'>18E6</font><font color = 'red'>00</font><font color = 'black'> :                LDAB  $00,Y
+</font></p><p><font color='black'>240 : 8120 </font><font color = 'blue'>BD</font><font color = 'red'>822A</font><font color = 'black'> :                JSR   BNBCD
+</font></p><p><font color='black'>241 : 8123 </font><font color = 'blue'>BD</font><font color = 'red'>816E</font><font color = 'black'> :                JSR   DSPLY
+</font></p><p><font color='black'>242 : 8126 </font><font color = 'blue'>BD</font><font color = 'red'>813F</font><font color = 'black'> :                JSR   COMA
+</font></p><p><font color='black'>243 : VACIO :          <br />
+</font></p><p><font color='black'>244 : 8129 </font><font color = 'blue'>1808</font><font color = 'red'></font><font color = 'black'> :                INY
+</font></p><p><font color='black'>245 : 812B </font><font color = 'blue'>4F</font><font color = 'red'></font><font color = 'black'> :                CLRA 
+</font></p><p><font color='black'>246 : 812C </font><font color = 'blue'>18E6</font><font color = 'red'>00</font><font color = 'black'> :                LDAB  $00,Y
+</font></p><p><font color='black'>247 : 812F </font><font color = 'blue'>BD</font><font color = 'red'>822A</font><font color = 'black'> :                JSR   BNBCD
+</font></p><p><font color='black'>248 : 8132 </font><font color = 'blue'>BD</font><font color = 'red'>816E</font><font color = 'black'> :                JSR   DSPLY
+</font></p><p><font color='black'>249 : VACIO :                <br />
+</font></p><p><font color='black'>250 : 8135 </font><font color = 'blue'>188F</font><font color = 'red'></font><font color = 'black'> :                XGDY
+</font></p><p><font color='black'>251 : 8137 </font><font color = 'blue'>97</font><font color = 'red'>1B</font><font color = 'black'> :                STAA BASE_H
+</font></p><p><font color='black'>252 : 8139 </font><font color = 'blue'>D7</font><font color = 'red'>1C</font><font color = 'black'> :                STAB BASE_L
+</font></p><p><font color='black'>253 : VACIO :         <br />
+</font></p><p><font color='black'>254 : 813B </font><font color = 'blue'>BD</font><font color = 'red'>819C</font><font color = 'black'> :                JSR   CRYTRN
+</font></p><p><font color='black'>255 : VACIO :         <br />
+</font></p><p><font color='black'>256 : 813E </font><font color = 'blue'>39</font><font color = 'red'></font><font color = 'black'> :                RTS
+</font></p><p><font color='black'>257 : VACIO :           <strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong>
+</font></p><p><font color='black'>258 : VACIO :           * COMA
+</font></p><p><font color='black'>259 : VACIO :           <strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong>
+</font></p><p><font color='black'>260 : VACIO :           COMA
+</font></p><p><font color='black'>261 : 813F </font><font color = 'blue'>CE</font><font color = 'red'>102E</font><font color = 'black'> :                LDX   #SCSR 
+</font></p><p><font color='black'>262 : VACIO :                <br />
+</font></p><p><font color='black'>263 : 8142 </font><font color = 'blue'>B6</font><font color = 'red'>102E</font><font color = 'black'> :                LDAA  SCSR
+</font></p><p><font color='black'>264 : 8145 </font><font color = 'blue'>86</font><font color = 'red'>2C</font><font color = 'black'> :                LDAA  #$2C             * COMA
+</font></p><p><font color='black'>265 : 8147 </font><font color = 'blue'>B7</font><font color = 'red'>102F</font><font color = 'black'> :                STAA  SCDR
+</font></p><p><font color='black'>266 : VACIO :           C1
+</font></p><p><font color='black'>267 : 814A </font><font color = 'blue'>1F</font><font color = 'red'>008001</font><font color = 'black'> :                BRCLR $00,X,#$80 C1 
+</font></p><p><font color='black'>268 : 814E </font><font color = 'blue'>39</font><font color = 'red'></font><font color = 'black'> :                RTS
+</font></p><p><font color='black'>269 : VACIO :           <strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong>
+</font></p><p><font color='black'>270 : VACIO :           * DESPLIEGA
+</font></p><p><font color='black'>271 : VACIO :           <strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong>
+</font></p><p><font color='black'>272 : VACIO :           DISPLAY
+</font></p><p><font color='black'>273 : VACIO :                <br />
+</font></p><p><font color='black'>274 : 814F </font><font color = 'blue'>CE</font><font color = 'red'>102E</font><font color = 'black'> :                LDX   #SCSR 
+</font></p><p><font color='black'>275 : VACIO :                <br />
+</font></p><p><font color='black'>276 : 8152 </font><font color = 'blue'>B6</font><font color = 'red'>102E</font><font color = 'black'> :                LDAA  SCSR
+</font></p><p><font color='black'>277 : 8155 </font><font color = 'blue'>96</font><font color = 'red'>0E</font><font color = 'black'> :                LDAA  U1             * U1
+</font></p><p><font color='black'>278 : 8157 </font><font color = 'blue'>8B</font><font color = 'red'>30</font><font color = 'black'> :                ADDA  #$30
+</font></p><p><font color='black'>279 : 8159 </font><font color = 'blue'>B7</font><font color = 'red'>102F</font><font color = 'black'> :                STAA  SCDR
+</font></p><p><font color='black'>280 : VACIO :           T1
+</font></p><p><font color='black'>281 : 815C </font><font color = 'blue'>1F</font><font color = 'red'>008001</font><font color = 'black'> :                BRCLR $00,X,#$80 T1 
+</font></p><p><font color='black'>282 : VACIO :               <br />
+</font></p><p><font color='black'>283 : 8160 </font><font color = 'blue'>B6</font><font color = 'red'>102E</font><font color = 'black'> :                LDAA  SCSR
+</font></p><p><font color='black'>284 : 8163 </font><font color = 'blue'>96</font><font color = 'red'>0F</font><font color = 'black'> :                LDAA  U2             * U2
+</font></p><p><font color='black'>285 : 8165 </font><font color = 'blue'>8B</font><font color = 'red'>30</font><font color = 'black'> :                ADDA  #$30
+</font></p><p><font color='black'>286 : 8167 </font><font color = 'blue'>B7</font><font color = 'red'>102F</font><font color = 'black'> :                STAA  SCDR
+</font></p><p><font color='black'>287 : VACIO :           T2
+</font></p><p><font color='black'>288 : 816A </font><font color = 'blue'>1F</font><font color = 'red'>008001</font><font color = 'black'> :                BRCLR $00,X,#$80 T2 
+</font></p><p><font color='black'>289 : VACIO :         <br />
+</font></p><p><font color='black'>290 : VACIO :           DSPLY<br />
+</font></p><p><font color='black'>291 : 816E </font><font color = 'blue'>CE</font><font color = 'red'>102E</font><font color = 'black'> :                LDX   #SCSR
+</font></p><p><font color='black'>292 : VACIO :             <br />
+</font></p><p><font color='black'>293 : 8171 </font><font color = 'blue'>B6</font><font color = 'red'>102E</font><font color = 'black'> :                LDAA SCSR
+</font></p><p><font color='black'>294 : 8174 </font><font color = 'blue'>96</font><font color = 'red'>10</font><font color = 'black'> :                LDAA  U3             * U3
+</font></p><p><font color='black'>295 : 8176 </font><font color = 'blue'>8B</font><font color = 'red'>30</font><font color = 'black'> :                ADDA  #$30
+</font></p><p><font color='black'>296 : 8178 </font><font color = 'blue'>B7</font><font color = 'red'>102F</font><font color = 'black'> :                STAA  SCDR
+</font></p><p><font color='black'>297 : VACIO :           T3
+</font></p><p><font color='black'>298 : 817B </font><font color = 'blue'>1F</font><font color = 'red'>008001</font><font color = 'black'> :                BRCLR $00,X,#$80 T3 
+</font></p><p><font color='black'>299 : VACIO :               <br />
+</font></p><p><font color='black'>300 : 817F </font><font color = 'blue'>B6</font><font color = 'red'>102E</font><font color = 'black'> :                LDAA SCSR 
+</font></p><p><font color='black'>301 : 8182 </font><font color = 'blue'>96</font><font color = 'red'>11</font><font color = 'black'> :                LDAA  U4             * U4
+</font></p><p><font color='black'>302 : 8184 </font><font color = 'blue'>8B</font><font color = 'red'>30</font><font color = 'black'> :                ADDA  #$30
+</font></p><p><font color='black'>303 : 8186 </font><font color = 'blue'>B7</font><font color = 'red'>102F</font><font color = 'black'> :                STAA  SCDR
+</font></p><p><font color='black'>304 : VACIO :           T4
+</font></p><p><font color='black'>305 : 8189 </font><font color = 'blue'>1F</font><font color = 'red'>008001</font><font color = 'black'> :                BRCLR $00,X,#$80 T4 
+</font></p><p><font color='black'>306 : VACIO :            <br />
+</font></p><p><font color='black'>307 : 818D </font><font color = 'blue'>B6</font><font color = 'red'>102E</font><font color = 'black'> :                LDAA SCSR
+</font></p><p><font color='black'>308 : 8190 </font><font color = 'blue'>96</font><font color = 'red'>12</font><font color = 'black'> :                LDAA  U5             * U5
+</font></p><p><font color='black'>309 : 8192 </font><font color = 'blue'>8B</font><font color = 'red'>30</font><font color = 'black'> :                ADDA  #$30
+</font></p><p><font color='black'>310 : 8194 </font><font color = 'blue'>B7</font><font color = 'red'>102F</font><font color = 'black'> :                STAA  SCDR
+</font></p><p><font color='black'>311 : VACIO :           T5
+</font></p><p><font color='black'>312 : 8197 </font><font color = 'blue'>1F</font><font color = 'red'>008001</font><font color = 'black'> :                BRCLR $00,X,#$80 T5<br />
+</font></p><p><font color='black'>313 : VACIO :                <br />
+</font></p><p><font color='black'>314 : 819B </font><font color = 'blue'>39</font><font color = 'red'></font><font color = 'black'> :                RTS
+</font></p><p><font color='black'>315 : VACIO :         <br />
+</font></p><p><font color='black'>316 : VACIO :           <strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong>
+</font></p><p><font color='black'>317 : VACIO :           * CARRY RETURN
+</font></p><p><font color='black'>318 : VACIO :           <strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong>
+</font></p><p><font color='black'>319 : VACIO :         <br />
+</font></p><p><font color='black'>320 : VACIO :           CRYTRN
+</font></p><p><font color='black'>321 : 819C </font><font color = 'blue'>CE</font><font color = 'red'>102E</font><font color = 'black'> :                LDX   #SCSR 
+</font></p><p><font color='black'>322 : 819F </font><font color = 'blue'>B6</font><font color = 'red'>102E</font><font color = 'black'> :                LDAA  SCSR
+</font></p><p><font color='black'>323 : 81A2 </font><font color = 'blue'>86</font><font color = 'red'>0A</font><font color = 'black'> :                LDAA  #$0A             * NEW LINE   <br />
+</font></p><p><font color='black'>324 : 81A4 </font><font color = 'blue'>B7</font><font color = 'red'>102F</font><font color = 'black'> :                STAA  SCDR
+</font></p><p><font color='black'>325 : VACIO :           CR1
+</font></p><p><font color='black'>326 : 81A7 </font><font color = 'blue'>1F</font><font color = 'red'>008001</font><font color = 'black'> :                BRCLR $00,X,#$80 CR1      <br />
+</font></p><p><font color='black'>327 : VACIO :         <br />
+</font></p><p><font color='black'>328 : 81AB </font><font color = 'blue'>B6</font><font color = 'red'>102E</font><font color = 'black'> :                LDAA SCSR
+</font></p><p><font color='black'>329 : 81AE </font><font color = 'blue'>86</font><font color = 'red'>0D</font><font color = 'black'> :                LDAA #$0D              * CARRY RETURN   <br />
+</font></p><p><font color='black'>330 : 81B0 </font><font color = 'blue'>B7</font><font color = 'red'>102F</font><font color = 'black'> :                STAA SCDR
+</font></p><p><font color='black'>331 : VACIO :           CR2
+</font></p><p><font color='black'>332 : 81B3 </font><font color = 'blue'>1F</font><font color = 'red'>008001</font><font color = 'black'> :                BRCLR $00,X,#$80 CR2      <br />
+</font></p><p><font color='black'>333 : VACIO :         <br />
+</font></p><p><font color='black'>334 : 81B7 </font><font color = 'blue'>39</font><font color = 'red'></font><font color = 'black'> :                RTS
+</font></p><p><font color='black'>335 : VACIO :           <strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong>
+</font></p><p><font color='black'>336 : VACIO :           *  DESPLIEGUE DE DATO RECIBIDO
+</font></p><p><font color='black'>337 : VACIO :           <strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong>
+</font></p><p><font color='black'>338 : VACIO :         <br />
+</font></p><p><font color='black'>339 : VACIO :           DATARX
+</font></p><p><font color='black'>340 : 81B8 </font><font color = 'blue'>CE</font><font color = 'red'>102E</font><font color = 'black'> :                LDX   #SCSR 
+</font></p><p><font color='black'>341 : 81BB </font><font color = 'blue'>B6</font><font color = 'red'>102E</font><font color = 'black'> :                LDAA  SCSR
+</font></p><p><font color='black'>342 : 81BE </font><font color = 'blue'>96</font><font color = 'red'>0C</font><font color = 'black'> :                LDAA  ORDEN             * NEW LINE   <br />
+</font></p><p><font color='black'>343 : 81C0 </font><font color = 'blue'>B7</font><font color = 'red'>102F</font><font color = 'black'> :                STAA  SCDR
+</font></p><p><font color='black'>344 : VACIO :           DT1
+</font></p><p><font color='black'>345 : 81C3 </font><font color = 'blue'>1F</font><font color = 'red'>008001</font><font color = 'black'> :                BRCLR $00,X,#$80 DT1      <br />
+</font></p><p><font color='black'>346 : VACIO :         <br />
+</font></p><p><font color='black'>347 : 81C7 </font><font color = 'blue'>B6</font><font color = 'red'>102E</font><font color = 'black'> :                LDAA SCSR 
+</font></p><p><font color='black'>348 : 81CA </font><font color = 'blue'>86</font><font color = 'red'>3A</font><font color = 'black'> :                LDAA #$3A              * DOS PUNTOS  <br />
+</font></p><p><font color='black'>349 : 81CC </font><font color = 'blue'>B7</font><font color = 'red'>102F</font><font color = 'black'> :                STAA SCDR
+</font></p><p><font color='black'>350 : VACIO :           DT2
+</font></p><p><font color='black'>351 : 81CF </font><font color = 'blue'>1F</font><font color = 'red'>008001</font><font color = 'black'> :                BRCLR $00,X,#$80 DT2      <br />
+</font></p><p><font color='black'>352 : VACIO :         <br />
+</font></p><p><font color='black'>353 : 81D3 </font><font color = 'blue'>39</font><font color = 'red'></font><font color = 'black'> :                RTS
+</font></p><p><font color='black'>354 : VACIO :           <strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong>
+</font></p><p><font color='black'>355 : VACIO :           * voltimetro
+</font></p><p><font color='black'>356 : VACIO :           <strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong>
+</font></p><p><font color='black'>357 : VACIO :           VOLTA
+</font></p><p><font color='black'>358 : 81D4 </font><font color = 'blue'>CE</font><font color = 'red'>1030</font><font color = 'black'> :               LDX #ADCTL    <br />
+</font></p><p><font color='black'>359 : VACIO :         <br />
+</font></p><p><font color='black'>360 : 81D7 </font><font color = 'blue'>86</font><font color = 'red'>80</font><font color = 'black'> :               LDAA #$80
+</font></p><p><font color='black'>361 : 81D9 </font><font color = 'blue'>B7</font><font color = 'red'>1039</font><font color = 'black'> :               STAA OPTION        * PONE EN MARCHA EL ADC
+</font></p><p><font color='black'>362 : VACIO :             <br />
+</font></p><p><font color='black'>363 : 81DC </font><font color = 'blue'>86</font><font color = 'red'>10</font><font color = 'black'> :               LDAA #$10
+</font></p><p><font color='black'>364 : 81DE </font><font color = 'blue'>B7</font><font color = 'red'>1030</font><font color = 'black'> :               STAA ADCTL         * ENTRADA MULTIPLE SELECCIONA CANAL 0
+</font></p><p><font color='black'>365 : VACIO :         <br />
+</font></p><p><font color='black'>366 : VACIO :           E1
+</font></p><p><font color='black'>367 : 81E1 </font><font color = 'blue'>1F</font><font color = 'red'>008001</font><font color = 'black'> :               BRCLR $00,X,#$80 E1<br />
+</font></p><p><font color='black'>368 : 81E5 </font><font color = 'blue'>F6</font><font color = 'red'>1031</font><font color = 'black'> :               LDAB ADR1
+</font></p><p><font color='black'>369 : 81E8 </font><font color = 'blue'>D7</font><font color = 'red'>13</font><font color = 'black'> :               STAB V1
+</font></p><p><font color='black'>370 : VACIO :               <br />
+</font></p><p><font color='black'>371 : 81EA </font><font color = 'blue'>86</font><font color = 'red'>80</font><font color = 'black'> :               LDAA #$80
+</font></p><p><font color='black'>372 : 81EC </font><font color = 'blue'>B7</font><font color = 'red'>1039</font><font color = 'black'> :               STAA OPTION        * PONE EN MARCHA EL ADC
+</font></p><p><font color='black'>373 : VACIO :             <br />
+</font></p><p><font color='black'>374 : 81EF </font><font color = 'blue'>86</font><font color = 'red'>11</font><font color = 'black'> :               LDAA #$11
+</font></p><p><font color='black'>375 : 81F1 </font><font color = 'blue'>B7</font><font color = 'red'>1030</font><font color = 'black'> :               STAA ADCTL         * ENTRADA MULTIPLE SELECCIONA CANAL 1
+</font></p><p><font color='black'>376 : VACIO :         <br />
+</font></p><p><font color='black'>377 : VACIO :           E2
+</font></p><p><font color='black'>1 : VACIO :           <strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong>*</strong>*
+</font></p><p><font color='black'>2 : VACIO :           *PROGRAMA DE EJEMPLO
+</font></p><p><font color='black'>3 : VACIO :           <strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong>*</strong>*
+</font></p><p><font color='black'>4 : VACIO :           PACTL  EQU   $1026
+</font></p><p><font color='black'>5 : VACIO :           PACNT  EQU   $1027
+</font></p><p><font color='black'>6 : VACIO :           ADCTL  EQU   $1030
+</font></p><p><font color='black'>7 : VACIO :           ADR1   EQU   $1031
+</font></p><p><font color='black'>8 : VACIO :           ADR2   EQU   $1032
+</font></p><p><font color='black'>9 : VACIO :           ADR3   EQU   $1033
+</font></p><p><font color='black'>10 : VACIO :           ADR4   EQU   $1034
+</font></p><p><font color='black'>11 : VACIO :           OPTION EQU   $1039
+</font></p><p><font color='black'>12 : VACIO :         <br />
+</font></p><p><font color='black'>13 : VACIO :           PORTA  EQU   $1000
+</font></p><p><font color='black'>14 : VACIO :           PORTD  EQU   $1008
+</font></p><p><font color='black'>15 : VACIO :           PORTE  EQU   $100A
+</font></p><p><font color='black'>16 : VACIO :           PORTG  EQU   $1002
+</font></p><p><font color='black'>17 : VACIO :         <br />
+</font></p><p><font color='black'>18 : VACIO :           DDRA   EQU   $1001
+</font></p><p><font color='black'>19 : VACIO :           DDRD   EQU   $1009
+</font></p><p><font color='black'>20 : VACIO :           DDRG   EQU   $1003
+</font></p><p><font color='black'>21 : VACIO :         <br />
+</font></p><p><font color='black'>22 : VACIO :           TMSK2  EQU   $1024
+</font></p><p><font color='black'>23 : VACIO :           TFLG2  EQU   $1025
+</font></p><p><font color='black'>24 : VACIO :         <br />
+</font></p><p><font color='black'>25 : VACIO :           SCDR   EQU   $102F
+</font></p><p><font color='black'>26 : VACIO :           SCCR2  EQU   $102D
+</font></p><p><font color='black'>27 : VACIO :           SCSR   EQU   $102E
+</font></p><p><font color='black'>28 : VACIO :           SCCR1  EQU   $102C
+</font></p><p><font color='black'>29 : VACIO :           BAUD   EQU   $102B
+</font></p><p><font color='black'>30 : VACIO :           HPRIO  EQU   $103C
+</font></p><p><font color='black'>31 : VACIO :           SPCR   EQU   $1028
+</font></p><p><font color='black'>32 : VACIO :           CSCTL  EQU   $105D
+</font></p><p><font color='black'>33 : VACIO :           OPT2   EQU   $1038
+</font></p><p><font color='black'>34 : VACIO :         <br />
+</font></p><p><font color='black'>35 : VACIO :           * VARIABLES <strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong>
+</font></p><p><font color='black'>36 : VACIO :         <br />
+</font></p><p><font color='black'>37 : VACIO :           ORDEN  EQU   $000C
+</font></p><p><font color='black'>38 : VACIO :           SEG    EQU   $000D
+</font></p><p><font color='black'>39 : VACIO :           U1     EQU   $000E
+</font></p><p><font color='black'>40 : VACIO :           U2     EQU   $000F
+</font></p><p><font color='black'>41 : VACIO :           U3     EQU   $0010
+</font></p><p><font color='black'>42 : VACIO :           U4     EQU   $0011
+</font></p><p><font color='black'>43 : VACIO :           U5     EQU   $0012
+</font></p><p><font color='black'>44 : VACIO :           V1     EQU   $0013
+</font></p><p><font color='black'>45 : VACIO :           V2     EQU   $0014
+</font></p><p><font color='black'>46 : VACIO :           BAS_H  EQU   $0015
+</font></p><p><font color='black'>47 : VACIO :           BAS_L  EQU   $0016
+</font></p><p><font color='black'>48 : VACIO :           V5     EQU   $0017
+</font></p><p><font color='black'>49 : VACIO :           TEMPO  EQU   $0018
+</font></p><p><font color='black'>50 : VACIO :           ALTO   EQU   $0019
+</font></p><p><font color='black'>51 : VACIO :           BAJO   EQU   $001A
+</font></p><p><font color='black'>52 : VACIO :           BASE_H EQU   $001B
+</font></p><p><font color='black'>53 : VACIO :           BASE_L EQU   $001C
+</font></p><p><font color='black'>54 : VACIO :           V3     EQU   $001D
+</font></p><p><font color='black'>55 : VACIO :           V4     EQU   $001E
+</font></p><p><font color='black'>56 : VACIO :         <br />
+</font></p><p><font color='black'>57 : VACIO :           <strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong>*</strong>*
+</font></p><p><font color='black'>58 : VACIO :           *CONFIGURA REGISTROS
+</font></p><p><font color='black'>59 : VACIO :           <strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong>*</strong>*
+</font></p><p><font color='black'>60 : VACIO :                  ORG   $8000   * DIR DE INICIO
+</font></p><p><font color='black'>61 : 8000 </font><font color = 'blue'>8E</font><font color = 'red'>03FF</font><font color = 'black'> :                LDS   #$03FF  * APUNTADOR DE STAK
+</font></p><p><font color='black'>62 : VACIO :         <br />
+</font></p><p><font color='black'>63 : VACIO :                        <br />
+</font></p><p><font color='black'>64 : 8003 </font><font color = 'blue'>86</font><font color = 'red'>00</font><font color = 'black'> :                LDAA  #$00    * CONFIG TODO EL PUERTO  A COMO ENTRADAS
+</font></p><p><font color='black'>65 : 8005 </font><font color = 'blue'>B7</font><font color = 'red'>1001</font><font color = 'black'> :                STAA  DDRA    * EL PUERTO A
+</font></p><p><font color='black'>66 : VACIO :                <br />
+</font></p><p><font color='black'>67 : 8008 </font><font color = 'blue'>86</font><font color = 'red'>FF</font><font color = 'black'> :                LDAA  #$FF    * CONFIG TODO EL PUERTO  G COMO SALIDAS
+</font></p><p><font color='black'>68 : 800A </font><font color = 'blue'>B7</font><font color = 'red'>1003</font><font color = 'black'> :                STAA  DDRG    * EL PUERTO G 
+</font></p><p><font color='black'>69 : VACIO :         <br />
+</font></p><p><font color='black'>70 : 800D </font><font color = 'blue'>86</font><font color = 'red'>00</font><font color = 'black'> :                LDAA  #$00    * SE PONE PUERTO G EN CEROS
+</font></p><p><font color='black'>71 : 800F </font><font color = 'blue'>B7</font><font color = 'red'>1002</font><font color = 'black'> :                STAA  PORTG
+</font></p><p><font color='black'>72 : VACIO :                <br />
+</font></p><p><font color='black'>73 : 8012 </font><font color = 'blue'>CC</font><font color = 'red'>302C</font><font color = 'black'> :                LDD   #$302C  * CONFIGURA PUERTO SERIAL
+</font></p><p><font color='black'>74 : 8015 </font><font color = 'blue'>B7</font><font color = 'red'>102B</font><font color = 'black'> :                STAA  BAUD    * BAUD  9600  para cristal de 8MHz
+</font></p><p><font color='black'>75 : 8018 </font><font color = 'blue'>F7</font><font color = 'red'>102D</font><font color = 'black'> :                STAB  SCCR2   * HABILITA  RX Y TX PERO INTERRUPCN SOLO RX
+</font></p><p><font color='black'>76 : 801B </font><font color = 'blue'>86</font><font color = 'red'>00</font><font color = 'black'> :                LDAA  #$00
+</font></p><p><font color='black'>77 : 801D </font><font color = 'blue'>B7</font><font color = 'red'>102C</font><font color = 'black'> :                STAA  SCCR1   * 8 BITS
+</font></p><p><font color='black'>78 : VACIO :         <br />
+</font></p><p><font color='black'>79 : 8020 </font><font color = 'blue'>86</font><font color = 'red'>FE</font><font color = 'black'> :                LDAA  #$FE    * CONFIG PUERTO D COMO SALIDAS (EXCEPTO PD0)
+</font></p><p><font color='black'>80 : 8022 </font><font color = 'blue'>B7</font><font color = 'red'>1009</font><font color = 'black'> :                STAA  DDRD    * SEA  ENABLE DEL DISPLAY  PD4  Y RS PD3
+</font></p><p><font color='black'>81 : VACIO :                              <br />
+</font></p><p><font color='black'>82 : VACIO :               <br />
+</font></p><p><font color='black'>83 : 8025 </font><font color = 'blue'>86</font><font color = 'red'>04</font><font color = 'black'> :                LDAA  #$04
+</font></p><p><font color='black'>84 : 8027 </font><font color = 'blue'>B7</font><font color = 'red'>103C</font><font color = 'black'> :                STAA  HPRIO
+</font></p><p><font color='black'>85 : VACIO :         <br />
+</font></p><p><font color='black'>86 : 802A </font><font color = 'blue'>86</font><font color = 'red'>00</font><font color = 'black'> :                LDAA  #$00
+</font></p><p><font color='black'>87 : 802C </font><font color = 'blue'>06</font><font color = 'red'></font><font color = 'black'> :                TAP
+</font></p><p><font color='black'>88 : VACIO :         <br />
+</font></p><p><font color='black'>89 : VACIO :         <br />
+</font></p><p><font color='black'>90 : VACIO :         <br />
+</font></p><p><font color='black'>91 : VACIO :                <br />
+</font></p><p><font color='black'>92 : VACIO :         <br />
+</font></p><p><font color='black'>93 : VACIO :         <br />
+</font></p><p><font color='black'>94 : VACIO :         <br />
+</font></p><p><font color='black'>95 : VACIO :           <strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong>*</strong>*
+</font></p><p><font color='black'>96 : VACIO :           *PROGRAMA PRINCIPAL
+</font></p><p><font color='black'>97 : VACIO :           <strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong>*</strong>*
+</font></p><p><font color='black'>98 : VACIO :           MAIN <br />
+</font></p><p><font color='black'>99 : 802D </font><font color = 'blue'>BD</font><font color = 'red'>809F</font><font color = 'black'> :                JSR   INICIA
+</font></p><p><font color='black'>100 : 8030 </font><font color = 'blue'>86</font><font color = 'red'>3F</font><font color = 'black'> :                LDAA  #$3F
+</font></p><p><font color='black'>101 : 8032 </font><font color = 'blue'>97</font><font color = 'red'>0C</font><font color = 'black'> :                STAA  ORDEN         * CARGO UN (?) en 000A
+</font></p><p><font color='black'>102 : VACIO :         <br />
+</font></p><p><font color='black'>103 : VACIO :                <br />
+</font></p><p><font color='black'>104 : VACIO :           CICLO
+</font></p><p><font color='black'>105 : 8034 </font><font color = 'blue'>96</font><font color = 'red'>0D</font><font color = 'black'> :                LDAA  SEG
+</font></p><p><font color='black'>106 : 8036 </font><font color = 'blue'>27</font><font color = 'red'>03</font><font color = 'black'> :                BEQ   CICLO 
+</font></p><p><font color='black'>107 : 8038 </font><font color = 'blue'>7F</font><font color = 'red'>000D</font><font color = 'black'> :                CLR   SEG
+</font></p><p><font color='black'>108 : VACIO :                <br />
+</font></p><p><font color='black'>109 : 803B </font><font color = 'blue'>B6</font><font color = 'red'>1027</font><font color = 'black'> :                LDAA  PACNT
+</font></p><p><font color='black'>110 : 803E </font><font color = 'blue'>97</font><font color = 'red'>17</font><font color = 'black'> :                STAA  V5
+</font></p><p><font color='black'>111 : 8040 </font><font color = 'blue'>7F</font><font color = 'red'>1027</font><font color = 'black'> :                CLR   PACNT
+</font></p><p><font color='black'>112 : VACIO :         <br />
+</font></p><p><font color='black'>113 : VACIO :                <br />
+</font></p><p><font color='black'>114 : 8043 </font><font color = 'blue'>BD</font><font color = 'red'>81B8</font><font color = 'black'> :                JSR   DATARX        * DESPLIEGA DATO TRANSMITIDO
+</font></p><p><font color='black'>115 : 8046 </font><font color = 'blue'>1809</font><font color = 'red'></font><font color = 'black'> :                DEY
+</font></p><p><font color='black'>116 : 8048 </font><font color = 'blue'>188F</font><font color = 'red'></font><font color = 'black'> :                XGDY 
+</font></p><p><font color='black'>117 : 804A </font><font color = 'blue'>97</font><font color = 'red'>19</font><font color = 'black'> :                STAA  ALTO
+</font></p><p><font color='black'>118 : 804C </font><font color = 'blue'>D7</font><font color = 'red'>1A</font><font color = 'black'> :                STAB  BAJO
+</font></p><p><font color='black'>119 : 804E </font><font color = 'blue'>188F</font><font color = 'red'></font><font color = 'black'> :                XGDY
+</font></p><p><font color='black'>120 : 8050 </font><font color = 'blue'>96</font><font color = 'red'>19</font><font color = 'black'> :                LDAA  ALTO
+</font></p><p><font color='black'>121 : 8052 </font><font color = 'blue'>D6</font><font color = 'red'>1A</font><font color = 'black'> :                LDAB  BAJO
+</font></p><p><font color='black'>122 : 8054 </font><font color = 'blue'>BD</font><font color = 'red'>821A</font><font color = 'black'> :                JSR   BINBCD
+</font></p><p><font color='black'>123 : 8057 </font><font color = 'blue'>BD</font><font color = 'red'>814F</font><font color = 'black'> :                JSR   DISPLAY
+</font></p><p><font color='black'>124 : 805A </font><font color = 'blue'>BD</font><font color = 'red'>813F</font><font color = 'black'> :                JSR   COMA
+</font></p><p><font color='black'>125 : 805D </font><font color = 'blue'>BD</font><font color = 'red'>81D4</font><font color = 'black'> :                JSR   VOLTA
+</font></p><p><font color='black'>126 : VACIO :                <br />
+</font></p><p><font color='black'>127 : 8060 </font><font color = 'blue'>4F</font><font color = 'red'></font><font color = 'black'> :                CLRA
+</font></p><p><font color='black'>128 : 8061 </font><font color = 'blue'>D6</font><font color = 'red'>13</font><font color = 'black'> :                LDAB  V1
+</font></p><p><font color='black'>129 : 8063 </font><font color = 'blue'>BD</font><font color = 'red'>822A</font><font color = 'black'> :                JSR   BNBCD
+</font></p><p><font color='black'>130 : 8066 </font><font color = 'blue'>BD</font><font color = 'red'>816E</font><font color = 'black'> :                JSR   DSPLY
+</font></p><p><font color='black'>131 : 8069 </font><font color = 'blue'>BD</font><font color = 'red'>813F</font><font color = 'black'> :                JSR   COMA
+</font></p><p><font color='black'>132 : VACIO :         <br />
+</font></p><p><font color='black'>133 : 806C </font><font color = 'blue'>4F</font><font color = 'red'></font><font color = 'black'> :                CLRA
+</font></p><p><font color='black'>134 : 806D </font><font color = 'blue'>D6</font><font color = 'red'>14</font><font color = 'black'> :                LDAB  V2
+</font></p><p><font color='black'>135 : 806F </font><font color = 'blue'>BD</font><font color = 'red'>822A</font><font color = 'black'> :                JSR   BNBCD
+</font></p><p><font color='black'>136 : 8072 </font><font color = 'blue'>BD</font><font color = 'red'>816E</font><font color = 'black'> :                JSR   DSPLY
+</font></p><p><font color='black'>137 : 8075 </font><font color = 'blue'>BD</font><font color = 'red'>813F</font><font color = 'black'> :                JSR   COMA
+</font></p><p><font color='black'>138 : VACIO :         <br />
+</font></p><p><font color='black'>139 : 8078 </font><font color = 'blue'>4F</font><font color = 'red'></font><font color = 'black'> :                CLRA
+</font></p><p><font color='black'>140 : 8079 </font><font color = 'blue'>D6</font><font color = 'red'>1D</font><font color = 'black'> :                LDAB  V3
+</font></p><p><font color='black'>141 : 807B </font><font color = 'blue'>BD</font><font color = 'red'>822A</font><font color = 'black'> :                JSR   BNBCD
+</font></p><p><font color='black'>142 : 807E </font><font color = 'blue'>BD</font><font color = 'red'>816E</font><font color = 'black'> :                JSR   DSPLY
+</font></p><p><font color='black'>143 : 8081 </font><font color = 'blue'>BD</font><font color = 'red'>813F</font><font color = 'black'> :                JSR   COMA
+</font></p><p><font color='black'>144 : VACIO :         <br />
+</font></p><p><font color='black'>145 : 8084 </font><font color = 'blue'>4F</font><font color = 'red'></font><font color = 'black'> :                CLRA
+</font></p><p><font color='black'>146 : 8085 </font><font color = 'blue'>D6</font><font color = 'red'>1E</font><font color = 'black'> :                LDAB  V4
+</font></p><p><font color='black'>147 : 8087 </font><font color = 'blue'>BD</font><font color = 'red'>822A</font><font color = 'black'> :                JSR   BNBCD
+</font></p><p><font color='black'>148 : 808A </font><font color = 'blue'>BD</font><font color = 'red'>816E</font><font color = 'black'> :                JSR   DSPLY
+</font></p><p><font color='black'>149 : 808D </font><font color = 'blue'>BD</font><font color = 'red'>813F</font><font color = 'black'> :                JSR   COMA
+</font></p><p><font color='black'>150 : VACIO :          <br />
+</font></p><p><font color='black'>151 : 8090 </font><font color = 'blue'>4F</font><font color = 'red'></font><font color = 'black'> :                CLRA
+</font></p><p><font color='black'>152 : 8091 </font><font color = 'blue'>D6</font><font color = 'red'>17</font><font color = 'black'> :                LDAB  V5
+</font></p><p><font color='black'>153 : 8093 </font><font color = 'blue'>BD</font><font color = 'red'>822A</font><font color = 'black'> :                JSR   BNBCD
+</font></p><p><font color='black'>154 : 8096 </font><font color = 'blue'>BD</font><font color = 'red'>816E</font><font color = 'black'> :                JSR   DSPLY
+</font></p><p><font color='black'>155 : VACIO :                <br />
+</font></p><p><font color='black'>156 : 8099 </font><font color = 'blue'>BD</font><font color = 'red'>819C</font><font color = 'black'> :                JSR   CRYTRN
+</font></p><p><font color='black'>157 : VACIO :             <br />
+</font></p><p><font color='black'>158 : 809C </font><font color = 'blue'>7E</font><font color = 'red'>8034</font><font color = 'black'> :                JMP   CICLO
+</font></p><p><font color='black'>159 : VACIO :         <br />
+</font></p><p><font color='black'>160 : VACIO :         <br />
+</font></p><p><font color='black'>161 : VACIO :           <strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong>
+</font></p><p><font color='black'>162 : VACIO :           * INICIA
+</font></p><p><font color='black'>163 : VACIO :           <strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong>
+</font></p><p><font color='black'>164 : VACIO :           INICIA
+</font></p><p><font color='black'>165 : VACIO :              <br />
+</font></p><p><font color='black'>166 : 809F </font><font color = 'blue'>7F</font><font color = 'red'>000D</font><font color = 'black'> :               CLR  SEG
+</font></p><p><font color='black'>167 : VACIO :         <br />
+</font></p><p><font color='black'>168 : 80A2 </font><font color = 'blue'>7F</font><font color = 'red'>1002</font><font color = 'black'> :               CLR  PORTG
+</font></p><p><font color='black'>169 : 80A5 </font><font color = 'blue'>86</font><font color = 'red'>F4</font><font color = 'black'> :               LDAA #$F4       <br />
+</font></p><p><font color='black'>170 : 80A7 </font><font color = 'blue'>97</font><font color = 'red'>18</font><font color = 'black'> :               STAA TEMPO         * TEMPO ES VARIABLE PARA CONTAR 244 CICLOS
+</font></p><p><font color='black'>171 : VACIO :         <br />
+</font></p><p><font color='black'>172 : 80A9 </font><font color = 'blue'>CE</font><font color = 'red'>1024</font><font color = 'black'> :               LDX #TMSK2
+</font></p><p><font color='black'>173 : 80AC </font><font color = 'blue'>1C</font><font color = 'red'>0040</font><font color = 'black'> :               BSET $00,X,#$40    * HABILITA INTERRUPCION TIMER T-REAL
+</font></p><p><font color='black'>174 : 80AF </font><font color = 'blue'>0E</font><font color = 'red'></font><font color = 'black'> :               CLI
+</font></p><p><font color='black'>175 : VACIO :         <br />
+</font></p><p><font color='black'>176 : 80B0 </font><font color = 'blue'>CE</font><font color = 'red'>1026</font><font color = 'black'> :               LDX #PACTL
+</font></p><p><font color='black'>177 : 80B3 </font><font color = 'blue'>1C</font><font color = 'red'>0050</font><font color = 'black'> :               BSET $00,X,#$50    * HABILITA PAEN -ACUMULADOR PULSOS ALTOS-
+</font></p><p><font color='black'>178 : 80B6 </font><font color = 'blue'>7F</font><font color = 'red'>1027</font><font color = 'black'> :               CLR PACNT          * BORRA ACUMULADOR DE PULSOS
+</font></p><p><font color='black'>179 : VACIO :         <br />
+</font></p><p><font color='black'>180 : 80B9 </font><font color = 'blue'>86</font><font color = 'red'>10</font><font color = 'black'> :               LDAA #$10
+</font></p><p><font color='black'>181 : 80BB </font><font color = 'blue'>97</font><font color = 'red'>1B</font><font color = 'black'> :               STAA BASE_H        * PONE UN #1060 COMO DIRECCION BASE INICIAL
+</font></p><p><font color='black'>182 : 80BD </font><font color = 'blue'>86</font><font color = 'red'>60</font><font color = 'black'> :               LDAA #$60
+</font></p><p><font color='black'>183 : 80BF </font><font color = 'blue'>97</font><font color = 'red'>1C</font><font color = 'black'> :               STAA BASE_L  <br />
+</font></p><p><font color='black'>184 : VACIO :               <br />
+</font></p><p><font color='black'>185 : 80C1 </font><font color = 'blue'>18CE</font><font color = 'red'>1060</font><font color = 'black'> :               LDY  #$1060    <br />
+</font></p><p><font color='black'>186 : VACIO :               <br />
+</font></p><p><font color='black'>187 : 80C5 </font><font color = 'blue'>86</font><font color = 'red'>16</font><font color = 'black'> :               LDAA #$16
+</font></p><p><font color='black'>188 : 80C7 </font><font color = 'blue'>97</font><font color = 'red'>15</font><font color = 'black'> :               STAA BAS_H        * PONE UN #1653 NUMERO TOTAL DE JUEGO DE MUESTRAS
+</font></p><p><font color='black'>189 : 80C9 </font><font color = 'blue'>86</font><font color = 'red'>53</font><font color = 'black'> :               LDAA #$53
+</font></p><p><font color='black'>190 : 80CB </font><font color = 'blue'>97</font><font color = 'red'>16</font><font color = 'black'> :               STAA BAS_L <br />
+</font></p><p><font color='black'>191 : VACIO :         <br />
+</font></p><p><font color='black'>192 : VACIO :         <br />
+</font></p><p><font color='black'>193 : 80CD </font><font color = 'blue'>7F</font><font color = 'red'>0019</font><font color = 'black'> :               CLR  ALTO          * INICIA INDICE MUESTRA EN 0
+</font></p><p><font color='black'>194 : 80D0 </font><font color = 'blue'>7F</font><font color = 'red'>001A</font><font color = 'black'> :               CLR  BAJO
+</font></p><p><font color='black'>195 : VACIO :         <br />
+</font></p><p><font color='black'>196 : 80D3 </font><font color = 'blue'>39</font><font color = 'red'></font><font color = 'black'> :                RTS
+</font></p><p><font color='black'>197 : VACIO :           <strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong>
+</font></p><p><font color='black'>198 : VACIO :           * SACA
+</font></p><p><font color='black'>199 : VACIO :           <strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong>
+</font></p><p><font color='black'>200 : VACIO :           SACA
+</font></p><p><font color='black'>201 : VACIO :                     <br />
+</font></p><p><font color='black'>202 : VACIO :                <br />
+</font></p><p><font color='black'>203 : 80D4 </font><font color = 'blue'>96</font><font color = 'red'>19</font><font color = 'black'> :                LDAA  ALTO         * INDICE DE MUESTRA (SEGUNDO)
+</font></p><p><font color='black'>204 : 80D6 </font><font color = 'blue'>D6</font><font color = 'red'>1A</font><font color = 'black'> :                LDAB  BAJO
+</font></p><p><font color='black'>205 : 80D8 </font><font color = 'blue'>188F</font><font color = 'red'></font><font color = 'black'> :                XGDY
+</font></p><p><font color='black'>206 : 80DA </font><font color = 'blue'>1808</font><font color = 'red'></font><font color = 'black'> :                INY
+</font></p><p><font color='black'>207 : 80DC </font><font color = 'blue'>188F</font><font color = 'red'></font><font color = 'black'> :                XGDY
+</font></p><p><font color='black'>208 : 80DE </font><font color = 'blue'>BD</font><font color = 'red'>821A</font><font color = 'black'> :                JSR   BINBCD
+</font></p><p><font color='black'>209 : 80E1 </font><font color = 'blue'>BD</font><font color = 'red'>814F</font><font color = 'black'> :                JSR   DISPLAY
+</font></p><p><font color='black'>210 : 80E4 </font><font color = 'blue'>BD</font><font color = 'red'>813F</font><font color = 'black'> :                JSR   COMA
+</font></p><p><font color='black'>211 : VACIO :          <br />
+</font></p><p><font color='black'>212 : 80E7 </font><font color = 'blue'>96</font><font color = 'red'>1B</font><font color = 'black'> :                LDAA  BASE_H       * INDICE DE MUESTRA (PARTICULAR)
+</font></p><p><font color='black'>213 : 80E9 </font><font color = 'blue'>D6</font><font color = 'red'>1C</font><font color = 'black'> :                LDAB  BASE_L
+</font></p><p><font color='black'>214 : 80EB </font><font color = 'blue'>188F</font><font color = 'red'></font><font color = 'black'> :                XGDY
+</font></p><p><font color='black'>215 : VACIO :                <br />
+</font></p><p><font color='black'>216 : 80ED </font><font color = 'blue'>1808</font><font color = 'red'></font><font color = 'black'> :                INY
+</font></p><p><font color='black'>217 : 80EF </font><font color = 'blue'>4F</font><font color = 'red'></font><font color = 'black'> :                CLRA
+</font></p><p><font color='black'>218 : 80F0 </font><font color = 'blue'>18E6</font><font color = 'red'>00</font><font color = 'black'> :                LDAB  $00,Y<br />
+</font></p><p><font color='black'>219 : 80F3 </font><font color = 'blue'>BD</font><font color = 'red'>822A</font><font color = 'black'> :                JSR   BNBCD
+</font></p><p><font color='black'>220 : 80F6 </font><font color = 'blue'>BD</font><font color = 'red'>816E</font><font color = 'black'> :                JSR   DSPLY
+</font></p><p><font color='black'>221 : 80F9 </font><font color = 'blue'>BD</font><font color = 'red'>813F</font><font color = 'black'> :                JSR   COMA
+</font></p><p><font color='black'>222 : VACIO :         <br />
+</font></p><p><font color='black'>223 : 80FC </font><font color = 'blue'>1808</font><font color = 'red'></font><font color = 'black'> :                INY
+</font></p><p><font color='black'>224 : 80FE </font><font color = 'blue'>4F</font><font color = 'red'></font><font color = 'black'> :                CLRA
+</font></p><p><font color='black'>225 : 80FF </font><font color = 'blue'>18E6</font><font color = 'red'>00</font><font color = 'black'> :                LDAB  $00,Y
+</font></p><p><font color='black'>226 : 8102 </font><font color = 'blue'>BD</font><font color = 'red'>822A</font><font color = 'black'> :                JSR   BNBCD
+</font></p><p><font color='black'>227 : 8105 </font><font color = 'blue'>BD</font><font color = 'red'>816E</font><font color = 'black'> :                JSR   DSPLY
+</font></p><p><font color='black'>228 : 8108 </font><font color = 'blue'>BD</font><font color = 'red'>813F</font><font color = 'black'> :                JSR   COMA
+</font></p><p><font color='black'>229 : VACIO :         <br />
+</font></p><p><font color='black'>230 : 810B </font><font color = 'blue'>1808</font><font color = 'red'></font><font color = 'black'> :                INY
+</font></p><p><font color='black'>231 : 810D </font><font color = 'blue'>4F</font><font color = 'red'></font><font color = 'black'> :                CLRA
+</font></p><p><font color='black'>232 : 810E </font><font color = 'blue'>18E6</font><font color = 'red'>00</font><font color = 'black'> :                LDAB  $00,Y
+</font></p><p><font color='black'>233 : 8111 </font><font color = 'blue'>BD</font><font color = 'red'>822A</font><font color = 'black'> :                JSR   BNBCD
+</font></p><p><font color='black'>234 : 8114 </font><font color = 'blue'>BD</font><font color = 'red'>816E</font><font color = 'black'> :                JSR   DSPLY
+</font></p><p><font color='black'>235 : 8117 </font><font color = 'blue'>BD</font><font color = 'red'>813F</font><font color = 'black'> :                JSR   COMA
+</font></p><p><font color='black'>236 : VACIO :         <br />
+</font></p><p><font color='black'>237 : 811A </font><font color = 'blue'>1808</font><font color = 'red'></font><font color = 'black'> :                INY
+</font></p><p><font color='black'>238 : 811C </font><font color = 'blue'>4F</font><font color = 'red'></font><font color = 'black'> :                CLRA
+</font></p><p><font color='black'>239 : 811D </font><font color = 'blue'>18E6</font><font color = 'red'>00</font><font color = 'black'> :                LDAB  $00,Y
+</font></p><p><font color='black'>240 : 8120 </font><font color = 'blue'>BD</font><font color = 'red'>822A</font><font color = 'black'> :                JSR   BNBCD
+</font></p><p><font color='black'>241 : 8123 </font><font color = 'blue'>BD</font><font color = 'red'>816E</font><font color = 'black'> :                JSR   DSPLY
+</font></p><p><font color='black'>242 : 8126 </font><font color = 'blue'>BD</font><font color = 'red'>813F</font><font color = 'black'> :                JSR   COMA
+</font></p><p><font color='black'>243 : VACIO :          <br />
+</font></p><p><font color='black'>244 : 8129 </font><font color = 'blue'>1808</font><font color = 'red'></font><font color = 'black'> :                INY
+</font></p><p><font color='black'>245 : 812B </font><font color = 'blue'>4F</font><font color = 'red'></font><font color = 'black'> :                CLRA 
+</font></p><p><font color='black'>246 : 812C </font><font color = 'blue'>18E6</font><font color = 'red'>00</font><font color = 'black'> :                LDAB  $00,Y
+</font></p><p><font color='black'>247 : 812F </font><font color = 'blue'>BD</font><font color = 'red'>822A</font><font color = 'black'> :                JSR   BNBCD
+</font></p><p><font color='black'>248 : 8132 </font><font color = 'blue'>BD</font><font color = 'red'>816E</font><font color = 'black'> :                JSR   DSPLY
+</font></p><p><font color='black'>249 : VACIO :                <br />
+</font></p><p><font color='black'>250 : 8135 </font><font color = 'blue'>188F</font><font color = 'red'></font><font color = 'black'> :                XGDY
+</font></p><p><font color='black'>251 : 8137 </font><font color = 'blue'>97</font><font color = 'red'>1B</font><font color = 'black'> :                STAA BASE_H
+</font></p><p><font color='black'>252 : 8139 </font><font color = 'blue'>D7</font><font color = 'red'>1C</font><font color = 'black'> :                STAB BASE_L
+</font></p><p><font color='black'>253 : VACIO :         <br />
+</font></p><p><font color='black'>254 : 813B </font><font color = 'blue'>BD</font><font color = 'red'>819C</font><font color = 'black'> :                JSR   CRYTRN
+</font></p><p><font color='black'>255 : VACIO :         <br />
+</font></p><p><font color='black'>256 : 813E </font><font color = 'blue'>39</font><font color = 'red'></font><font color = 'black'> :                RTS
+</font></p><p><font color='black'>257 : VACIO :           <strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong>
+</font></p><p><font color='black'>258 : VACIO :           * COMA
+</font></p><p><font color='black'>259 : VACIO :           <strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong>
+</font></p><p><font color='black'>260 : VACIO :           COMA
+</font></p><p><font color='black'>261 : 813F </font><font color = 'blue'>CE</font><font color = 'red'>102E</font><font color = 'black'> :                LDX   #SCSR 
+</font></p><p><font color='black'>262 : VACIO :                <br />
+</font></p><p><font color='black'>263 : 8142 </font><font color = 'blue'>B6</font><font color = 'red'>102E</font><font color = 'black'> :                LDAA  SCSR
+</font></p><p><font color='black'>264 : 8145 </font><font color = 'blue'>86</font><font color = 'red'>2C</font><font color = 'black'> :                LDAA  #$2C             * COMA
+</font></p><p><font color='black'>265 : 8147 </font><font color = 'blue'>B7</font><font color = 'red'>102F</font><font color = 'black'> :                STAA  SCDR
+</font></p><p><font color='black'>266 : VACIO :           C1
+</font></p><p><font color='black'>267 : 814A </font><font color = 'blue'>1F</font><font color = 'red'>008001</font><font color = 'black'> :                BRCLR $00,X,#$80 C1 
+</font></p><p><font color='black'>268 : 814E </font><font color = 'blue'>39</font><font color = 'red'></font><font color = 'black'> :                RTS
+</font></p><p><font color='black'>269 : VACIO :           <strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong>
+</font></p><p><font color='black'>270 : VACIO :           * DESPLIEGA
+</font></p><p><font color='black'>271 : VACIO :           <strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong>
+</font></p><p><font color='black'>272 : VACIO :           DISPLAY
+</font></p><p><font color='black'>273 : VACIO :                <br />
+</font></p><p><font color='black'>274 : 814F </font><font color = 'blue'>CE</font><font color = 'red'>102E</font><font color = 'black'> :                LDX   #SCSR 
+</font></p><p><font color='black'>275 : VACIO :                <br />
+</font></p><p><font color='black'>276 : 8152 </font><font color = 'blue'>B6</font><font color = 'red'>102E</font><font color = 'black'> :                LDAA  SCSR
+</font></p><p><font color='black'>277 : 8155 </font><font color = 'blue'>96</font><font color = 'red'>0E</font><font color = 'black'> :                LDAA  U1             * U1
+</font></p><p><font color='black'>278 : 8157 </font><font color = 'blue'>8B</font><font color = 'red'>30</font><font color = 'black'> :                ADDA  #$30
+</font></p><p><font color='black'>279 : 8159 </font><font color = 'blue'>B7</font><font color = 'red'>102F</font><font color = 'black'> :                STAA  SCDR
+</font></p><p><font color='black'>280 : VACIO :           T1
+</font></p><p><font color='black'>281 : 815C </font><font color = 'blue'>1F</font><font color = 'red'>008001</font><font color = 'black'> :                BRCLR $00,X,#$80 T1 
+</font></p><p><font color='black'>282 : VACIO :               <br />
+</font></p><p><font color='black'>283 : 8160 </font><font color = 'blue'>B6</font><font color = 'red'>102E</font><font color = 'black'> :                LDAA  SCSR
+</font></p><p><font color='black'>284 : 8163 </font><font color = 'blue'>96</font><font color = 'red'>0F</font><font color = 'black'> :                LDAA  U2             * U2
+</font></p><p><font color='black'>285 : 8165 </font><font color = 'blue'>8B</font><font color = 'red'>30</font><font color = 'black'> :                ADDA  #$30
+</font></p><p><font color='black'>286 : 8167 </font><font color = 'blue'>B7</font><font color = 'red'>102F</font><font color = 'black'> :                STAA  SCDR
+</font></p><p><font color='black'>287 : VACIO :           T2
+</font></p><p><font color='black'>288 : 816A </font><font color = 'blue'>1F</font><font color = 'red'>008001</font><font color = 'black'> :                BRCLR $00,X,#$80 T2 
+</font></p><p><font color='black'>289 : VACIO :         <br />
+</font></p><p><font color='black'>290 : VACIO :           DSPLY<br />
+</font></p><p><font color='black'>291 : 816E </font><font color = 'blue'>CE</font><font color = 'red'>102E</font><font color = 'black'> :                LDX   #SCSR
+</font></p><p><font color='black'>292 : VACIO :             <br />
+</font></p><p><font color='black'>293 : 8171 </font><font color = 'blue'>B6</font><font color = 'red'>102E</font><font color = 'black'> :                LDAA SCSR
+</font></p><p><font color='black'>294 : 8174 </font><font color = 'blue'>96</font><font color = 'red'>10</font><font color = 'black'> :                LDAA  U3             * U3
+</font></p><p><font color='black'>295 : 8176 </font><font color = 'blue'>8B</font><font color = 'red'>30</font><font color = 'black'> :                ADDA  #$30
+</font></p><p><font color='black'>296 : 8178 </font><font color = 'blue'>B7</font><font color = 'red'>102F</font><font color = 'black'> :                STAA  SCDR
+</font></p><p><font color='black'>297 : VACIO :           T3
+</font></p><p><font color='black'>298 : 817B </font><font color = 'blue'>1F</font><font color = 'red'>008001</font><font color = 'black'> :                BRCLR $00,X,#$80 T3 
+</font></p><p><font color='black'>299 : VACIO :               <br />
+</font></p><p><font color='black'>300 : 817F </font><font color = 'blue'>B6</font><font color = 'red'>102E</font><font color = 'black'> :                LDAA SCSR 
+</font></p><p><font color='black'>301 : 8182 </font><font color = 'blue'>96</font><font color = 'red'>11</font><font color = 'black'> :                LDAA  U4             * U4
+</font></p><p><font color='black'>302 : 8184 </font><font color = 'blue'>8B</font><font color = 'red'>30</font><font color = 'black'> :                ADDA  #$30
+</font></p><p><font color='black'>303 : 8186 </font><font color = 'blue'>B7</font><font color = 'red'>102F</font><font color = 'black'> :                STAA  SCDR
+</font></p><p><font color='black'>304 : VACIO :           T4
+</font></p><p><font color='black'>305 : 8189 </font><font color = 'blue'>1F</font><font color = 'red'>008001</font><font color = 'black'> :                BRCLR $00,X,#$80 T4 
+</font></p><p><font color='black'>306 : VACIO :            <br />
+</font></p><p><font color='black'>307 : 818D </font><font color = 'blue'>B6</font><font color = 'red'>102E</font><font color = 'black'> :                LDAA SCSR
+</font></p><p><font color='black'>308 : 8190 </font><font color = 'blue'>96</font><font color = 'red'>12</font><font color = 'black'> :                LDAA  U5             * U5
+</font></p><p><font color='black'>309 : 8192 </font><font color = 'blue'>8B</font><font color = 'red'>30</font><font color = 'black'> :                ADDA  #$30
+</font></p><p><font color='black'>310 : 8194 </font><font color = 'blue'>B7</font><font color = 'red'>102F</font><font color = 'black'> :                STAA  SCDR
+</font></p><p><font color='black'>311 : VACIO :           T5
+</font></p><p><font color='black'>312 : 8197 </font><font color = 'blue'>1F</font><font color = 'red'>008001</font><font color = 'black'> :                BRCLR $00,X,#$80 T5<br />
+</font></p><p><font color='black'>313 : VACIO :                <br />
+</font></p><p><font color='black'>314 : 819B </font><font color = 'blue'>39</font><font color = 'red'></font><font color = 'black'> :                RTS
+</font></p><p><font color='black'>315 : VACIO :         <br />
+</font></p><p><font color='black'>316 : VACIO :           <strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong>
+</font></p><p><font color='black'>317 : VACIO :           * CARRY RETURN
+</font></p><p><font color='black'>318 : VACIO :           <strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong>
+</font></p><p><font color='black'>319 : VACIO :         <br />
+</font></p><p><font color='black'>320 : VACIO :           CRYTRN
+</font></p><p><font color='black'>321 : 819C </font><font color = 'blue'>CE</font><font color = 'red'>102E</font><font color = 'black'> :                LDX   #SCSR 
+</font></p><p><font color='black'>322 : 819F </font><font color = 'blue'>B6</font><font color = 'red'>102E</font><font color = 'black'> :                LDAA  SCSR
+</font></p><p><font color='black'>323 : 81A2 </font><font color = 'blue'>86</font><font color = 'red'>0A</font><font color = 'black'> :                LDAA  #$0A             * NEW LINE   <br />
+</font></p><p><font color='black'>324 : 81A4 </font><font color = 'blue'>B7</font><font color = 'red'>102F</font><font color = 'black'> :                STAA  SCDR
+</font></p><p><font color='black'>325 : VACIO :           CR1
+</font></p><p><font color='black'>326 : 81A7 </font><font color = 'blue'>1F</font><font color = 'red'>008001</font><font color = 'black'> :                BRCLR $00,X,#$80 CR1      <br />
+</font></p><p><font color='black'>327 : VACIO :         <br />
+</font></p><p><font color='black'>328 : 81AB </font><font color = 'blue'>B6</font><font color = 'red'>102E</font><font color = 'black'> :                LDAA SCSR
+</font></p><p><font color='black'>329 : 81AE </font><font color = 'blue'>86</font><font color = 'red'>0D</font><font color = 'black'> :                LDAA #$0D              * CARRY RETURN   <br />
+</font></p><p><font color='black'>330 : 81B0 </font><font color = 'blue'>B7</font><font color = 'red'>102F</font><font color = 'black'> :                STAA SCDR
+</font></p><p><font color='black'>331 : VACIO :           CR2
+</font></p><p><font color='black'>332 : 81B3 </font><font color = 'blue'>1F</font><font color = 'red'>008001</font><font color = 'black'> :                BRCLR $00,X,#$80 CR2      <br />
+</font></p><p><font color='black'>333 : VACIO :         <br />
+</font></p><p><font color='black'>334 : 81B7 </font><font color = 'blue'>39</font><font color = 'red'></font><font color = 'black'> :                RTS
+</font></p><p><font color='black'>335 : VACIO :           <strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong>
+</font></p><p><font color='black'>336 : VACIO :           *  DESPLIEGUE DE DATO RECIBIDO
+</font></p><p><font color='black'>337 : VACIO :           <strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong>
+</font></p><p><font color='black'>338 : VACIO :         <br />
+</font></p><p><font color='black'>339 : VACIO :           DATARX
+</font></p><p><font color='black'>340 : 81B8 </font><font color = 'blue'>CE</font><font color = 'red'>102E</font><font color = 'black'> :                LDX   #SCSR 
+</font></p><p><font color='black'>341 : 81BB </font><font color = 'blue'>B6</font><font color = 'red'>102E</font><font color = 'black'> :                LDAA  SCSR
+</font></p><p><font color='black'>342 : 81BE </font><font color = 'blue'>96</font><font color = 'red'>0C</font><font color = 'black'> :                LDAA  ORDEN             * NEW LINE   <br />
+</font></p><p><font color='black'>343 : 81C0 </font><font color = 'blue'>B7</font><font color = 'red'>102F</font><font color = 'black'> :                STAA  SCDR
+</font></p><p><font color='black'>344 : VACIO :           DT1
+</font></p><p><font color='black'>345 : 81C3 </font><font color = 'blue'>1F</font><font color = 'red'>008001</font><font color = 'black'> :                BRCLR $00,X,#$80 DT1      <br />
+</font></p><p><font color='black'>346 : VACIO :         <br />
+</font></p><p><font color='black'>347 : 81C7 </font><font color = 'blue'>B6</font><font color = 'red'>102E</font><font color = 'black'> :                LDAA SCSR 
+</font></p><p><font color='black'>348 : 81CA </font><font color = 'blue'>86</font><font color = 'red'>3A</font><font color = 'black'> :                LDAA #$3A              * DOS PUNTOS  <br />
+</font></p><p><font color='black'>349 : 81CC </font><font color = 'blue'>B7</font><font color = 'red'>102F</font><font color = 'black'> :                STAA SCDR
+</font></p><p><font color='black'>350 : VACIO :           DT2
+</font></p><p><font color='black'>351 : 81CF </font><font color = 'blue'>1F</font><font color = 'red'>008001</font><font color = 'black'> :                BRCLR $00,X,#$80 DT2      <br />
+</font></p><p><font color='black'>352 : VACIO :         <br />
+</font></p><p><font color='black'>353 : 81D3 </font><font color = 'blue'>39</font><font color = 'red'></font><font color = 'black'> :                RTS
+</font></p><p><font color='black'>354 : VACIO :           <strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong>
+</font></p><p><font color='black'>355 : VACIO :           * voltimetro
+</font></p><p><font color='black'>356 : VACIO :           <strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong>
+</font></p><p><font color='black'>357 : VACIO :           VOLTA
+</font></p><p><font color='black'>358 : 81D4 </font><font color = 'blue'>CE</font><font color = 'red'>1030</font><font color = 'black'> :               LDX #ADCTL    <br />
+</font></p><p><font color='black'>359 : VACIO :         <br />
+</font></p><p><font color='black'>360 : 81D7 </font><font color = 'blue'>86</font><font color = 'red'>80</font><font color = 'black'> :               LDAA #$80
+</font></p><p><font color='black'>361 : 81D9 </font><font color = 'blue'>B7</font><font color = 'red'>1039</font><font color = 'black'> :               STAA OPTION        * PONE EN MARCHA EL ADC
+</font></p><p><font color='black'>362 : VACIO :             <br />
+</font></p><p><font color='black'>363 : 81DC </font><font color = 'blue'>86</font><font color = 'red'>10</font><font color = 'black'> :               LDAA #$10
+</font></p><p><font color='black'>364 : 81DE </font><font color = 'blue'>B7</font><font color = 'red'>1030</font><font color = 'black'> :               STAA ADCTL         * ENTRADA MULTIPLE SELECCIONA CANAL 0
+</font></p><p><font color='black'>365 : VACIO :         <br />
+</font></p><p><font color='black'>366 : VACIO :           E1
+</font></p><p><font color='black'>367 : 81E1 </font><font color = 'blue'>1F</font><font color = 'red'>008001</font><font color = 'black'> :               BRCLR $00,X,#$80 E1<br />
+</font></p><p><font color='black'>368 : 81E5 </font><font color = 'blue'>F6</font><font color = 'red'>1031</font><font color = 'black'> :               LDAB ADR1
+</font></p><p><font color='black'>369 : 81E8 </font><font color = 'blue'>D7</font><font color = 'red'>13</font><font color = 'black'> :               STAB V1
+</font></p><p><font color='black'>370 : VACIO :               <br />
+</font></p><p><font color='black'>371 : 81EA </font><font color = 'blue'>86</font><font color = 'red'>80</font><font color = 'black'> :               LDAA #$80
+</font></p><p><font color='black'>372 : 81EC </font><font color = 'blue'>B7</font><font color = 'red'>1039</font><font color = 'black'> :               STAA OPTION        * PONE EN MARCHA EL ADC
+</font></p><p><font color='black'>373 : VACIO :             <br />
+</font></p><p><font color='black'>374 : 81EF </font><font color = 'blue'>86</font><font color = 'red'>11</font><font color = 'black'> :               LDAA #$11
+</font></p><p><font color='black'>375 : 81F1 </font><font color = 'blue'>B7</font><font color = 'red'>1030</font><font color = 'black'> :               STAA ADCTL         * ENTRADA MULTIPLE SELECCIONA CANAL 1
+</font></p><p><font color='black'>376 : VACIO :         <br />
+</font></p><p><font color='black'>377 : VACIO :           E2
+</font></p>

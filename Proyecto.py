@@ -1,4 +1,5 @@
 import pandas as pd
+from markdown import markdown
 # Para iniciar colorama
 #Arreglos y listas
 excel = 'proyecto (1).xls' #Excel de mnemonicos
@@ -9,10 +10,12 @@ excep = ["jsr","jmp","brclr","brset","bclr","bset","bcc",'bcs',"beq","bge","bgt"
 inhe = ["aba","abx","aby","asla","aslb","asld","asra","asrb","cba","clc","cli","clra","clrb","clv","coma","comb","daa","deca","decb","des","dex","dey","fdiv","idiv","inca","incb","ins","inx",
 "iny","lsla","lslb","lsld","lsra","lsrb","lsrd","mul","nega","negb","nop","psha","pshb","pshx","pshy","pula","pulb","pulx","puly","rola","rolb","rora","rorb","rti","rts","sba","sec","sei",
 "sev","stop","swi","tab","tap","tba","test","tpa","tsta","tstb","tsx","tsy","txs","tys","wai","xgdx","xgdy"]
+listRel = [] #lista donde se enuncia los casos relativos por resolver
+tablaObj = [] #lista de listas donde cada renglon es linea,bit,hex,mn o oper
 relativoArre =[] # arreglo para agregar etiquetas y memoria para asignar los diccionarios de las etiquetas
 arregl01 = [] #Provisional para pruebas
+arrS19 = []
 relDatos = [] #arreglo para los datos que se analisaran de forma relativa
-arrS19 = [] #Provisional para pruebas
 varYconst = {} #Diccionario de variables
 etique = {}
 memoria = 0
@@ -112,6 +115,27 @@ def etiquetas():
                     auxEtique[splitt[0]] = [""]
     return auxEtique
 
+def imprimirArrRel(datosRel):
+    with open("DatosRel.lst","a") as archivo:
+        for i in datosRel:
+            archivo.write(str(i[0])+"\t"+str(i[1])+"\t"+str(i[2])+"\t"+str(i[3])+"\n")
+
+    return
+
+def imprimirTabla(tablaObj):
+    with open("tabla.lst","a") as archivo:
+        for i in tablaObj:
+                archivo.write(str(i[0])+"\t"+str(i[1])+"\t"+str(i[2])+"\t"+str(i[3]+"\n"))
+    return
+
+def buscarMem(memoria):
+        renglon = 1
+        for i in tablaObj:
+                if(i[1]==memoria):
+                        return renglon
+                renglon+=1
+        return 0
+
 #funcion auxiliar para iterar 
 def iterador(arreglo, dato):
     a = 0
@@ -126,17 +150,25 @@ def negBin(binary):
     for i in listBin:
         if i == '0':
             i = '1'
-        else:
+        elif i == '1':
             i = '0'
         listAux.append(i)
     listAux = "".join(listAux)
     return listAux
 
+def transBit(bit):
+    if len(bit) < 4:
+        ceros = 4-len(bit)
+        for i in range(ceros):
+            bit = '0'+ bit
+        return bit
+
 def compa2(bit1,bit2):
-    nbit1 = '0b'+negBin(bit1) 
-    nbit2 = '0b'+negBin(bit2) 
+    bit1 = transBit(bit1)
+    bit2 = transBit(bit2)
+    nbit1 = negBin(bit1) 
+    nbit2 = negBin(bit2) 
     resultado = ''
-#posible caso para error 8?
     if(int(nbit2,2)+1)<16:
         sumaBit2 = hex(int(nbit2,2)+1)
         nbit1 = hex(int(nbit1,2))
@@ -145,7 +177,7 @@ def compa2(bit1,bit2):
         sumaBit1 = hex(int(nbit1,2)+1)
         nbit2 = hex(int(nbit2,2))
         resultado = sumaBit1[2:]+nbit2[2:]
-    return resultado
+    return resultado.upper()
 
 #funcion etiquetas asignan memoria a los diccionarios
 def etiqutasDic(lista, dic):
@@ -157,6 +189,202 @@ def etiqutasDic(lista, dic):
                     dicAux[i] = lista[j+1]
     return dicAux
     
+def addLine(linea,memo,mn,oper):
+        mem = memo
+        #funcion que separe en mem
+        if mn == "--":
+            newLine = [linea,mem,"--","--"]
+            mem = mem + 1
+            tablaObj.append(newLine)
+            return
+        listMn = divBits(mn)
+        listOper = divBits(oper)
+        for i in range(len(listMn)):
+                newLine = [linea,mem,listMn[i],"mn"]
+                mem = mem + 1
+                tablaObj.append(newLine)
+        #caso para relativos
+        if mn == "21" or mn == "22" or mn == "23" or mn == "24" or mn == "25" or mn == "26" or mn == "27" or mn == "28" or mn == "29" or mn == "2A" or mn == "2B" or mn == "2C" or mn == "2D" or mn == "2E" or mn == "2F" or mn == "8D":
+                newLine = [linea,mem,"","o"] 
+                tablaObj.append(newLine)
+                listRel.append(int(mem)) 
+                mem = mem + 1
+        elif mn == "BD" or mn == "7E":
+                newLine = [linea,mem,"","o"]
+                tablaObj.append(newLine)
+                mem = mem + 1
+                newLine = [linea,mem,"","o"]
+                tablaObj.append(newLine)
+                mem = mem + 1
+        else:                 
+                for i in range(len(listOper)):
+                        newLine = [linea,mem,listOper[i],'o']
+                        mem = mem + 1
+                        tablaObj.append(newLine)
+                if mn == "13" or mn == "1F" or mn == "181F" or mn == "12" or mn == "1E" or mn == "181E":
+                        newLine = [linea,mem,"","o"] 
+                        tablaObj.append(newLine)
+                        listRel.append([int(mem)])
+                        mem = mem + 1
+def divBits(string):
+    listBits = []     
+    pos1=0
+    pos2=1
+    for i in range(int(len(string)/2)):
+        byte = str(string[pos1]+string[pos2])
+        listBits.append(byte)
+        pos1 = pos1+2
+        pos2 = pos2+2
+        #cambiarlo a else para generar un error en caso de que mnemonico o operando no tenga numero par de caracteres
+    return listBits
+
+def solveRel():
+    for i in relDatos:
+        renglonTabla = buscarMem(i[2])
+        if renglonTabla == 0:
+            print("memoria no encontrada en tabla")
+        if i[3]=="BD" or i[3]=="7E" :
+            listOp = divBits(etique[i[1]])
+            tablaObj[renglonTabla][2] = listOp[0]
+            tablaObj[renglonTabla+1][2] = listOp[1]
+        else:
+            memrel = i[2]+1
+            memetiq = int(etique[i[1]],16)
+            resta =  memrel - memetiq
+            if resta <= -127 or resta>=128:
+                linea = tablaObj[buscarMem(i[2])][0]
+                analisisErrores(["8"],linea,"")
+            else:
+                if resta < 0:
+                    #dividiendo los caracteres del resultado
+                    resta = abs(resta)
+                    strResta = str(resta)
+                    aux1 = ""
+                    aux2 = ""
+                    if len(strResta) == 1:
+                        aux1 = '0'
+                        aux2 = strResta
+                    elif len(strResta) == 2:
+                        aux1 = strResta[0]
+                        aux2 = strResta[1]
+                    elif len(strResta) == 3:
+                        aux1 = strResta[0:2]
+                        aux2 = strResta[2]
+                    aux1 = bin(int(aux1))[2:]
+                    aux2 = bin(int(aux2))[2:] 
+                    comp2 = compa2(aux1,aux2)
+                    if len(str(comp2))%2 != 0:
+                        comp2 = '0'+comp2
+                    if i[3]=="12" or i[3]=="13" or i[3]=="1E" or i[3]=="1F" or i[3]=="181E" or i[3]=="181F" : 
+                        tablaObj[renglonTabla+2][2] = compa2(aux1,aux2)
+                    else:
+                        tablaObj[renglonTabla][2] = compa2(aux1,aux2)
+                else:
+                    hexResta = hex(resta)
+                    if len(hexResta)%2 != 0:
+                        hexResta = hexResta[0:2]+'0'+hexResta[2:]
+                    if i[3]=="12" or i[3]=="13" or i[3]=="1E" or i[3]=="1F" or i[3]=="181E" or i[3]=="181F": 
+                        tablaObj[renglonTabla+2][2] = hexResta[2:]
+                    else:
+                        tablaObj[renglonTabla][2] = hexResta[2:]
+
+#ImprimirLST
+def genLST():
+    with open("EXEMPLO.asc") as archivoASC:
+        with open("LST.html", "a") as file:
+            linea = 1
+            renglonTabla = 1
+            for i in archivoASC:
+                if linea == len(archivoASC):
+                    break
+                print(linea)
+                print(len(archivoASC))
+                mn = ''
+                op = ''
+                mem = hex(tablaObj[renglonTabla-1][1])[2:]
+                while (linea == tablaObj[renglonTabla-1][0]):
+                    if tablaObj[renglonTabla-1][3] == 'mn':
+                        mn = mn+tablaObj[renglonTabla-1][2]
+                        if renglonTabla < len(tablaObj):
+                            renglonTabla = renglonTabla + 1
+                    if tablaObj[renglonTabla-1][3] == 'o':
+                        op = op+tablaObj[renglonTabla-1][2]
+                        if renglonTabla < len(tablaObj):
+                            renglonTabla = renglonTabla + 1
+                #if mn != "":
+                    #html = markdown(f"<font color='black'>{linea} : {mem.upper()} </font><font color = 'blue'>{mn}</font><font color = 'red'>{op.upper()}</font><font color = 'black'> :         {i}</font>")
+                    #file.write(html)
+                    #print(f"{linea}\t{mem}|{mn}{op}\t{i}")
+                #else:
+                    #html = markdown(f"<font color='black'>{linea} : VACIO :           {i}</font>")\track\5uSG2qFsXcAG1QV5D5jmML
+                    #file.write(html)
+                    #print(f"{linea}\tVACIO\t{i}")
+                linea = linea + 1
+                
+def checksum(suma,memoria,contador):
+    mem1 = memoria[:2]
+    mem2 = memoria[2:]
+    suma += (int(mem1,16)+(int(mem2,16)))
+    suma += (contador+3)
+    suma = hex(suma)[2:]
+    suma = suma[-2:]
+    sum1 = negBin(bin(int(suma[0],16))[2:])
+    sum2 = negBin(bin(int(suma[1],16))[2:])
+    suma = hex(int(sum1,2))[2:]+hex(int(sum2,2))[2:]
+    return suma
+    
+def genS19():
+    with open("S19.html","a") as S19:
+        mem = tablaObj[0][1]
+        renglon = 0
+        renglonMax = len(tablaObj)
+        contadorbits = 0
+        lineaS19=''
+        suma = 0
+        while(renglon < renglonMax):
+            if(renglon == 0 or tablaObj[renglon][1]+1==tablaObj[renglon-1][1]): #Si las memorias son consecutivas
+                if(contadorbits == 32):
+                    checksum = checksum(suma,inicioMem,contadorbits)
+                    lineaS19 = f"<font color='black'>S123{hex(mem)[2:]}</font>{lineaS19}<font color='black'>{checksum}</font>"
+                    S19.write(markdown(lineaS19))
+                    checksum = 0
+                    contadorbits = 0
+                    mem = tablaObj[renglon][1]
+                if(tablaObj[renglon][3]=='mn'):
+                    lineaS19 = lineaS19 + f"<font color='red'>{tablaObj[renglon][2]}</font>"
+                    renglon += 1
+                    contadorbits += 1
+                    suma += int(tablaObj[renglon][2],16)
+                if(tablaObj[renglon][3]=='o'):
+                    lineaS19 = lineaS19 + f"<font color='blue'>{tablaObj[renglon][2]}</font>"
+                    renglon += 1
+                    contadorbits += 1
+                    suma += int(tablaObj[renglon][2],16)
+            else:
+                if(contadorbits != 0):
+                    checksum = checksum(suma,inicioMem,contadorbits)
+                    lineaS19 = f"<font color='black'>S1{hex(contadorbits+3)[2:]}{hex(mem)[2:]}</font>{lineaS19}<font color='black'>{checksum}</font>"
+                    S19.write(markdown(lineaS19))
+                    checksum = 0
+                    contadorbits = 0
+                    mem = tablaObj[renglon][1]
+                if(tablaObj[renglon][3]=='mn'):
+                    lineaS19 = lineaS19 + f"<font color='red'>{tablaObj[renglon][2]}</font>"
+                    renglon += 1
+                    contadorbits += 1
+                    suma += int(tablaObj[renglon][2],16)
+                if(tablaObj[renglon][3]=='o'):
+                    lineaS19 = lineaS19 + f"<font color='blue'>{tablaObj[renglon][2]}</font>"
+                    renglon += 1
+                    contadorbits += 1
+                    suma += int(tablaObj[renglon][2],16)
+        if(contadorbits != 0):
+                    checksum = checksum(suma,inicioMem,contadorbits)
+                    lineaS19 = f"<font color='black'>S1{hex(contadorbits+3)[2:]}{hex(mem)[2:]}</font>{lineaS19}<font color='black'>{checksum}</font>"
+                    S19.write(markdown(lineaS19))
+                    checksum = 0
+                    contadorbits = 0
+        S19.write(f"<font color='black'>S9030000FC</font>")
 #funcion de errores
 def analisisErrores(lista, linea, linCom):
     if(lista[0] != "||"):
@@ -206,7 +434,7 @@ with open("EXEMPLO.asc") as archivoASC:
             #Construye dicc var
             if  len(splitt) > 1 and splitt[1]==operativas[1] and splitt[2][0]=="$" and conNum2(Hex,splitt[2][1:]):
                 varYconst[splitt[0]]=splitt[2][1:]  
-                formatoLST(linea,"","",i) 
+                formatoLST(linea,"","",i)
             dfNem=df[df["MNEMONICO"]==str(splitt[0])]
             dfByt=dfB[dfB["MNEMONICO"]==str(splitt[0])]
             #if para INH
@@ -216,11 +444,13 @@ with open("EXEMPLO.asc") as archivoASC:
                 if(iterador(inhe,splitt[0]) == 1 and i[0] == " " and getOpCode(inh) != "-- "):
                     arregl01.append(getOpCode(inh))
                     formatoLST(linea,getOpCode(inh),"",i)
+                    addLine(linea,memoria,getOpCode(inh),"")
                     relativoArre.append(transHex(memoria,0))
                     memoria += int(getOpCode(inhB))
                 elif(iterador(inhe,splitt[0]) == 0 and i[0] != " "): 
                     analisisErrores(splitt, linea, i)
                     formatoLST(linea,"","",i)
+                    addLine(linea,memoria,"--","--")
                     relativoArre.append(transHex(memoria,0))
                     memoria += 1
             #if para agregar al lst las etiquetas
@@ -233,11 +463,13 @@ with open("EXEMPLO.asc") as archivoASC:
                 if(i[0] == " " and getOpCode(inh) != "-- "):
                     arregl01.append(getOpCode(inh))
                     formatoLST(linea,getOpCode(inh),"",i)
+                    addLine(linea,memoria,getOpCode(inh),"")
                     relativoArre.append(transHex(memoria,0))
                     memoria += int(getOpCode(inhB))
                 elif(iterador(inhe,splitt[0]) == 0 and i[0] != " "): 
                     analisisErrores(splitt, linea, i)
                     formatoLST(linea,"","",i)
+                    addLine(linea,memoria,"--","--")
                     relativoArre.append(transHex(memoria,0))
                     memoria += 1
             #if para todo lo que no es relativo ni inh
@@ -249,18 +481,21 @@ with open("EXEMPLO.asc") as archivoASC:
                         arregl01.append(getOpCode(imm))
                         arregl01.append(transHex(splitt[1][2:],1)) 
                         formatoLST(linea,getOpCode(imm),transHex(splitt[1][2:],1),i)
+                        addLine(linea,memoria,getOpCode(imm),transHex(splitt[1][2:],1))
                         relativoArre.append(transHex(memoria,0))
                         memoria += int(getOpCode(immB))
                     elif(len(splitt[1]) < 5 and len(splitt[1]) > 2 and int(len(getOpCode(imm)+"00"+transHex(splitt[1][2:],1))/2) == int(getOpCode(immB))):
                         arregl01.append(getOpCode(imm))
                         arregl01.append("00"+transHex(splitt[1][2:],1)) 
                         formatoLST(linea,getOpCode(imm),"00"+transHex(splitt[1][2:],1),i)
+                        addLine(linea,memoria,getOpCode(imm),"00"+transHex(splitt[1][2:],1))
                         relativoArre.append(transHex(memoria,0))
                         memoria += int(getOpCode(immB))
                     else:
                         print("1")
                         analisisErrores(splitt, linea, i)
                         formatoLST(linea,"","",i)
+                        addLine(linea,"--","--","--")
                         relativoArre.append(transHex(memoria,0))
                         memoria += 1
                 #if IMM PERO SIN $
@@ -271,6 +506,7 @@ with open("EXEMPLO.asc") as archivoASC:
                         arregl01.append(getOpCode(imm))
                         arregl01.append(transHex(splitt[1][1:],0))
                         formatoLST(linea,getOpCode(imm),transHex(splitt[1][1:],0),i)
+                        addLine(linea,memoria,getOpCode(imm),transHex(splitt[1][1:],0))
                         relativoArre.append(transHex(memoria,0))
                         memoria += int(getOpCode(immB))
                     elif(splitt[1][0:2] == "#'" and len(splitt[1]) < 4 and len(splitt[1]) > 2 ):
@@ -280,6 +516,7 @@ with open("EXEMPLO.asc") as archivoASC:
                         auxSplit = i.split()
                         arregl01.append(transHex(ord(auxSplit[1][2:]),0))
                         formatoLST(linea,getOpCode(imm),transHex(ord(auxSplit[1][2:]),3),i)
+                        addLine(linea,memoria,getOpCode(imm),transHex(ord(auxSplit[1][2:]),3))
                         relativoArre.append(transHex(memoria,0))
                         memoria += int(getOpCode(immB))
                     elif(iterador(varYconst.keys(),splitt[1][1:]) == 1):
@@ -288,14 +525,16 @@ with open("EXEMPLO.asc") as archivoASC:
                         arregl01.append(getOpCode(imm))
                         arregl01.append(varYconst[splitt[1][1:]])
                         formatoLST(linea,getOpCode(imm),varYconst[splitt[1][1:]],i)
+                        addLine(linea,memoria,getOpCode(imm),varYconst[splitt[1][1:]])
                         relativoArre.append(transHex(memoria,0))
                         memoria += int(getOpCode(immB))
                     else:
                         print("2")
                         analisisErrores(splitt, linea, i)
                         formatoLST(linea,"","",i)
+                        addLine(linea,memoria,"--","--")
                         memoria += 1
-                #if EXT
+                #if EXT $
                 elif(((1) < len(splitt)) and (splitt[1][0] == "$") and (len(splitt[1]) == 5 or len(splitt[1]) == 4) and (conNum2(Hex,splitt[1][1:]) == True) ):
                     ext = dfNem[['EXT']]
                     extB = dfByt[['EXT']]
@@ -303,21 +542,24 @@ with open("EXEMPLO.asc") as archivoASC:
                         arregl01.append(getOpCode(ext))
                         arregl01.append(splitt[1][1:])
                         formatoLST(linea,getOpCode(ext),splitt[1][1:],i)
+                        addLine(linea,memoria,getOpCode(ext),splitt[1][1:])
                         relativoArre.append(transHex(memoria,0))
                         memoria += int(getOpCode(extB))
                     elif(getOpCode(ext) != "-- " and len(getOpCode(ext)+"0"+splitt[1][1:])/2 == int(getOpCode(extB))):
                         arregl01.append(getOpCode(ext))
                         arregl01.append("0"+splitt[1][1:])
                         formatoLST(linea,getOpCode(ext),"0"+splitt[1][1:],i)
+                        addLine(linea,memoria,getOpCode(ext),"0"+splitt[1][1:])
                         relativoArre.append(transHex(memoria,0))
                         memoria += int(getOpCode(extB))
                     else:
                         print("3")
                         analisisErrores(splitt, linea, i)
                         formatoLST(linea,"","",i)
+                        addLine(linea,memoria,"--","--")
                         relativoArre.append(transHex(memoria,0))
                         memoria += 1
-                #if EXT
+                #if EXT variables
                 elif((1) < len(splitt) and len(dfNem) != 0 and iterador(etique.keys(),splitt[1]) == 0 and (len(splitt[1]) == 4 or len(splitt[1]) == 3 and (conNum2(Hex,splitt[1][1:]) == True))  or iterador(varYconst.keys(),splitt[1]) == 1):
                     if(len(splitt[1]) == 4 and conNum(4,num,splitt[1])  == 4):
                         ext = dfNem[['EXT']]
@@ -326,17 +568,20 @@ with open("EXEMPLO.asc") as archivoASC:
                             arregl01.append(getOpCode(ext))
                             arregl01.append(transHex(splitt[1],0))
                             formatoLST(linea,getOpCode(ext),transHex(splitt[1],0),i)
+                            addLine(linea,memoria,getOpCode(ext),transHex(splitt[1],0))
                             relativoArre.append(transHex(memoria,0))
                             memoria += int(getOpCode(extB))
                         elif(getOpCode(ext) != "-- " and len(getOpCode(ext)+"0"+splitt[1])/2 == int(getOpCode(extB))):
                             arregl01.append(getOpCode(ext))
                             arregl01.append("0"+splitt[1])
                             formatoLST(linea,getOpCode(ext),"0"+splitt[1],i)
+                            addLine(linea,memoria,getOpCode(ext),"0"+splitt[1])
                             relativoArre.append(transHex(memoria,0))
                             memoria += int(getOpCode(extB))
                         else:
                             analisisErrores(splitt, linea, i)
                             formatoLST(linea,"","",i)
+                            addLine(linea,memoria,"--","--")
                             relativoArre.append(transHex(memoria,0))
                             memoria += 1
                     elif(iterador(varYconst.keys(),splitt[1]) == 1):
@@ -348,23 +593,27 @@ with open("EXEMPLO.asc") as archivoASC:
                             arregl01.append(getOpCode(dire))
                             arregl01.append(varYconst[splitt[1]][2:])
                             formatoLST(linea,getOpCode(dire),varYconst[splitt[1]][2:],i)
+                            addLine(linea,memoria,getOpCode(dire),varYconst[splitt[1]][2:])
                             relativoArre.append(transHex(memoria,0))
                             memoria += int(getOpCode(direB))
                         elif(getOpCode(ext) != "-- " and len(getOpCode(ext)+varYconst[splitt[1]])/2 == int(getOpCode(extB))):
                             arregl01.append(getOpCode(ext))
                             arregl01.append(varYconst[splitt[1]])
                             formatoLST(linea,getOpCode(ext),varYconst[splitt[1]],i)
+                            addLine(linea,memoria,getOpCode(ext),varYconst[splitt[1]])
                             relativoArre.append(transHex(memoria,0))
                             memoria += int(getOpCode(extB))
                         else:
                             analisisErrores(splitt, linea, i)
                             formatoLST(linea,"","",i)
+                            addLine(linea,memoria,"--","--")
                             relativoArre.append(transHex(memoria,0))
                             memoria += 1
                     else:
                         print("4")
                         analisisErrores(splitt, linea, i)
                         formatoLST(linea,"","",i)
+                        addLine(linea,memoria,"--","--")
                         relativoArre.append(transHex(memoria,0))
                         memoria += 1
                 #if dir
@@ -375,18 +624,21 @@ with open("EXEMPLO.asc") as archivoASC:
                         arregl01.append(getOpCode(dire))
                         arregl01.append(splitt[1][1:])
                         formatoLST(linea,getOpCode(dire),splitt[1][1:],i)
+                        addLine(linea,memoria,getOpCode(dire),splitt[1][1:])
                         relativoArre.append(transHex(memoria,0))
                         memoria += int(getOpCode(direB))
                     elif(getOpCode(ext) != "-- " and len(getOpCode(ext)+"0"+splitt[1])/2 == int(getOpCode(extB))):
                         arregl01.append(getOpCode(ext))
                         arregl01.append("0"+splitt[1])
                         formatoLST(linea,getOpCode(ext),"0"+splitt[1],i)
+                        addLine(linea,memoria,getOpCode(ext),"0"+splitt[1])
                         relativoArre.append(transHex(memoria,0))
                         memoria += int(getOpCode(extB))
                     else:
                         print("5")
                         analisisErrores(splitt, linea, i)
                         formatoLST(linea,"","",i)
+                        addLine(linea,memoria,"--","--")
                         relativoArre.append(transHex(memoria,0))
                         memoria += 1
                 elif((1) < len(splitt) and len(dfNem) != 0 and (conNum2(Hex,splitt[1][1:]) == True) or iterador(etique.keys(),splitt[1]) == 0 and len(splitt[1]) == 1 or len(splitt[1]) == 2):
@@ -397,18 +649,21 @@ with open("EXEMPLO.asc") as archivoASC:
                         arregl01.append(getOpCode(dire))
                         arregl01.append(transHex(splitt[1],3))
                         formatoLST(linea,getOpCode(dire),transHex(splitt[1],3),i)
+                        addLine(linea,memoria,getOpCode(dire),transHex(splitt[1],3))
                         relativoArre.append(transHex(memoria,0))
                         memoria += int(getOpCode(direB))
                     elif(getOpCode(dire) != "-- " and len(getOpCode(dire)+"0"+splitt[1])/2 == int(getOpCode(direB))):
                         arregl01.append(getOpCode(dire))
                         arregl01.append("0"+splitt[1])
                         formatoLST(linea,getOpCode(dire),"0"+splitt[1],i)
+                        addLine(linea,memoria,getOpCode(dire),"0"+splitt[1])
                         relativoArre.append(transHex(memoria,0))
                         memoria += int(getOpCode(direB))
                     else:
                         print("6")
                         analisisErrores(splitt, linea, i)
                         formatoLST(linea,"","",i)
+                        addLine(linea,memoria,"--","--")
                         relativoArre.append(transHex(memoria,0))
                         memoria += 1
                     #hasta aqui
@@ -419,7 +674,8 @@ with open("EXEMPLO.asc") as archivoASC:
                         arregl01.append(getOpCode(dire))
                         arregl01.append(splitt[1][1:3] + splitt[1][6:8]+"REL")
                         formatoLST(linea,getOpCode(dire),splitt[1][1:3]+ splitt[1][6:8]+"REL",i)
-                        rela = f"{splitt[0]}/{splitt[2]}/{len(arrS19)-1}/{transHex(memoria,0)}/{getOpCode(rel)}/{i}/{linea}"
+                        addLine(linea,memoria,getOpCode(dire),splitt[1][1:3]+splitt[1][6:8])
+                        rela = [splitt[0],splitt[2],memoria,getOpCode(dire)]
                         relDatos.append(rela)
                         relativoArre.append(transHex(memoria,0))
                         memoria += int(getOpCode(direB))
@@ -429,12 +685,14 @@ with open("EXEMPLO.asc") as archivoASC:
                         arregl01.append(getOpCode(dire))
                         arregl01.append(splitt[1][1:3] + splitt[1][6:8])
                         formatoLST(linea,getOpCode(dire),splitt[1][1:3]+ splitt[1][6:8],i)
+                        addLine(linea,memoria,getOpCode(dire),splitt[1][1:3]+splitt[1][6:8])
                         relativoArre.append(transHex(memoria,0))
                         memoria += int(getOpCode(direB))
                     else:
                         print("7")
                         analisisErrores(splitt, linea, i)
                         formatoLST(linea,"","",i)
+                        addLine(linea,memoria,"--","--")
                         relativoArre.append(transHex(memoria,0))
                         memoria += 1
                 elif((1) < len(splitt) and splitt[1][0] == "$" and (conNum2(Hex,splitt[1][1:3]) == True) and splitt[1][3:5] == ",x" and (len(splitt[1]) == 5 or len(splitt[1]) == 10 ) ):
@@ -444,6 +702,7 @@ with open("EXEMPLO.asc") as archivoASC:
                         arregl01.append(getOpCode(indX))
                         arregl01.append(splitt[1][1:3])
                         formatoLST(linea,getOpCode(indX),splitt[1][1:3],i)
+                        addLine(linea,memoria,getOpCode(indX),splitt[1][1:3])
                         relativoArre.append(transHex(memoria,0))
                         memoria += int(getOpCode(indXB))
                     #sera relativo tambien
@@ -453,7 +712,8 @@ with open("EXEMPLO.asc") as archivoASC:
                         arregl01.append(getOpCode(indX))
                         arregl01.append(splitt[1][1:3] + splitt[1][8:10]+"REL")
                         formatoLST(linea,getOpCode(indX),splitt[1][1:3]+ splitt[1][8:10]+"REL",i)
-                        rela = f"{splitt[0]}/{splitt[2]}/{len(arrS19)-1}/{transHex(memoria,0)}/{getOpCode(rel)}/{i}/{linea}"
+                        addLine(linea,memoria,getOpCode(indX),splitt[1][1:3]+splitt[1][8:10])
+                        rela = [splitt[0],splitt[2],memoria,getOpCode(indX)]
                         relDatos.append(rela)
                         relativoArre.append(transHex(memoria,0))
                         memoria += int(getOpCode(indXB))
@@ -463,12 +723,14 @@ with open("EXEMPLO.asc") as archivoASC:
                         arregl01.append(getOpCode(indX))
                         arregl01.append(splitt[1][1:3] + splitt[1][8:10])
                         formatoLST(linea,getOpCode(indX),splitt[1][1:3]+ splitt[1][8:10],i)
+                        addLine(linea,memoria,getOpCode(indX),splitt[1][1:3]+splitt[1][8:10])
                         relativoArre.append(transHex(memoria,0))
                         memoria += int(getOpCode(indXB))
                     else:
                         print("8")
                         analisisErrores(splitt, linea, i)
                         formatoLST(linea,"","",i)
+                        addLine(linea,memoria,"--","--")
                         relativoArre.append(transHex(memoria,0))
                         memoria += 1
                 elif((1) < len(splitt) and splitt[1][0] == "$" and (conNum2(Hex,splitt[1][1:3]) == True) and (len(splitt[1]) == 5 or len(splitt[1]) == 10 ) and splitt[1][3:5] == ",y"):
@@ -478,6 +740,7 @@ with open("EXEMPLO.asc") as archivoASC:
                         arregl01.append(getOpCode(indY))
                         arregl01.append(splitt[1][1:3])
                         formatoLST(linea,getOpCode(indY),splitt[1][1:3],i)
+                        addLine(linea,memoria,getOpCode(indY),splitt[1][1:3])
                         relativoArre.append(transHex(memoria,0))
                         memoria += int(getOpCode(indYB))
                     #sera relativo tambien
@@ -487,7 +750,8 @@ with open("EXEMPLO.asc") as archivoASC:
                         arregl01.append(getOpCode(indY))
                         arregl01.append(splitt[1][1:3] + splitt[1][8:10]+"REL")
                         formatoLST(linea,getOpCode(indY),splitt[1][1:3]+ splitt[1][8:10]+"REL",i)
-                        rela = f"{splitt[0]}/{splitt[2]}/{len(arrS19)-1}/{transHex(memoria,0)}/{getOpCode(rel)}/{i}/{linea}"
+                        addLine(linea,memoria,getOpCode(indY),splitt[1][1:3]+ splitt[1][8:10])
+                        rela = [splitt[0],splitt[2],memoria,getOpCode(indY)]
                         relDatos.append(rela)
                         relativoArre.append(transHex(memoria,0))
                         memoria += int(getOpCode(indYB))
@@ -497,12 +761,14 @@ with open("EXEMPLO.asc") as archivoASC:
                         arregl01.append(getOpCode(indY))
                         arregl01.append(splitt[1][1:3] + splitt[1][8:10])
                         formatoLST(linea,getOpCode(indY),splitt[1][1:3]+ splitt[1][8:10],i)
+                        addLine(linea,memoria,getOpCode(indY),splitt[1][1:3]+ splitt[1][8:10])
                         relativoArre.append(transHex(memoria,0))
                         memoria += int(getOpCode(indYB))
                     else:
                         print("9")
                         analisisErrores(splitt, linea, i)
                         formatoLST(linea,"","",i)
+                        addLine(linea,memoria,"--","--")
                         relativoArre.append(transHex(memoria,0))
                         memoria += 1
                 elif((1) < len(splitt) and len(dfNem) != 0 and iterador(etique.keys(),splitt[1]) == 1):
@@ -514,7 +780,8 @@ with open("EXEMPLO.asc") as archivoASC:
                         arregl01.append(getOpCode(ext))
                         arregl01.append("")
                         formatoLST(linea,getOpCode(ext),"REL",i)
-                        rela = f"{splitt[0]}/{splitt[1]}/{len(arrS19)-1}/{transHex(memoria,0)}/{getOpCode(ext)}/{i}/{linea}"
+                        addLine(linea,memoria,getOpCode(ext),"")
+                        rela = [splitt[0],splitt[1],memoria,getOpCode(ext)]
                         relDatos.append(rela)
                         relativoArre.append(transHex(memoria,0))
                         memoria += int(getOpCode(extB))
@@ -522,7 +789,8 @@ with open("EXEMPLO.asc") as archivoASC:
                         arregl01.append(getOpCode(rel))
                         arregl01.append("")
                         formatoLST(linea,getOpCode(rel),"REL",i)
-                        rela = f"{splitt[0]}/{splitt[1]}/{len(arrS19)-1}/{transHex(memoria,0)}/{getOpCode(rel)}/{i}/{linea}"
+                        addLine(linea,memoria,getOpCode(rel),"")
+                        rela = [splitt[0],splitt[1],memoria,getOpCode(rel)]
                         relDatos.append(rela)
                         relativoArre.append(transHex(memoria,0))
                         memoria += int(getOpCode(relB))
@@ -530,6 +798,7 @@ with open("EXEMPLO.asc") as archivoASC:
                     print("10")
                     analisisErrores(splitt, linea, i)
                     formatoLST(linea,"","",i)
+                    addLine(linea,memoria,"--","--")
                     relativoArre.append(transHex(memoria,0))
                     memoria += 1
             elif(iterador(operativas,splitt[0]) == 1 ):
@@ -540,6 +809,7 @@ with open("EXEMPLO.asc") as archivoASC:
                 #if para fcb
                 elif(splitt[0]==operativas[2]):
                     formatoLST(linea,splitt[1][1:3],splitt[1][5:7],i)
+                    addLine(linea,memoria,splitt[1][1:3],splitt[1][5:7])
                 #if para end
                 elif(splitt[0]==operativas[3]):
                     end = 1
@@ -548,10 +818,12 @@ with open("EXEMPLO.asc") as archivoASC:
             elif((2) < len(splitt)  and iterador(operativas,splitt[1]) == 1 ):
                 if(splitt[1]==operativas[2]):
                     formatoLST(linea,splitt[2][1:3],splitt[2][5:7],i)
+                    addLine(linea,memoria,splitt[2][1:3],splitt[2][5:7])
             else:
                 print("11")
                 analisisErrores(splitt, linea, i)
                 formatoLST(linea,"","",i)
+                addLine(linea,memoria,"--","--")
                 relativoArre.append(transHex(memoria,0))
                 memoria += 1
         else:
@@ -559,20 +831,25 @@ with open("EXEMPLO.asc") as archivoASC:
         linea=linea + 1
     #funcion que agrega a los diccionarios de las etiquetas todas las direcciones de memoria
     etique = etiqutasDic(relativoArre,etique)
+    solveRel()
+    genLST()
+    print('LST creado')
     #error 10 end no se encuentra
     analisisErrores(["||"], linea, "")
     #por si lo ocupas
     #funcion para relativos
-    for i in relDatos:
+    #for i in relDatos:
         #split del arreglo relDatos que tienen todos los datos que son relativos asi como su informacion
-        relSplit = str(i.lower()).split("/")
-        if(relSplit[0] == excep[0] or relSplit[0] == excep[1]):
-            #agrega al lst el jmp y jsr su direccion relativa
-            arrS19[int(relSplit[2])] = f"{str(relSplit[6])} : {relSplit[3]} ({relSplit[4]}{etique[relSplit[1]]}) : {relSplit[5]}"
+        #relSplit = str(i.lower()).split("/")
+        #if(relSplit[0] == excep[0] or relSplit[0] == excep[1]):
+        #agrega al lst el jmp y jsr su direccion relativa
+        #   arrS19[int(relSplit[2])] = f"{str(relSplit[6])} : {relSplit[3]} ({relSplit[4]}{etique[relSplit[1]]}) : {relSplit[5]}"
     
-with open("archiv01.lst","a") as archivo:
-    for i in arrS19:
-        archivo.write(i.upper())
+    #with open("archiv01.lst","a") as archivo:
+    #    for i in arrS19:
+    #        archivo.write(i.upper())
 
+imprimirArrRel(relDatos)
+imprimirTabla(tablaObj)
 #exept Exception as e:
     #print(f'Exception - Ocurrió un error: {e} , {type(e)}, {}')
