@@ -156,16 +156,23 @@ def negBin(binary):
     listAux = "".join(listAux)
     return listAux
 
-def transBit(bit):
+def transBin(bit):
     if len(bit) < 4:
         ceros = 4-len(bit)
         for i in range(ceros):
             bit = '0'+ bit
         return bit
 
+def transBit(bit):
+    if len(bit) < 2:
+        ceros = 2-len(bit)
+        for i in range(ceros):
+            bit = '0'+ bit
+        return bit
+
 def compa2(bit1,bit2):
-    bit1 = transBit(bit1)
-    bit2 = transBit(bit2)
+    bit1 = transBin(bit1)
+    bit2 = transBin(bit2)
     nbit1 = negBin(bit1) 
     nbit2 = negBin(bit2) 
     resultado = ''
@@ -341,50 +348,60 @@ def genS19():
         contadorbits = 0
         lineaS19=''
         suma = 0
+        chsum = ''
+        count = 0
         while(renglon < renglonMax):
-            if(renglon == 0 or tablaObj[renglon][1]+1==tablaObj[renglon-1][1]): #Si las memorias son consecutivas
+            print(str(count) +'\t'+str(renglon))
+            if (contadorbits > 34):
+                print("Error LST en "+ str(tablaObj[renglon][1]))
+                break
+            if(renglon == 0 or tablaObj[renglon][1]==tablaObj[renglon-1][1]+1): #Si las memorias son consecutivas
                 if(contadorbits == 32):
-                    checksum = checksum(suma,inicioMem,contadorbits)
-                    lineaS19 = f"<font color='black'>S123{hex(mem)[2:]}</font>{lineaS19}<font color='black'>{checksum}</font>"
+                    chsum = checksum(suma,hex(mem)[2:],contadorbits)
+                    lineaS19 = f"<font color='black'>S123{hex(mem)[2:].upper()}</font>{lineaS19}<font color='black'>{chsum}</font>"
                     S19.write(markdown(lineaS19))
-                    checksum = 0
+                    lineaS19=''
+                    suma = 0
                     contadorbits = 0
                     mem = tablaObj[renglon][1]
                 if(tablaObj[renglon][3]=='mn'):
-                    lineaS19 = lineaS19 + f"<font color='red'>{tablaObj[renglon][2]}</font>"
+                    lineaS19 = lineaS19 + f"<font color='red'>{tablaObj[renglon][2].upper()}</font>"
                     renglon += 1
                     contadorbits += 1
                     suma += int(tablaObj[renglon][2],16)
                 if(tablaObj[renglon][3]=='o'):
-                    lineaS19 = lineaS19 + f"<font color='blue'>{tablaObj[renglon][2]}</font>"
+                    lineaS19 = lineaS19 + f"<font color='blue'>{tablaObj[renglon][2].upper()}</font>"
                     renglon += 1
                     contadorbits += 1
                     suma += int(tablaObj[renglon][2],16)
             else:
                 if(contadorbits != 0):
-                    checksum = checksum(suma,inicioMem,contadorbits)
-                    lineaS19 = f"<font color='black'>S1{hex(contadorbits+3)[2:]}{hex(mem)[2:]}</font>{lineaS19}<font color='black'>{checksum}</font>"
+                    chsum = checksum(suma,hex(mem)[2:],contadorbits)
+                    lineaS19 = f"<font color='black'>S1{transBit(hex(contadorbits+3)[2:].upper())}{hex(mem)[2:].upper()}</font>{lineaS19}<font color='black'>{chsum}</font>"
                     S19.write(markdown(lineaS19))
-                    checksum = 0
+                    lineaS19=''
+                    suma = 0
                     contadorbits = 0
                     mem = tablaObj[renglon][1]
                 if(tablaObj[renglon][3]=='mn'):
-                    lineaS19 = lineaS19 + f"<font color='red'>{tablaObj[renglon][2]}</font>"
+                    lineaS19 = lineaS19 + f"<font color='red'>{tablaObj[renglon][2].upper()}</font>"
+                    suma += int(tablaObj[renglon][2],16)
                     renglon += 1
                     contadorbits += 1
-                    suma += int(tablaObj[renglon][2],16)
                 if(tablaObj[renglon][3]=='o'):
-                    lineaS19 = lineaS19 + f"<font color='blue'>{tablaObj[renglon][2]}</font>"
+                    lineaS19 = lineaS19 + f"<font color='blue'>{tablaObj[renglon][2].upper()}</font>"
+                    suma += int(tablaObj[renglon][2],16)
                     renglon += 1
                     contadorbits += 1
-                    suma += int(tablaObj[renglon][2],16)
-        if(contadorbits != 0):
-                    checksum = checksum(suma,inicioMem,contadorbits)
-                    lineaS19 = f"<font color='black'>S1{hex(contadorbits+3)[2:]}{hex(mem)[2:]}</font>{lineaS19}<font color='black'>{checksum}</font>"
+            count+=1
+        if(contadorbits != 0 and renglon == renglonMax):
+                    chsum = checksum(suma,hex(mem)[2:],contadorbits)
+                    lineaS19 = f"<font color='black'>S1{transBit(hex(contadorbits+3)[2:].upper())}{hex(mem)[2:].upper()}</font>{lineaS19}<font color='black'>{chsum}</font>"
                     S19.write(markdown(lineaS19))
-                    checksum = 0
+                    lineaS19=''
+                    suma = 0
                     contadorbits = 0
-        S19.write(f"<font color='black'>S9030000FC</font>")
+        S19.write(markdown(f"<font color='black'>S9030000FC</font>"))
 #funcion de errores
 def analisisErrores(lista, linea, linCom):
     if(lista[0] != "||"):
@@ -832,7 +849,8 @@ with open("EXEMPLO.asc") as archivoASC:
     #funcion que agrega a los diccionarios de las etiquetas todas las direcciones de memoria
     etique = etiqutasDic(relativoArre,etique)
     solveRel()
-    genLST()
+    genS19()
+    #genLST()
     print('LST creado')
     #error 10 end no se encuentra
     analisisErrores(["||"], linea, "")
